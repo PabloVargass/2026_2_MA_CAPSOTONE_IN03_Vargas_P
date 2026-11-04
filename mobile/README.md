@@ -25,6 +25,20 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## APK para un teléfono Android (ServiciosYa)
+
+1. Crear `mobile/.env.production.local` (no se sube a Git) con la URL HTTPS de la API:
+   `EXPO_PUBLIC_API_URL=https://<servicio>.onrender.com`
+2. Desde `mobile/android`: `.\gradlew.bat assembleRelease -PreactNativeArchitectures=arm64-v8a`
+   (Windows). Compilar solo arm64-v8a, la arquitectura de los teléfonos actuales,
+   reduce mucho el tamaño del APK.
+3. El APK queda en `android/app/build/outputs/apk/release/app-release.apk`.
+   Copiarlo a la carpeta `apk/` de la raíz como `ServiciosYa.apk` (ver `apk/README.md`).
+
+El APK incluye el JavaScript, así que no necesita Metro. Se firma con la clave de
+depuración de `android/app`, la misma registrada para el login con Google en
+desarrollo; no sirve para publicar en Google Play.
+
 ## Get a fresh project
 
 When you're ready, run:

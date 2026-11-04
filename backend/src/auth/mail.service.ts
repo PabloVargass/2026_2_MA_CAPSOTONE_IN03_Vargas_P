@@ -5,6 +5,29 @@ import {
 
 import * as nodemailer from 'nodemailer';
 
+// Sin SMTP_HOST se usa Gmail. Con SMTP_HOST (p. ej. Brevo en el puerto 2525,
+// que el plan gratis de Render no bloquea) se usa ese servidor; EMAIL_USER sigue
+// siendo el remitente y SMTP_USER el usuario de acceso, si es distinto.
+export function smtpOptions(
+  env: NodeJS.ProcessEnv,
+  emailUser: string,
+  emailPassword: string,
+) {
+  if (!env.SMTP_HOST) {
+    return {
+      service: 'gmail',
+      auth: { user: emailUser, pass: emailPassword },
+    };
+  }
+  const port = Number(env.SMTP_PORT || 587);
+  return {
+    host: env.SMTP_HOST,
+    port,
+    secure: port === 465,
+    auth: { user: env.SMTP_USER || emailUser, pass: emailPassword },
+  };
+}
+
 @Injectable()
 export class MailService {
   async enviarInvitacionCuenta(destinatario: string, codigo: string) {
@@ -35,14 +58,9 @@ export class MailService {
     }
 
     this.transporter =
-      nodemailer.createTransport({
-        service: 'gmail',
-
-        auth: {
-          user: emailUser,
-          pass: emailPassword,
-        },
-      });
+      nodemailer.createTransport(
+        smtpOptions(process.env, emailUser, emailPassword),
+      );
   }
 
   // =====================================

@@ -1,0 +1,44 @@
+# Blueprint de Render para la API de ServiciosYa (plan gratuito).
+# Los valores marcados con sync: false se escriben en el panel de Render al crear
+# el servicio; nunca se guardan en el repositorio. Ver backend/DEPLOYMENT.md.
+services:
+  - type: web
+    name: serviciosya-api
+    runtime: node
+    plan: free
+    # Neon está en us-east-2 (Ohio): misma región para menor latencia.
+    region: ohio
+    # El código vive en la carpeta ServiciosYa/ del repositorio de entrega.
+    rootDir: ServiciosYa/backend
+    # --include=dev: Nest CLI y Prisma CLI se necesitan para construir.
+    buildCommand: npm ci --include=dev && npm run prisma:generate && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_APP_PASSWORD
+        sync: false
+      # Brevo: el plan gratis de Render bloquea los puertos SMTP 25, 465 y 587.
+      - key: SMTP_HOST
+        value: smtp-relay.brevo.com
+      - key: SMTP_PORT
+        value: "2525"
+      - key: SMTP_USER
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      # El panel llama a la API desde el servidor de Next, no desde el navegador,
+      # por lo que no necesita CORS. Completar solo si un navegador llama directo.
+      - key: CORS_ORIGINS
+        sync: false

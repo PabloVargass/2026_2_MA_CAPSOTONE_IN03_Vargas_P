@@ -1,0 +1,33 @@
+# Repositorio único de ServiciosYa: backend/, mobile/ y web-admin/.
+# Cada carpeta conserva además su propio .gitignore.
+
+# Dependencias y compilados
+node_modules/
+dist/
+.next/
+*.tsbuildinfo
+
+# Configuración local y secretos: solo se suben los archivos *.example
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Archivos temporales y privados (cuentas de prueba, respaldos, informes con accesos)
+.temp/
+.temp-*
+
+# Documentación de entrega: vive en el repositorio Proyecto-Capstone-ServiciosYa
+.temp-entrega-github/
+output/
+documentacion/
+
+# Configuración local de asistentes de desarrollo
+.agents/
+.windsurf/
+.claude/
+skills-lock.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

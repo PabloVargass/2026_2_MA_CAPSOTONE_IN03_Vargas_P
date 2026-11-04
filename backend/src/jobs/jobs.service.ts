@@ -137,9 +137,12 @@ export class JobsService {
       );
     }
 
-    if (trabajo.servicioOrigenId || trabajo.estado !== 'PUBLICADO') {
+    if (
+      trabajo.servicioOrigenId ||
+      !['PUBLICADO', 'PAUSADO'].includes(trabajo.estado)
+    ) {
       throw new BadRequestException(
-        'Solo se pueden editar trabajos que estén publicados.',
+        'Solo se pueden editar trabajos publicados o pausados.',
       );
     }
 
@@ -355,8 +358,11 @@ export class JobsService {
     if (!trabajo) {
       return null;
     }
+    // Ocultos, pausados, cancelados y contrataciones solo los ven el dueño y quienes postularon.
     if (
-      (trabajo.oculto || trabajo.servicioOrigenId) &&
+      (trabajo.oculto ||
+        trabajo.servicioOrigenId ||
+        ['PAUSADO', 'CANCELADO'].includes(trabajo.estado)) &&
       trabajo.propietarioId !== usuarioId
     ) {
       if (!usuarioId) return null;

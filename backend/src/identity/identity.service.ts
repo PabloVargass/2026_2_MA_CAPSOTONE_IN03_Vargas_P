@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { validateImage } from '../common/image-upload';
 import { Prisma } from '../../generated/prisma/client';
 import { normalizarRut, validarRut } from '../auth/utils/rut.util';
 import { SubmitIdentityDto } from './identity.dto';
@@ -21,33 +22,10 @@ export const identityMetadata = {
 } as const;
 
 export function validateIdentityImage(file?: IdentityFile) {
-  if (
-    !file ||
-    file.size < 1 ||
-    file.size > 2097152 ||
-    file.buffer.length !== file.size
-  )
-    throw new BadRequestException(
-      'Adjunta cada documento como una foto de hasta 2 MB.',
-    );
-  const png = file.buffer
-    .subarray(0, 8)
-    .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
-  const jpeg =
-    file.buffer[0] === 255 &&
-    file.buffer[1] === 216 &&
-    file.buffer[2] === 255 &&
-    file.buffer.length > 4 &&
-    file.buffer[file.buffer.length - 2] === 255 &&
-    file.buffer[file.buffer.length - 1] === 217;
-  if (!(
-    (png && file.mimetype === 'image/png') ||
-    (jpeg && file.mimetype === 'image/jpeg')
-  ))
-    throw new BadRequestException(
-      'Los documentos deben ser fotos JPG o PNG válidas.',
-    );
-  return file;
+  return validateImage(file, 2097152, {
+    size: 'Adjunta cada documento como una foto de hasta 2 MB.',
+    type: 'Los documentos deben ser fotos JPG o PNG válidas.',
+  });
 }
 
 export async function validateIdentityCertificate(file?: IdentityFile) {

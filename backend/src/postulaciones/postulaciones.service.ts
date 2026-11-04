@@ -226,13 +226,25 @@ export class PostulacionesService {
         },
       });
 
-      const trabajoActualizado = await tx.trabajo.update({
+      // Si el dueño pausó o canceló en paralelo, la transacción se revierte.
+      const asignado = await tx.trabajo.updateMany({
         where: {
           id: postulacion.trabajoId,
+          estado: 'PUBLICADO',
         },
 
         data: {
           estado: 'ASIGNADO',
+        },
+      });
+
+      if (asignado.count !== 1) {
+        throw new BadRequestException('Este trabajo ya no está disponible.');
+      }
+
+      const trabajoActualizado = await tx.trabajo.findUniqueOrThrow({
+        where: {
+          id: postulacion.trabajoId,
         },
       });
 

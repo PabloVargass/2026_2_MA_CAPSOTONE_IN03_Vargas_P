@@ -130,6 +130,20 @@ type JobsResponse = {
   };
 };
 
+type ManageAction =
+  | 'pausar'
+  | 'reanudar'
+  | 'cancelar'
+  | 'eliminar';
+
+// Textos de confirmación de cada acción del dueño sobre su publicación.
+const manageCopy: Record<ManageAction, { title: string; question: string; confirm: string; done: string; destructive: boolean }> = {
+  pausar: { title: 'Pausar publicación', question: '"{title}" dejará de verse y no recibirá postulaciones hasta que la reanudes. Las postulaciones pendientes se conservan.', confirm: 'Pausar', done: 'Publicación pausada.', destructive: false },
+  reanudar: { title: 'Reanudar publicación', question: '"{title}" volverá a verse y podrá recibir postulaciones.', confirm: 'Reanudar', done: 'Publicación reanudada.', destructive: false },
+  cancelar: { title: 'Cancelar publicación', question: '¿Quieres cancelar "{title}"? Las postulaciones pendientes serán rechazadas y no podrás reactivarla.', confirm: 'Cancelar publicación', done: 'Publicación cancelada.', destructive: true },
+  eliminar: { title: 'Eliminar publicación', question: '¿Eliminar "{title}" para siempre? Esta acción no se puede deshacer.', confirm: 'Eliminar', done: 'Publicación eliminada.', destructive: true },
+};
+
 type TabType =
   | 'publicados'
   | 'postulados'
@@ -317,6 +331,23 @@ export default function MyJobsScreen() {
 };
 
   // =====================================
+  // FOTOS DE EVIDENCIA
+  // =====================================
+
+  const abrirEvidencias = (
+    jobId: string,
+    title: string,
+  ) => {
+    router.push({
+      pathname: '/evidence/[id]',
+      params: {
+        id: jobId,
+        title,
+      },
+    });
+  };
+
+  // =====================================
   // CALIFICAR
   // =====================================
 
@@ -490,6 +521,113 @@ export default function MyJobsScreen() {
     };
 
   // =====================================
+  // GESTIONAR PUBLICACIÓN PROPIA
+  // =====================================
+
+  const gestionarPublicacion =
+    async (
+      jobId: string,
+      action: ManageAction,
+    ) => {
+      try {
+        setActionLoading(
+          jobId,
+        );
+
+        const token =
+          await SecureStore.getItemAsync(
+            'accessToken',
+          );
+
+        if (!token) {
+          Alert.alert(
+            t("Sesión requerida"),
+            t("Debes iniciar sesión."),
+          );
+
+          return;
+        }
+
+        const response =
+          await fetch(
+            action === 'eliminar'
+              ? `${API_URL}/jobs/${jobId}`
+              : `${API_URL}/jobs/${jobId}/${action}`,
+            {
+              method:
+                action === 'eliminar'
+                  ? 'DELETE'
+                  : 'PATCH',
+
+              headers: {
+                Authorization:
+                  `Bearer ${token}`,
+              },
+            },
+          );
+
+        const result =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            result?.message ||
+              t("No fue posible actualizar la publicación."),
+          );
+        }
+
+        Alert.alert(
+          t(manageCopy[action].done),
+        );
+
+        await loadJobs(
+          false,
+        );
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : t("No fue posible actualizar la publicación.");
+
+        Alert.alert(
+          t("Error"),
+          t(message),
+        );
+      } finally {
+        setActionLoading(
+          null,
+        );
+      }
+    };
+
+  const confirmarGestion =
+    (
+      job: PublishedJob,
+      action: ManageAction,
+    ) => {
+      Alert.alert(
+        t(manageCopy[action].title),
+        t(manageCopy[action].question, { title: job.title }),
+        [
+          {
+            text: t("Volver"),
+            style: 'cancel',
+          },
+          {
+            text: t(manageCopy[action].confirm),
+            style: manageCopy[action].destructive ? 'destructive' : 'default',
+            onPress: () => {
+              gestionarPublicacion(
+                job.id,
+                action,
+              );
+            },
+          },
+        ],
+      );
+    };
+
+  // =====================================
   // RETIRAR POSTULACIÓN
   // =====================================
 
@@ -649,6 +787,9 @@ export default function MyJobsScreen() {
       case 'PUBLICADO':
         return colors.accent;
 
+      case 'PAUSADO':
+        return colors.muted;
+
       case 'ASIGNADO':
         return colors.warningText;
 
@@ -678,6 +819,9 @@ export default function MyJobsScreen() {
         return t('Vencida');
       case 'PUBLICADO':
         return t("Publicado");
+
+      case 'PAUSADO':
+        return t("Pausado");
 
       case 'ASIGNADO':
         return t("Asignado");
@@ -1268,8 +1412,7 @@ export default function MyJobsScreen() {
                       <PublicationTimestamp createdAt={job.createdAt} expiresAt={job.serviceOriginId ? undefined : job.expiresAt} expired={job.expired} style={styles.infoText} />
                       <Text style={styles.infoText}>{t(job.serviceOriginId ? 'Solicitud de servicio' : job.kind === 'SERVICIO' ? 'Servicio ofrecido' : 'Trabajo disponible')}</Text>
 
-                      {job.status ===
-                        'PUBLICADO' && !job.serviceOriginId && !job.expired && (
+                      {(job.status === 'PUBLICADO' || job.status === 'PAUSADO') && !job.serviceOriginId && !job.expired && (
                         <TouchableOpacity
                           style={
                             styles.editButton
@@ -1297,6 +1440,46 @@ export default function MyJobsScreen() {
                           >
                             {t("Editar trabajo")}</Text>
                         </TouchableOpacity>
+                      )}
+
+                      {/* ================= */}
+                      {/* PAUSAR, REANUDAR, CANCELAR, ELIMINAR */}
+                      {/* ================= */}
+
+                      {!job.serviceOriginId && ['PUBLICADO', 'PAUSADO', 'CANCELADO'].includes(job.status) && (
+                        <View style={styles.manageRow}>
+                          {actionLoading === job.id ? (
+                            <ActivityIndicator color={colors.accent} />
+                          ) : (
+                            <>
+                              {job.status === 'PUBLICADO' && !job.expired && (
+                                <TouchableOpacity style={styles.manageButton} onPress={(event) => { event.stopPropagation(); confirmarGestion(job, 'pausar'); }}>
+                                  <Ionicons name="pause-outline" size={16} color={colors.text} />
+                                  <Text style={styles.manageButtonText}>{t("Pausar")}</Text>
+                                </TouchableOpacity>
+                              )}
+
+                              {job.status === 'PAUSADO' && (
+                                <TouchableOpacity style={styles.manageButton} onPress={(event) => { event.stopPropagation(); confirmarGestion(job, 'reanudar'); }}>
+                                  <Ionicons name="play-outline" size={16} color={colors.text} />
+                                  <Text style={styles.manageButtonText}>{t("Reanudar")}</Text>
+                                </TouchableOpacity>
+                              )}
+
+                              {job.status !== 'CANCELADO' && (
+                                <TouchableOpacity style={[styles.manageButton, styles.manageDanger]} onPress={(event) => { event.stopPropagation(); confirmarGestion(job, 'cancelar'); }}>
+                                  <Ionicons name="close-circle-outline" size={16} color={colors.dangerText} />
+                                  <Text style={[styles.manageButtonText, styles.manageDangerText]}>{t("Cancelar")}</Text>
+                                </TouchableOpacity>
+                              )}
+
+                              <TouchableOpacity style={[styles.manageButton, styles.manageDanger]} onPress={(event) => { event.stopPropagation(); confirmarGestion(job, 'eliminar'); }}>
+                                <Ionicons name="trash-outline" size={16} color={colors.dangerText} />
+                                <Text style={[styles.manageButtonText, styles.manageDangerText]}>{t("Eliminar")}</Text>
+                              </TouchableOpacity>
+                            </>
+                          )}
+                        </View>
                       )}
 
                       {job.conversationId ? (
@@ -1945,6 +2128,39 @@ export default function MyJobsScreen() {
                           )}
                         </TouchableOpacity>
                       )}
+
+                      {job.status === 'EN_PROCESO' && (
+                        <>
+                      <TouchableOpacity
+                        style={
+                          styles.chatButton
+                        }
+                        onPress={(
+                          event,
+                        ) => {
+                          event.stopPropagation();
+
+                          abrirEvidencias(
+                            job.id,
+                            job.title,
+                          );
+                        }}
+                      >
+                        <Ionicons
+                          name="images-outline"
+                          size={18}
+                          color={colors.text}
+                        />
+
+                        <Text
+                          style={
+                            styles.chatButtonText
+                          }
+                        >
+                          {t("Fotos de evidencia")}</Text>
+                      </TouchableOpacity>
+                        </>
+                      )}
                     </TouchableOpacity>
                   ),
                 )
@@ -2165,6 +2381,35 @@ export default function MyJobsScreen() {
                             {t("Abrir chat")}</Text>
                         </TouchableOpacity>
                       ) : null}
+
+                      <TouchableOpacity
+                        style={
+                          styles.chatButton
+                        }
+                        onPress={(
+                          event,
+                        ) => {
+                          event.stopPropagation();
+
+                          abrirEvidencias(
+                            job.id,
+                            job.title,
+                          );
+                        }}
+                      >
+                        <Ionicons
+                          name="images-outline"
+                          size={18}
+                          color={colors.text}
+                        />
+
+                        <Text
+                          style={
+                            styles.chatButtonText
+                          }
+                        >
+                          {t("Fotos de evidencia")}</Text>
+                      </TouchableOpacity>
 
                       <TouchableOpacity
                         style={
@@ -2563,6 +2808,42 @@ const createStyles =
       color: colors.onColor,
       fontSize: 13,
       fontWeight: '900',
+    },
+
+    manageRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginTop: 12,
+    },
+
+    manageButton: {
+      flexGrow: 1,
+      minHeight: 40,
+      paddingHorizontal: 12,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.surface,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 6,
+    },
+
+    manageButtonText: {
+      color: colors.text,
+      fontSize: 13,
+      fontWeight: '800',
+    },
+
+    manageDanger: {
+      borderColor: colors.dangerText,
+      backgroundColor: 'rgba(220, 38, 38, 0.08)',
+    },
+
+    manageDangerText: {
+      color: colors.dangerText,
     },
 
     withdrawButton: {

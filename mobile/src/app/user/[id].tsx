@@ -1,3 +1,4 @@
+import { UserAvatar } from '@/components/user-avatar';
 import { useAppPreferences, useThemedStyles } from '@/context/app-preferences';
 import type { AppColors } from '@/constants/app-theme';
 import { API_URL } from '@/constants/api';
@@ -34,6 +35,8 @@ type PublicUserProfile = {
   id: string;
   name: string;
   memberSince: string;
+  bio?: string | null;
+  photoUpdatedAt?: string | null;
   rating: number | null;
   completedJobs: number;
   reviewsCount: number;
@@ -201,17 +204,13 @@ export default function PublicUserProfileScreen() {
           false
         }
       >
-        <View style={styles.avatar}>
-          <Text
-            style={
-              styles.avatarText
-            }
-          >
-            {user.name
-              .charAt(0)
-              .toUpperCase()}
-          </Text>
-        </View>
+        <UserAvatar
+          userId={user.id}
+          name={user.name}
+          photoUpdatedAt={user.photoUpdatedAt}
+          size={110}
+          style={styles.avatar}
+        />
 
         <Text style={styles.name}>
           {user.name}
@@ -314,7 +313,7 @@ export default function PublicUserProfileScreen() {
           <Text
             style={styles.cardText}
           >
-            {t("Este usuario todavía no ha agregado una descripción a su perfil.")}</Text>
+            {user.bio || t("Este usuario todavía no ha agregado una descripción a su perfil.")}</Text>
         </View>
 
         <Text

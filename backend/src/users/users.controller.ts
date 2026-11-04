@@ -1,23 +1,75 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Header,
   NotFoundException,
+  Param,
   Patch,
+  Put,
   Req,
+  StreamableFile,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { UsersService } from './users.service';
+import {
+  MAX_PROFILE_PHOTO_BYTES,
+  ProfilePhotoService,
+} from './profile-photo.service';
+import type { UploadedImage } from '../common/image-upload';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
+    private readonly profilePhotos: ProfilePhotoService,
   ) {}
+
+  // =====================================
+  // FOTO DE PERFIL
+  // =====================================
+
+  @UseGuards(JwtAuthGuard)
+  @Put('me/foto')
+  @UseInterceptors(
+    FileInterceptor('foto', {
+      limits: {
+        fileSize: MAX_PROFILE_PHOTO_BYTES,
+        files: 1,
+        fields: 0,
+        parts: 2,
+      },
+    }),
+  )
+  updateMyPhoto(
+    @Req() request: any,
+    @UploadedFile() foto?: UploadedImage,
+  ) {
+    return this.profilePhotos.guardar(request.user.sub, foto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('me/foto')
+  removeMyPhoto(@Req() request: any) {
+    return this.profilePhotos.quitar(request.user.sub);
+  }
+
+  // Pública, como el resto del perfil. La app agrega ?v=fecha para renovar la caché.
+  @Get(':id/foto')
+  @Header('Cache-Control', 'public, max-age=300')
+  @Header('X-Content-Type-Options', 'nosniff')
+  async photo(@Param('id') id: string) {
+    const foto = await this.profilePhotos.obtener(id);
+    return new StreamableFile(foto.bytes, { type: foto.type });
+  }
 
   // =====================================
   // LISTA DE USUARIOS PARA DESCUBRIR

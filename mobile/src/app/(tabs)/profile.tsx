@@ -1,3 +1,4 @@
+import { UserAvatar } from '@/components/user-avatar';
 import { useAppPreferences, useThemedStyles } from '@/context/app-preferences';
 import type { AppColors } from '@/constants/app-theme';
 import { API_URL } from '@/constants/api';
@@ -34,6 +35,8 @@ type User = {
   name: string;
   email: string;
   phone: string | null;
+  bio?: string | null;
+  photoUpdatedAt?: string | null;
 };
 
 type Review = {
@@ -318,15 +321,13 @@ export default function ProfileScreen() {
       <Text style={styles.title}>
         {t("Perfil")}</Text>
 
-      <View style={styles.avatar}>
-        <Text
-          style={styles.avatarText}
-        >
-          {user?.name
-            ?.charAt(0)
-            .toUpperCase() || '?'}
-        </Text>
-      </View>
+      <UserAvatar
+        userId={user?.id}
+        name={user?.name}
+        photoUpdatedAt={user?.photoUpdatedAt}
+        size={92}
+        style={styles.avatar}
+      />
 
       <Text style={styles.name}>
         {user?.name || 'Usuario'}
@@ -335,6 +336,12 @@ export default function ProfileScreen() {
       <Text style={styles.email}>
         {user?.email || ''}
       </Text>
+
+      {user?.bio ? (
+        <Text style={styles.bio}>
+          {user.bio}
+        </Text>
+      ) : null}
 
       {/* =================================
           ESTADÍSTICAS
@@ -852,6 +859,15 @@ const createStyles =
       justifyContent: 'center',
       alignSelf: 'center',
       marginTop: 32,
+    },
+
+    bio: {
+      color: colors.secondary,
+      fontSize: 14,
+      lineHeight: 20,
+      textAlign: 'center',
+      marginTop: 10,
+      paddingHorizontal: 12,
     },
 
     avatarText: {

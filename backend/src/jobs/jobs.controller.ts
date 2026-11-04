@@ -1,15 +1,21 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Header,
   NotFoundException,
   Param,
   Patch,
   Post,
   Req,
   Query,
+  StreamableFile,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { JwtAuthGuard, OptionalJwtAuthGuard } from '../auth/jwt-auth.guard';
 import type { Request } from 'express';
@@ -23,13 +29,98 @@ import { PublicationQueryDto } from './dto/publication-query.dto';
 import { JobsService } from './jobs.service';
 import { ServiceOffersService } from './service-offers.service';
 import { ServiceOfferDto } from './dto/service-offer.dto';
+import { JobManagementService } from './job-management.service';
+import { JobEvidenceService, MAX_EVIDENCE_BYTES } from './job-evidence.service';
+import type { UploadedImage } from '../common/image-upload';
 
 @Controller('jobs')
 export class JobsController {
   constructor(
     private readonly jobsService: JobsService,
     private readonly offersService: ServiceOffersService,
+    private readonly management: JobManagementService,
+    private readonly evidence: JobEvidenceService,
   ) {}
+
+  // =====================================
+  // GESTIÓN DEL DUEÑO: PAUSAR, REANUDAR, CANCELAR, ELIMINAR
+  // =====================================
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/pausar')
+  pausar(@Req() request: AuthenticatedRequest, @Param('id') id: string) {
+    return this.management.pausar(request.user.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/reanudar')
+  reanudar(@Req() request: AuthenticatedRequest, @Param('id') id: string) {
+    return this.management.reanudar(request.user.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/cancelar')
+  cancelar(@Req() request: AuthenticatedRequest, @Param('id') id: string) {
+    return this.management.cancelar(request.user.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  eliminar(@Req() request: AuthenticatedRequest, @Param('id') id: string) {
+    return this.management.eliminar(request.user.sub, id);
+  }
+
+  // =====================================
+  // EVIDENCIAS DEL TRABAJO
+  // =====================================
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/evidencias')
+  @Header('Cache-Control', 'private, no-store')
+  listarEvidencias(
+    @Req() request: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    return this.evidence.listar(request.user.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/evidencias')
+  @UseInterceptors(
+    FileInterceptor('foto', {
+      limits: { fileSize: MAX_EVIDENCE_BYTES, files: 1, fields: 0, parts: 2 },
+    }),
+  )
+  subirEvidencia(
+    @Req() request: AuthenticatedRequest,
+    @Param('id') id: string,
+    @UploadedFile() foto?: UploadedImage,
+  ) {
+    return this.evidence.subir(request.user.sub, id, foto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/evidencias/:evidenciaId')
+  @Header('Cache-Control', 'private, no-store')
+  @Header('X-Content-Type-Options', 'nosniff')
+  async verEvidencia(
+    @Req() request: AuthenticatedRequest,
+    @Param('id') id: string,
+    @Param('evidenciaId') evidenciaId: string,
+  ) {
+    const foto = await this.evidence.foto(request.user.sub, id, evidenciaId);
+    return new StreamableFile(foto.bytes, { type: foto.type });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id/evidencias/:evidenciaId')
+  eliminarEvidencia(
+    @Req() request: AuthenticatedRequest,
+    @Param('id') id: string,
+    @Param('evidenciaId') evidenciaId: string,
+  ) {
+    return this.evidence.eliminar(request.user.sub, id, evidenciaId);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post(':id/ofertas-servicio')

@@ -6,6 +6,7 @@ import request from 'supertest';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { UsersController } from '../src/users/users.controller';
 import { UsersService } from '../src/users/users.service';
+import { ProfilePhotoService } from '../src/users/profile-photo.service';
 
 describe('Privacidad de perfiles (sin conexión a la base de datos)', () => {
   let app: INestApplication<Server>;
@@ -18,6 +19,7 @@ describe('Privacidad de perfiles (sin conexión a la base de datos)', () => {
     rut: 'rut-privado',
     correo: 'privado@example.invalid',
     telefono: 'telefono-privado',
+    biografia: 'Biografía pública',
     contrasena: 'hash-privado',
     activo: true,
     versionSesion: 0,
@@ -37,7 +39,11 @@ describe('Privacidad de perfiles (sin conexión a la base de datos)', () => {
     const module = await Test.createTestingModule({
       imports: [JwtModule.register({ secret })],
       controllers: [UsersController],
-      providers: [UsersService, { provide: PrismaService, useValue: prisma }],
+      providers: [
+        UsersService,
+        ProfilePhotoService,
+        { provide: PrismaService, useValue: prisma },
+      ],
     }).compile();
     jwt = module.get(JwtService);
     app = module.createNestApplication();
@@ -93,6 +99,8 @@ describe('Privacidad de perfiles (sin conexión a la base de datos)', () => {
       id: user.id,
       name: user.nombre,
       memberSince: user.creadoEn.toISOString(),
+      bio: user.biografia,
+      photoUpdatedAt: null,
       rating: null,
       completedJobs: 0,
       reviewsCount: 0,
@@ -121,6 +129,8 @@ describe('Privacidad de perfiles (sin conexión a la base de datos)', () => {
       rut: user.rut,
       email: user.correo,
       phone: user.telefono,
+      bio: user.biografia,
+      photoUpdatedAt: null,
       createdAt: user.creadoEn.toISOString(),
       updatedAt: user.actualizadoEn.toISOString(),
     });

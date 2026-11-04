@@ -1,6 +1,9 @@
 import { useAppPreferences, useThemedStyles } from '@/context/app-preferences';
 import type { AppColors } from '@/constants/app-theme';
 import { API_URL } from '@/constants/api';
+import { UserAvatar } from '@/components/user-avatar';
+import { authenticatedApi } from '@/services/authenticated-api';
+import { pickImage, uploadImage } from '@/services/image-upload';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -34,9 +37,14 @@ type UserProfile = {
   rut: string;
   email: string;
   phone: string | null;
+  bio?: string | null;
+  photoUpdatedAt?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
+
+const MAX_BIO = 300;
+const MAX_PHOTO_BYTES = 1048576;
 
 type UpdateProfileResponse = {
   message: string;
@@ -60,6 +68,15 @@ export default function EditProfileScreen() {
 
   const [phone, setPhone] =
     useState('');
+
+  const [bio, setBio] =
+    useState('');
+
+  const [photoUpdatedAt, setPhotoUpdatedAt] =
+    useState<string | null>(null);
+
+  const [photoBusy, setPhotoBusy] =
+    useState(false);
 
   const [loading, setLoading] =
     useState(true);
@@ -186,6 +203,14 @@ export default function EditProfileScreen() {
       setPhone(
         profile.phone || '',
       );
+
+      setBio(
+        profile.bio || '',
+      );
+
+      setPhotoUpdatedAt(
+        profile.photoUpdatedAt ?? null,
+      );
     } catch (error) {
       console.error(
         'Error cargando perfil:',
@@ -201,6 +226,74 @@ export default function EditProfileScreen() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // =====================================
+  // FOTO DE PERFIL
+  // =====================================
+  //
+  // Se guarda de inmediato, sin esperar
+  // el botón Guardar cambios.
+
+  const cambiarFoto = async (
+    camera: boolean,
+  ) => {
+    if (photoBusy) return;
+
+    try {
+      const image = await pickImage(camera, MAX_PHOTO_BYTES, t, { allowsEditing: true, aspect: [1, 1] });
+
+      if (!image) return;
+
+      setPhotoBusy(true);
+
+      const result = await uploadImage<{ photoUpdatedAt: string }>('/users/me/foto', 'PUT', image);
+
+      setPhotoUpdatedAt(result.photoUpdatedAt);
+    } catch (error) {
+      Alert.alert(
+        t("Error"),
+        t(error instanceof Error
+          ? error.message
+          : "No se pudo actualizar la foto."),
+      );
+    } finally {
+      setPhotoBusy(false);
+    }
+  };
+
+  const quitarFoto = async () => {
+    try {
+      setPhotoBusy(true);
+
+      await authenticatedApi('/users/me/foto', 'DELETE');
+
+      setPhotoUpdatedAt(null);
+    } catch (error) {
+      Alert.alert(
+        t("Error"),
+        t(error instanceof Error
+          ? error.message
+          : "No se pudo quitar la foto."),
+      );
+    } finally {
+      setPhotoBusy(false);
+    }
+  };
+
+  const opcionesFoto = () => {
+    Alert.alert(
+      t("Foto de perfil"),
+      t("JPG o PNG de hasta 1 MB. Será visible en tu perfil público."),
+      [
+        { text: t("Tomar foto"), onPress: () => cambiarFoto(true) },
+        { text: t("Elegir de la galería"), onPress: () => cambiarFoto(false) },
+        ...(photoUpdatedAt
+          ? [{ text: t("Quitar foto"), style: 'destructive' as const, onPress: quitarFoto }]
+          : []),
+        { text: t("Cancelar"), style: 'cancel' as const },
+      ],
+    );
   };
 
   // =====================================
@@ -328,6 +421,9 @@ export default function EditProfileScreen() {
 
             phone:
               phone.trim(),
+
+            bio:
+              bio.trim(),
           }),
         },
       );
@@ -411,6 +507,10 @@ export default function EditProfileScreen() {
 
       setPhone(
         updatedUser.phone || '',
+      );
+
+      setBio(
+        updatedUser.bio || '',
       );
 
       // =====================================
@@ -598,21 +698,41 @@ export default function EditProfileScreen() {
             AVATAR
         ================================= */}
 
-        <View
-          style={styles.avatar}
+        <TouchableOpacity
+          style={styles.avatarButton}
+          onPress={opcionesFoto}
+          disabled={photoBusy || saving}
+          accessibilityRole="button"
+          accessibilityLabel={t("Cambiar foto de perfil")}
         >
-          <Text
+          <UserAvatar
+            userId={user?.id}
+            name={name}
+            photoUpdatedAt={photoUpdatedAt}
+            style={styles.avatar}
+          />
+
+          <View
             style={
-              styles.avatarText
+              styles.avatarBadge
             }
           >
-            {name
-              .trim()
-              .charAt(0)
-              .toUpperCase() ||
-              '?'}
-          </Text>
-        </View>
+            {photoBusy ? (
+              <ActivityIndicator
+                size="small"
+                color={colors.onPrimary}
+              />
+            ) : (
+              <Text
+                style={
+                  styles.avatarBadgeText
+                }
+              >
+                📷
+              </Text>
+            )}
+          </View>
+        </TouchableOpacity>
 
         <Text
           style={
@@ -681,6 +801,44 @@ export default function EditProfileScreen() {
           }
         >
           {t("Ingresa 9 dígitos.")}</Text>
+
+        {/* =================================
+            BIOGRAFÍA
+        ================================= */}
+
+        <Text
+          style={styles.label}
+        >
+          {t("Sobre mí")}</Text>
+
+        <TextInput
+          style={[
+            styles.input,
+            styles.bioInput,
+          ]}
+          value={bio}
+          onChangeText={(value) =>
+            setBio(
+              value.slice(
+                0,
+                MAX_BIO,
+              ),
+            )
+          }
+          placeholder={t("Cuenta qué servicios ofreces o qué buscas.")}
+          placeholderTextColor={colors.muted}
+          multiline
+          maxLength={MAX_BIO}
+          textAlignVertical="top"
+          editable={!saving}
+        />
+
+        <Text
+          style={
+            styles.helperText
+          }
+        >
+          {t("{count} de {max} caracteres. Es visible en tu perfil público.", { count: String(bio.length), max: String(MAX_BIO) })}</Text>
 
         {/* =================================
             INFORMACIÓN NO EDITABLE
@@ -968,10 +1126,49 @@ const createStyles =
       justifyContent:
         'center',
 
+    },
+
+    avatarButton: {
       alignSelf:
         'center',
 
       marginTop: 32,
+    },
+
+    avatarBadge: {
+      position: 'absolute',
+
+      right: -2,
+
+      bottom: -2,
+
+      width: 32,
+
+      height: 32,
+
+      borderRadius: 16,
+
+      backgroundColor:
+        colors.surface,
+
+      borderWidth: 2,
+
+      borderColor:
+        colors.background,
+
+      alignItems:
+        'center',
+
+      justifyContent:
+        'center',
+    },
+
+    avatarBadgeText: {
+      fontSize: 15,
+    },
+
+    bioInput: {
+      minHeight: 110,
     },
 
     avatarText: {

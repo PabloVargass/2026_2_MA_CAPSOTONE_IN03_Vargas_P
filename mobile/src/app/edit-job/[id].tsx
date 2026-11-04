@@ -184,12 +184,11 @@ export default function EditJobScreen() {
         );
 
         if (
-          job.status !==
-          'PUBLICADO' || job.serviceOriginId
+          !['PUBLICADO', 'PAUSADO'].includes(job.status) || job.serviceOriginId
         ) {
           Alert.alert(
             t("Edición no disponible"),
-            t("Solo puedes editar trabajos que se encuentren publicados."),
+            t("Solo puedes editar trabajos publicados o pausados."),
             [
               {
                 text: t("Volver"),

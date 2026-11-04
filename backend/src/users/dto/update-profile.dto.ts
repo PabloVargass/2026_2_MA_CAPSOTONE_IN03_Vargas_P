@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsOptional,
   IsString,
@@ -45,4 +46,24 @@ export class UpdateProfileDto {
       'El teléfono debe contener solo números.',
   })
   phone?: string;
+
+  // =====================================
+  // BIOGRAFÍA PÚBLICA
+  // =====================================
+  //
+  // Texto vacío borra la biografía.
+
+  @IsOptional()
+  @Transform(({ value }: { value: unknown }) =>
+    typeof value === 'string' ? value.trim() : value,
+  )
+  @IsString({
+    message:
+      'La biografía debe ser un texto válido.',
+  })
+  @MaxLength(300, {
+    message:
+      'La biografía no puede superar los 300 caracteres.',
+  })
+  bio?: string;
 }

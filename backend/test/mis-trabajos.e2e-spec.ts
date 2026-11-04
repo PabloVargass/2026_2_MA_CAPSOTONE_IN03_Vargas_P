@@ -6,6 +6,8 @@ import type { Server } from 'node:http';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { JobsController } from '../src/jobs/jobs.controller';
 import { ServiceOffersService } from '../src/jobs/service-offers.service';
+import { JobManagementService } from '../src/jobs/job-management.service';
+import { JobEvidenceService } from '../src/jobs/job-evidence.service';
 import { JobsService } from '../src/jobs/jobs.service';
 
 // Aislar la base de datos: estas pruebas no crean ni eliminan datos.
@@ -37,6 +39,8 @@ describe('JWT y GET /jobs/mis-trabajos (sin base de datos)', () => {
       controllers: [JobsController],
       providers: [
         { provide: ServiceOffersService, useValue: {} },
+        { provide: JobManagementService, useValue: {} },
+        { provide: JobEvidenceService, useValue: {} },
         { provide: JobsService, useValue: jobs },
         { provide: PrismaService, useValue: { usuario: account } },
       ],

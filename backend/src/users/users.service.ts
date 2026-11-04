@@ -190,6 +190,8 @@ export class UsersService {
           correo: true,
           rol: true,
           telefono: true,
+          biografia: true,
+          fotoPerfil: { select: { actualizadoEn: true } },
           creadoEn: true,
           actualizadoEn: true,
         },
@@ -216,6 +218,11 @@ export class UsersService {
 
       phone:
         usuario.telefono,
+
+      bio: usuario.biografia,
+
+      photoUpdatedAt:
+        usuario.fotoPerfil?.actualizadoEn ?? null,
 
       createdAt:
         usuario.creadoEn,
@@ -261,7 +268,8 @@ export class UsersService {
 
     if (
       data.name === undefined &&
-      data.phone === undefined
+      data.phone === undefined &&
+      data.bio === undefined
     ) {
       throw new BadRequestException(
         'Debes indicar al menos un dato para actualizar.',
@@ -306,6 +314,10 @@ export class UsersService {
             telefono:
               data.phone,
           }),
+
+          ...(data.bio !== undefined && {
+            biografia: data.bio || null,
+          }),
         },
 
         select: {
@@ -314,6 +326,7 @@ export class UsersService {
           rut: true,
           correo: true,
           telefono: true,
+          biografia: true,
           creadoEn: true,
           actualizadoEn: true,
         },
@@ -343,6 +356,8 @@ export class UsersService {
         phone:
           usuarioActualizado.telefono,
 
+        bio: usuarioActualizado.biografia,
+
         createdAt:
           usuarioActualizado.creadoEn,
 
@@ -369,6 +384,8 @@ export class UsersService {
         select: {
           id: true,
           nombre: true,
+          biografia: true,
+          fotoPerfil: { select: { actualizadoEn: true } },
           creadoEn: true,
         },
       });
@@ -461,6 +478,11 @@ export class UsersService {
 
       memberSince:
         usuario.creadoEn,
+
+      bio: usuario.biografia,
+
+      photoUpdatedAt:
+        usuario.fotoPerfil?.actualizadoEn ?? null,
 
       rating:
         promedio !== null

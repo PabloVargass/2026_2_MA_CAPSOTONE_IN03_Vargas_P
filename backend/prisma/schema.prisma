@@ -26,6 +26,7 @@ model Usuario {
   rut        String                 @unique
   correo     String                 @unique
   telefono   String?
+  biografia  String?                @db.VarChar(300)
   contrasena String?
   proveedor  ProveedorAutenticacion @default(LOCAL)
   googleId   String?                @unique
@@ -51,6 +52,8 @@ model Usuario {
   tokensVerificacionCorreo TokenVerificacionCorreo[]
 
   preferencia PreferenciaUsuario?
+  fotoPerfil  FotoPerfil?
+  evidencias  EvidenciaTrabajo[]
 }
 
 enum EstadoIdentidad {
@@ -80,6 +83,7 @@ model SolicitudIdentidad {
 
 enum EstadoTrabajo {
   PUBLICADO
+  PAUSADO
   ASIGNADO
   EN_PROCESO
   COMPLETADO
@@ -121,6 +125,8 @@ model Trabajo {
   conversacion  Conversacion?
 
   resenas Resena[]
+
+  evidencias EvidenciaTrabajo[]
 }
 
 model OfertaServicio {
@@ -329,4 +335,27 @@ model PreferenciaUsuario {
   omitidoEn        DateTime?
   creadoEn         DateTime          @default(now())
   actualizadoEn    DateTime          @updatedAt
+}
+
+// Foto pública del perfil, separada de Usuario para no cargar la imagen en cada consulta.
+model FotoPerfil {
+  usuarioId     String   @id
+  usuario       Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  foto          Bytes
+  tipo          String
+  actualizadoEn DateTime @updatedAt
+}
+
+// Fotos privadas del trabajo realizado; solo participantes y administradores las ven.
+model EvidenciaTrabajo {
+  id        String   @id @default(uuid())
+  trabajoId String
+  trabajo   Trabajo  @relation(fields: [trabajoId], references: [id], onDelete: Cascade)
+  autorId   String
+  autor     Usuario  @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  foto      Bytes
+  tipo      String
+  creadoEn  DateTime @default(now())
+
+  @@index([trabajoId, creadoEn])
 }

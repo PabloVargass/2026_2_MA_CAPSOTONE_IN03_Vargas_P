@@ -105,6 +105,45 @@ test('confirmarRetiro solo retira al confirmar', async () => {
   assert.deepEqual(retiros, ['postulacion-1']);
 });
 
+for (const [action, method, path] of [
+  ['pausar', 'PATCH', '/jobs/job-1/pausar'],
+  ['reanudar', 'PATCH', '/jobs/job-1/reanudar'],
+  ['cancelar', 'PATCH', '/jobs/job-1/cancelar'],
+  ['eliminar', 'DELETE', '/jobs/job-1'],
+]) {
+  test(`gestionarPublicacion(${action}) usa ${method} ${path} y recarga`, async () => {
+    const s = screen();
+    s.context.manageCopy = callback('my-jobs.tsx', 'manageCopy', {});
+    await callback('my-jobs.tsx', 'gestionarPublicacion', s.context)('job-1', action);
+    assert.equal(s.calls[0].url, `http://backend-configurado:3000${path}`);
+    assert.equal(s.calls[0].options.method, method);
+    assert.equal(s.calls[0].options.headers.Authorization, 'Bearer jwt-de-login');
+    assert.equal(s.calls[1].url, 'http://backend-configurado:3000/jobs/mis-trabajos');
+  });
+}
+
+test('gestionarPublicacion muestra el motivo del servidor y no recarga', async () => {
+  const s = screen(409);
+  s.context.manageCopy = callback('my-jobs.tsx', 'manageCopy', {});
+  await callback('my-jobs.tsx', 'gestionarPublicacion', s.context)('job-1', 'eliminar');
+  assert.equal(s.calls.length, 1);
+  assert.equal(s.alerts[0][0], 'Error');
+});
+
+test('confirmarGestion pide confirmación y marca como destructivas cancelar y eliminar', async () => {
+  const s = screen();
+  const done = [];
+  s.context.manageCopy = callback('my-jobs.tsx', 'manageCopy', {});
+  s.context.gestionarPublicacion = (id, action) => done.push([id, action]);
+  const confirm = callback('my-jobs.tsx', 'confirmarGestion', s.context);
+  for (const action of ['pausar', 'eliminar']) confirm({ id: 'job-1', title: 'Armar mueble' }, action);
+  assert.equal(s.calls.length, 0);
+  assert.equal(s.alerts[0][2][1].style, 'default');
+  assert.equal(s.alerts[1][2][1].style, 'destructive');
+  s.alerts[1][2][1].onPress();
+  assert.deepEqual(done, [['job-1', 'eliminar']]);
+});
+
 test('Sin sesión se solicita login sin enviar una petición', async () => {
   const s = screen(200, null);
   await s.context.loadJobs();

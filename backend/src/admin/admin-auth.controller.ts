@@ -1,10 +1,18 @@
-import { Body, Controller, ForbiddenException, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  ForbiddenException,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from '../auth/auth.service';
 import { LoginDto } from '../auth/dto/login.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { AdminService } from './admin.service';
 import { AcceptInviteDto } from './admin.dto';
 @Controller('admin-auth')
+@UseGuards(ThrottlerGuard)
 export class AdminAuthController {
   constructor(
     private readonly auth: AuthService,

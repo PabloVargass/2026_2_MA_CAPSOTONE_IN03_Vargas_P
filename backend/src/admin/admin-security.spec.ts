@@ -1,3 +1,4 @@
+import { ThrottlerModule } from '@nestjs/throttler';
 import { Test } from '@nestjs/testing';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -49,7 +50,10 @@ describe('Administrative HTTP authorization (isolated, no real DB or mail)', () 
   beforeAll(async () => {
     process.env.JWT_SECRET = 'isolated-test-secret';
     const module = await Test.createTestingModule({
-      imports: [JwtModule.register({ secret: process.env.JWT_SECRET })],
+      imports: [
+        JwtModule.register({ secret: process.env.JWT_SECRET }),
+        ThrottlerModule.forRoot([{ ttl: 60000, limit: 1000 }]),
+      ],
       controllers: [AdminController, AdminAuthController],
       providers: [
         JwtAuthGuard,

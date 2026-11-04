@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { AdminModule } from './admin/admin.module';
 import { IdentityModule } from './identity/identity.module';
 
@@ -15,6 +16,11 @@ import { PreferenciasModule } from './preferencias/preferencias.module';
 
 @Module({
   imports: [
+    // Límite por IP para rutas de autenticación; se aplica con ThrottlerGuard en cada controlador.
+    ThrottlerModule.forRoot({
+      throttlers: [{ ttl: 60000, limit: 10 }],
+      errorMessage: 'Demasiados intentos. Espera un minuto e inténtalo de nuevo.',
+    }),
     AdminModule,
     IdentityModule,
     PrismaModule,

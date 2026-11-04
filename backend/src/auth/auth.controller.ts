@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
 import { AuthService } from './auth.service';
 
@@ -15,7 +17,9 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { VerifyResetCodeDto } from './dto/verify-reset-code.dto';
 
+// Máximo 10 solicitudes por minuto e IP en cada ruta; 5 en las de códigos y contraseña.
 @Controller('auth')
+@UseGuards(ThrottlerGuard)
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -67,6 +71,7 @@ export class AuthController {
   // VERIFICAR CORREO
   // =====================================
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('verify-email')
   verifyEmail(
     @Body()
@@ -81,6 +86,7 @@ export class AuthController {
   // REENVIAR VERIFICACIÓN
   // =====================================
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('resend-verification')
   resendVerification(
     @Body()
@@ -95,6 +101,7 @@ export class AuthController {
   // OLVIDÉ MI CONTRASEÑA
   // =====================================
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('forgot-password')
   forgotPassword(
     @Body()
@@ -109,6 +116,7 @@ export class AuthController {
   // VERIFICAR CÓDIGO DE RECUPERACIÓN
   // =====================================
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('verify-reset-code')
   verifyResetCode(
     @Body()
@@ -123,6 +131,7 @@ export class AuthController {
   // CAMBIAR CONTRASEÑA
   // =====================================
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('reset-password')
   resetPassword(
     @Body()

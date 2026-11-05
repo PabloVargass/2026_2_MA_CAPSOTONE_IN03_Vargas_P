@@ -1,1056 +1,1056 @@
 [
   {
-    "archivo": "Aplicacion movil/Version 2.0/.env.example",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/.env.example",
     "bytes": 41,
     "sha256": "08d0dbf963df51a1aa543c249d717cc8cca5f54fb4852789830335a3f6a6795a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/.gitignore",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/.gitignore",
     "bytes": 449,
     "sha256": "1044ca3cb6bbe9ef040cdad2c9314bf75d93129778690378f2f9e710e1fe23d2"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/AGENTS.md",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/AGENTS.md",
     "bytes": 118,
     "sha256": "5986df214fcb822f856b9a8aac7c06503e02158aad55c8d7edf2966d7ee2dffd"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/CLAUDE.md",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/CLAUDE.md",
     "bytes": 11,
     "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/LICENSE",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/LICENSE",
     "bytes": 1106,
     "sha256": "fb3ca4a837f5779e83cef89b78253a8949cfb9429c340309f62d0465ec6610b4"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/README.md",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/README.md",
     "bytes": 2183,
     "sha256": "81a68c7166fe840f32019fb3bd12eada9cfc466a01fde5f14e073cc6d601a07f"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/app.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/app.json",
     "bytes": 1500,
     "sha256": "af2c8649108f010ffecec8b7319f083946b02a96c7e20926ee1fcfad1ea6af3c"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/expo.icon/Assets/expo-symbol 2.svg",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/expo.icon/Assets/expo-symbol 2.svg",
     "bytes": 608,
     "sha256": "ad117d20fd819f4ec71876ce09c0e8b9275b1f20c5ec3c9d7d1914977ceffec6"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/expo.icon/Assets/grid.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/expo.icon/Assets/grid.png",
     "bytes": 53681,
     "sha256": "8247d79a2b31328fe4e330a973e6fae16924ed9aebd72c64d464d6856ab18c72"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/expo.icon/icon.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/expo.icon/icon.json",
     "bytes": 780,
     "sha256": "747c56e178222a6255c6dd61c5de011b286cdc935febe89f04d1b191c3d076fe"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/android-icon-background.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/android-icon-background.png",
     "bytes": 17549,
     "sha256": "fb139c2dee362ebf2070e23b96da6fc0d43f8492de38b8af1fd7223e19b5861d"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/android-icon-foreground.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/android-icon-foreground.png",
     "bytes": 78796,
     "sha256": "9e3d0315a33c6799de601dd34cd8bf8cc3a8d16f3bf75592baec2ceb7240b391"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/android-icon-monochrome.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/android-icon-monochrome.png",
     "bytes": 4140,
     "sha256": "6371fc2c12e33ad2215a86c281db3d682a81bebe7c957a842c13b8bf00cceb83"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/expo-badge-white.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/expo-badge-white.png",
     "bytes": 4129,
     "sha256": "d9ba28c5e93aea3c2dabd901ee96fea3bb296ad8e648f6f64706dae11a1a62bd"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/expo-badge.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/expo-badge.png",
     "bytes": 4137,
     "sha256": "ff353c7efadbd379903923cb604fca11c908cba0d4658cc2bd1f147d98317249"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/expo-logo.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/expo-logo.png",
     "bytes": 3317,
     "sha256": "27b060a757a29038c9618586baa0ba3894dbe60d084c6059df497ff429c2d92f"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/favicon.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/favicon.png",
     "bytes": 1129,
     "sha256": "a4e030697a7571b3e95d31860e4da55d2f98e5e861e2b55e414f45a8556828ba"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/icon.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/icon.png",
     "bytes": 799005,
     "sha256": "7a667804bb80a6a424a5daf18a2599c4f32237cf06fe78fc0de45dbb09e0eccf"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/logo-glow.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/logo-glow.png",
     "bytes": 331624,
     "sha256": "bbd98a3f3c12d090f4df6065b7462fcdf6bc266209d002b4ef5fe554c245f66c"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/react-logo.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/react-logo.png",
     "bytes": 6341,
     "sha256": "224b7636b15e672801579b5b418077cbc2ca42f0146389062364356b0ecb5c5c"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/react-logo@2x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/react-logo@2x.png",
     "bytes": 14225,
     "sha256": "fa600be9ad2f869c7a8dbaffc78bb15af741123e1319c948f0be51753a153cde"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/react-logo@3x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/react-logo@3x.png",
     "bytes": 21252,
     "sha256": "cd84e02a5d542a3e71b7fa10a685c1b9fb51db4aff92aca6c0da6461ce17be16"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/splash-icon.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/splash-icon.png",
     "bytes": 3317,
     "sha256": "27b060a757a29038c9618586baa0ba3894dbe60d084c6059df497ff429c2d92f"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tabIcons/explore.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tabIcons/explore.png",
     "bytes": 215,
     "sha256": "e2dea1c2d20929d83e8eebd74818e808b1b72e376d3a1f3a03679fff0255d073"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tabIcons/explore@2x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tabIcons/explore@2x.png",
     "bytes": 347,
     "sha256": "1b54913b3a0acc3e1fb72d3b9b79ad04814304b35bbb9d03a533e6130ad6c26a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tabIcons/explore@3x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tabIcons/explore@3x.png",
     "bytes": 468,
     "sha256": "2f3e43801df70ebe83273b90a7d170bacf5ca74a8a8dc5c154a020c2c8b06609"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tabIcons/home.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tabIcons/home.png",
     "bytes": 253,
     "sha256": "3829632ec7d495225395f5da3d0942935d7d055979b174613d1ade82fe420e76"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tabIcons/home@2x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tabIcons/home@2x.png",
     "bytes": 343,
     "sha256": "21c5a07df9017d97464a0a8256e265288f2fca0741ca651de05e12b32f32f5ab"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tabIcons/home@3x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tabIcons/home@3x.png",
     "bytes": 479,
     "sha256": "fe5b397975e7cb70ae7a122472d174ed12ec2ae106f7b49c968225ad37f8b3b8"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/assets/images/tutorial-web.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/assets/images/tutorial-web.png",
     "bytes": 58959,
     "sha256": "e372ec23ad6262e2e0dc2799ce416b495a631a565bcd24f0615d4afc04dac3bd"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/package-lock.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/package-lock.json",
     "bytes": 375050,
     "sha256": "7ea7a421fa366718d27c24a9735a177a389fcce04fb665f788fbec9d0792726c"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/package.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/package.json",
     "bytes": 1447,
     "sha256": "7e0ac5c13368b575738ef5745a054f27f908e6205bd70670e0ee292399368a65"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/scripts/reset-project.js",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/scripts/reset-project.js",
     "bytes": 3710,
     "sha256": "549922a40b983de34068b36d7879fcc8aed6c60b8d45b3c7b866267e766ae9fe"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/scripts/test-app-preferences.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/scripts/test-app-preferences.cjs",
     "bytes": 6790,
     "sha256": "6d993d3e672e6afc1ddbb0405a834c03a32b682bb0d0cb285cd4f9a24d64e0cc"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/scripts/test-my-jobs.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/scripts/test-my-jobs.cjs",
     "bytes": 4543,
     "sha256": "eb4c07479e18545541d61d9fc8f90b42c730269bae92613d0bd51ae12bd08fbd"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/scripts/test-publication-form.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/scripts/test-publication-form.cjs",
     "bytes": 2951,
     "sha256": "5c940a524b56245457feb6770ec9c218c7fbff5c925392a3bb71278a3e1e5e0f"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/scripts/test-publication-search.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/scripts/test-publication-search.cjs",
     "bytes": 3436,
     "sha256": "a0c5b1aaa1a4b8eeb71e83be4c52552f03b1ec3afb21bafbe6b4f8697aef8ab6"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/_layout.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/_layout.tsx",
     "bytes": 6243,
     "sha256": "e41483a0531dcf4300dbea3bc4531ec791695841755f9dd343f901818aa249bb"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/discover.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/discover.tsx",
     "bytes": 31243,
     "sha256": "79e7689be92429d1987686b2be212858ae91a3b697b3f7ce57e173d3e7d92be9"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/home.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/home.tsx",
     "bytes": 30183,
     "sha256": "d13154bb99610e4a344b25ce263e05403b37bd573b5141589b7e25b7cb475d3a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/messages.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/messages.tsx",
     "bytes": 22988,
     "sha256": "54ab4347d7dfb7990c8cf2cec9e81a20fd08777dc1874ff1d9ba2f61172e0a76"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/profile.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/profile.tsx",
     "bytes": 24496,
     "sha256": "c3565e3dbb0e321f503e5a9d7b30d6ae31e00057b5f99e205c72460d955776d6"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/publish.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/publish.tsx",
     "bytes": 11925,
     "sha256": "eddc2be2aeec6fcd2cd7429572fe521e0825f8c65f6112bede6d2f305eee9725"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/(tabs)/search.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/(tabs)/search.tsx",
     "bytes": 14254,
     "sha256": "0aca8bcd915c6d51a962714f9c11d97e6aa298f95910494aa9e9bd9269cb0166"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/_layout.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/_layout.tsx",
     "bytes": 2280,
     "sha256": "2ad6392eb76ae2694740f7c99d86cfff525b785a0a832591e6a6ad059c6bf9ca"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/admin-publication/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/admin-publication/[id].tsx",
     "bytes": 4312,
     "sha256": "3af8ac818e455842cc26b4a21d8fe60ae54ffdca142f881695699ce977bfaed1"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/admin.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/admin.tsx",
     "bytes": 12333,
     "sha256": "37c805c523c7670bc0141c94b3312a214daca8785cf20c50eefff8aeea0cdbfa"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/chat/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/chat/[id].tsx",
     "bytes": 14797,
     "sha256": "6bb44ba119300e15b393cedbf28913ee15da29ff4227b62f22e40333c47dd056"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/edit-job/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/edit-job/[id].tsx",
     "bytes": 22740,
     "sha256": "f4a173091c56d7eca4107b0f42bc91d6b35f68262a36cf1263bb6f4d75334209"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/edit-profile.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/edit-profile.tsx",
     "bytes": 23131,
     "sha256": "9ba34ca75d763d45658b127ad5c95818c87dce75b152de01b8135cfe143b9728"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/forgot-password.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/forgot-password.tsx",
     "bytes": 5598,
     "sha256": "2c82f3497e489d1b9fce04b2a19a61936fe52291270610e9e13d18474943d52e"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/identity.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/identity.tsx",
     "bytes": 11560,
     "sha256": "0a9e2d09b9553d6ef0aa5f1d8e6d9cc8561d6e0adc0709f49af3429c0e2a2dd9"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/index.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/index.tsx",
     "bytes": 1413,
     "sha256": "c55bda89c655701b2c2cdc1135f901cfc5fd6044658c5937370c76b38963f39d"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/job/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/job/[id].tsx",
     "bytes": 14952,
     "sha256": "9f6f66a2a25faa7403b99e3b48efe5083a9a48688148ea59e5b67c56bd29b810"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/login.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/login.tsx",
     "bytes": 13483,
     "sha256": "cb1fcf7eb01cb109117dacf21b7503f2d19b32da546735f586821c02666c5004"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/my-jobs.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/my-jobs.tsx",
     "bytes": 64298,
     "sha256": "8db9639053d3196b7b86d315dbcac7066045343a583865df76fd6ce378ef7f01"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/register.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/register.tsx",
     "bytes": 15114,
     "sha256": "c3dd736e520fc9a59e1a84f28ac07d3f8bb95a5a77362adf5b27afd86fb5cc4b"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/reset-password.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/reset-password.tsx",
     "bytes": 7496,
     "sha256": "3729e635bf9362793ff4382150e2f1199db243608adfaa13cd6f916c62bedbcc"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/review/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/review/[id].tsx",
     "bytes": 10723,
     "sha256": "6b4d86ee69062b603b3b35a2b49241343ac67fadfe2cb736dae475b9bfbc4c56"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/services/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/services/[id].tsx",
     "bytes": 4090,
     "sha256": "1eba86b639879e3ad63cd1506c45d7b8d60b0a76a7dfa7399b90eafb6cb4ace6"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/settings.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/settings.tsx",
     "bytes": 6584,
     "sha256": "e33047979228caa218806a47dd2a64b069186d9944e1e85d22cf9374023fc103"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/user/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/user/[id].tsx",
     "bytes": 14105,
     "sha256": "efc7d4d8747e2ebda662f2a794285c7d1f5ad93d83cc1c8cdb18793407575328"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/verify-email.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/verify-email.tsx",
     "bytes": 7710,
     "sha256": "451af2ff3678836645aa425184671885c77ffb7d050f1f69c0a2b529c485b018"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/app/verify-reset-code.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/app/verify-reset-code.tsx",
     "bytes": 5913,
     "sha256": "0d9379a537fa0526cb8bd5222371a1885f15b800142aa295c79fd54be321d473"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/admin-action-modal.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/admin-action-modal.tsx",
     "bytes": 3408,
     "sha256": "54d37a34750ac1a35e5669bc84af538574e29f66952933dc580d5b304bfed123"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/animated-icon.module.css",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/animated-icon.module.css",
     "bytes": 143,
     "sha256": "a70d5b1b0561336e53541e4fcca0431fa9e3671fc29dd232a44d546ff488423c"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/animated-icon.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/animated-icon.tsx",
     "bytes": 3432,
     "sha256": "6eb54cd848336ccec07344cd9fe142bd3acc11dde6cfd1cf2e48fbd4551f8fab"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/animated-icon.web.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/animated-icon.web.tsx",
     "bytes": 2366,
     "sha256": "d99b902d487bb7a0c6357b201cc5c5fda1fd1a482e6edea3d896324e949712d2"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/app-tabs.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/app-tabs.tsx",
     "bytes": 876,
     "sha256": "9cea4df21113035a3fe7a97637ffe213d59795bb3a8c415938604c14ece8220d"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/app-tabs.web.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/app-tabs.web.tsx",
     "bytes": 3063,
     "sha256": "4af9ac3351769b4bd90adb9298f877ce3534ff55a11c5190c5f2282ec828c1e8"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/external-link.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/external-link.tsx",
     "bytes": 794,
     "sha256": "2838582e2dc21877652b710d4aee5f4ba5a795b17fcf63bd7ac9c25a749c8c26"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/hint-row.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/hint-row.tsx",
     "bytes": 900,
     "sha256": "2b5b1bbd4da6d9946e9a267587d7d6279059b0fab01dfeca144cd8cc3653a099"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/identity-photo-example.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/identity-photo-example.tsx",
     "bytes": 2338,
     "sha256": "93421c0260c8ef40a65fb40eda5a919c1aa201146a141cf347f9c00e5285d03f"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/private-document-viewer.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/private-document-viewer.tsx",
     "bytes": 3348,
     "sha256": "200b813ea0b9b593984f836dc092bb2e35fd91bd55d9b22ed62eb0d254aefeab"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/private-pdf-viewer.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/private-pdf-viewer.tsx",
     "bytes": 3166,
     "sha256": "6bd1d58cea46ef9e65ada7a96d21b3fad6522c2ee6508b137034c9ae429d432e"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/private-pdf-viewer.web.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/private-pdf-viewer.web.tsx",
     "bytes": 1844,
     "sha256": "a4cb0de1fa40d8dd68a6a85702d5ca4bf4d104b3833210c5b4e526fc1df86387"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/publication-duration.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/publication-duration.tsx",
     "bytes": 1679,
     "sha256": "0cff9da95fa2b0f0e7f463097cc5b6df079803886902e24368c8645278389e7b"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/publication-search-filters.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/publication-search-filters.tsx",
     "bytes": 2616,
     "sha256": "b0bcad20bac83c700014a00639eab5b3ff8a3d6ad331dce670c2c9c49ff8038a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/publication-timestamp.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/publication-timestamp.tsx",
     "bytes": 982,
     "sha256": "83fbb526ace3ea3bf2d37abd11b760dba3acca377f8e77b55e16bee2af7fc30c"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/search-filter-select.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/search-filter-select.tsx",
     "bytes": 3804,
     "sha256": "ab9a5df3ae8b9af5dff7066b9994d33c0190ddeea11e69d723a92dcfe9ecad18"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/service-actions.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/service-actions.tsx",
     "bytes": 3619,
     "sha256": "013273e76be5ec68e0358c4ee3cc066d65a9ba6adce9193068d1d21039d0494a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/service-offer-panel.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/service-offer-panel.tsx",
     "bytes": 2909,
     "sha256": "642db17a75175676a07b0e98dc0afae7f08b895b3aba5ab581e26476c15ee036"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/themed-text.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/themed-text.tsx",
     "bytes": 1657,
     "sha256": "a8ff3da42cfc9fc19b6d74927b34d8227637db658d32ed2c8c2a3ddd580b5237"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/themed-view.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/themed-view.tsx",
     "bytes": 496,
     "sha256": "e13930b2f4dfd4dab093d1a86c1586825a97d56e895ba8cb9c89233e654138c9"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/ui/collapsible.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/ui/collapsible.tsx",
     "bytes": 1865,
     "sha256": "7768fdc1b44ff45fabc6a0b69d500e81fb80381d5d21749515b89784f12429da"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/components/web-badge.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/components/web-badge.tsx",
     "bytes": 1018,
     "sha256": "0af7715337e070c7c476202c8dd77f2fd6a3514255ace1ead9f832ccc8351a7f"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/constants/api.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/constants/api.ts",
     "bytes": 243,
     "sha256": "92f5651a2584e9895eaed0ff95d6ad427e2348248930d1b246ca0ec0d7c91323"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/constants/app-theme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/constants/app-theme.ts",
     "bytes": 1173,
     "sha256": "b0f692b2d8930cb7794922816a7aebffe66f99552aebf2e16124a914b2fbff48"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/constants/chile-locations.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/constants/chile-locations.json",
     "bytes": 28905,
     "sha256": "3bf92c6be6faf492f9327cbe5113759e47171f7a2886b5aba6d5e286679bb834"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/constants/service-categories.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/constants/service-categories.ts",
     "bytes": 2830,
     "sha256": "e28ee73674bd9a7e3e1a5f0e08cc3652aaca19d3b4f9e34c65f82832b115d9dc"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/constants/theme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/constants/theme.ts",
     "bytes": 1838,
     "sha256": "b4a8a7e408986c145ff7c2480db784ccd2c7b24fc3937d7a23e8d5fbce05588a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/constants/translations.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/constants/translations.ts",
     "bytes": 32012,
     "sha256": "145e5f7477079c465186582a9cc9b01186007f971ee5c01da5f8792541f4e574"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/context/app-preferences.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/context/app-preferences.tsx",
     "bytes": 4247,
     "sha256": "9bd38f9be1afe4ec574bb5ab11a12c4bb51b6a2a054677fa28d442eaa399a123"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/global.css",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/global.css",
     "bytes": 429,
     "sha256": "3d65b4b82fe8112cd874d5058bb78b94743d2679958a421191802f4239cedf56"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/hooks/use-color-scheme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/hooks/use-color-scheme.ts",
     "bytes": 47,
     "sha256": "33beb965500ae5fdfe5c8699805a6be94c8c126a751fbe2ed7bcae87df394882"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/hooks/use-color-scheme.web.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/hooks/use-color-scheme.web.ts",
     "bytes": 480,
     "sha256": "84f19b5c1a8e941ab9868d2e83f6e61db11d3d9bf4fa91fac979bcd0fdc8019b"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/hooks/use-theme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/hooks/use-theme.ts",
     "bytes": 302,
     "sha256": "a02ce9715b1d7c03faab79b373c62775852b14f02fea2bdc05591eb27e25e1c4"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/services/authenticated-api.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/services/authenticated-api.ts",
     "bytes": 809,
     "sha256": "e76aaa36192f659f33dc9dd2cedc5729a2d80f88b4f95e0b1a0efa6022e44441"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/services/publication-search.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/services/publication-search.ts",
     "bytes": 2618,
     "sha256": "07bfb831a9a7a61f22916157afe995c8d4d7383e14bbfea9cccc660a818a9182"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/styles/auth.styles.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/styles/auth.styles.ts",
     "bytes": 1871,
     "sha256": "fcc1276e0599a94a03fc1accc93e812710863e1321b9581001692a018f7b911a"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/src/styles/home.styles.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/src/styles/home.styles.ts",
     "bytes": 1362,
     "sha256": "cffa6181e77a5c79d08e0b85351ad67bbdfb530034708fa97f26cc11cfb1cdad"
   },
   {
-    "archivo": "Aplicacion movil/Version 2.0/tsconfig.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 2.0/tsconfig.json",
     "bytes": 298,
     "sha256": "2c427a7bc50569dc5167d39425793d8bba22eeffcb213fff05f6274980784508"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/.env.example",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/.env.example",
     "bytes": 272,
     "sha256": "5895b8e2c4d479d06d12e2646ecc88f23fc57e5b03254fb01267192bd50595a2"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/.gitignore",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/.gitignore",
     "bytes": 492,
     "sha256": "db4a9d2c1330101eacccec0de505456885b8e21f0f4834d13e98cdbc628be475"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/.vscode/extensions.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/.vscode/extensions.json",
     "bytes": 51,
     "sha256": "f4fc3846d92b3f1df701122df415d95f3ba3f701cde082a1807efd18559db0df"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/.vscode/settings.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/.vscode/settings.json",
     "bytes": 159,
     "sha256": "7c6c98b86eacb8a73c856ad322bef03246aa85cb41d75bb03c8380a58859dcd8"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/AGENTS.md",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/AGENTS.md",
     "bytes": 121,
     "sha256": "86c66ddb4342729c93d938b0f1191c25943048fc5224a1c168d56b6a1b430e1d"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/CLAUDE.md",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/CLAUDE.md",
     "bytes": 12,
     "sha256": "d631d88045f74623d568adfb4783b72e3d1b732330d749bc6c72e6648d4581d3"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/LICENSE",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/LICENSE",
     "bytes": 1127,
     "sha256": "b73819c20d04c6a048933ff72a703eb616f23f8d7a72e0ca4852d25d2d556316"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/README.md",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/README.md",
     "bytes": 2239,
     "sha256": "fe9cec233a4291afb63c4c747319458597a7e111d7c5f37e1238d4982634fd2c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/app.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/app.json",
     "bytes": 1553,
     "sha256": "125a7a894f229defe5d23d412b537422393b60e71725d3930c98bbe368067342"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/expo.icon/Assets/expo-symbol 2.svg",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/expo.icon/Assets/expo-symbol 2.svg",
     "bytes": 611,
     "sha256": "0aab4b9a72b495d415a7088de655829e2db36a2021b17679af6bc47a1fe363d6"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/expo.icon/Assets/grid.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/expo.icon/Assets/grid.png",
     "bytes": 53681,
     "sha256": "8247d79a2b31328fe4e330a973e6fae16924ed9aebd72c64d464d6856ab18c72"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/expo.icon/icon.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/expo.icon/icon.json",
     "bytes": 819,
     "sha256": "1cf151ba777b142d203aa3bc595fa52ba1bd80e2f3e5b4c5a2d0192825925538"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/android-icon-background.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/android-icon-background.png",
     "bytes": 17549,
     "sha256": "fb139c2dee362ebf2070e23b96da6fc0d43f8492de38b8af1fd7223e19b5861d"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/android-icon-foreground.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/android-icon-foreground.png",
     "bytes": 78796,
     "sha256": "9e3d0315a33c6799de601dd34cd8bf8cc3a8d16f3bf75592baec2ceb7240b391"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/android-icon-monochrome.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/android-icon-monochrome.png",
     "bytes": 4140,
     "sha256": "6371fc2c12e33ad2215a86c281db3d682a81bebe7c957a842c13b8bf00cceb83"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/expo-badge-white.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/expo-badge-white.png",
     "bytes": 4129,
     "sha256": "d9ba28c5e93aea3c2dabd901ee96fea3bb296ad8e648f6f64706dae11a1a62bd"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/expo-badge.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/expo-badge.png",
     "bytes": 4137,
     "sha256": "ff353c7efadbd379903923cb604fca11c908cba0d4658cc2bd1f147d98317249"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/expo-logo.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/expo-logo.png",
     "bytes": 3317,
     "sha256": "27b060a757a29038c9618586baa0ba3894dbe60d084c6059df497ff429c2d92f"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/favicon.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/favicon.png",
     "bytes": 1129,
     "sha256": "a4e030697a7571b3e95d31860e4da55d2f98e5e861e2b55e414f45a8556828ba"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/icon.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/icon.png",
     "bytes": 799005,
     "sha256": "7a667804bb80a6a424a5daf18a2599c4f32237cf06fe78fc0de45dbb09e0eccf"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/logo-glow.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/logo-glow.png",
     "bytes": 331624,
     "sha256": "bbd98a3f3c12d090f4df6065b7462fcdf6bc266209d002b4ef5fe554c245f66c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/react-logo.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/react-logo.png",
     "bytes": 6341,
     "sha256": "224b7636b15e672801579b5b418077cbc2ca42f0146389062364356b0ecb5c5c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/react-logo@2x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/react-logo@2x.png",
     "bytes": 14225,
     "sha256": "fa600be9ad2f869c7a8dbaffc78bb15af741123e1319c948f0be51753a153cde"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/react-logo@3x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/react-logo@3x.png",
     "bytes": 21252,
     "sha256": "cd84e02a5d542a3e71b7fa10a685c1b9fb51db4aff92aca6c0da6461ce17be16"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/splash-icon.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/splash-icon.png",
     "bytes": 3317,
     "sha256": "27b060a757a29038c9618586baa0ba3894dbe60d084c6059df497ff429c2d92f"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tabIcons/explore.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tabIcons/explore.png",
     "bytes": 215,
     "sha256": "e2dea1c2d20929d83e8eebd74818e808b1b72e376d3a1f3a03679fff0255d073"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tabIcons/explore@2x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tabIcons/explore@2x.png",
     "bytes": 347,
     "sha256": "1b54913b3a0acc3e1fb72d3b9b79ad04814304b35bbb9d03a533e6130ad6c26a"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tabIcons/explore@3x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tabIcons/explore@3x.png",
     "bytes": 468,
     "sha256": "2f3e43801df70ebe83273b90a7d170bacf5ca74a8a8dc5c154a020c2c8b06609"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tabIcons/home.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tabIcons/home.png",
     "bytes": 253,
     "sha256": "3829632ec7d495225395f5da3d0942935d7d055979b174613d1ade82fe420e76"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tabIcons/home@2x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tabIcons/home@2x.png",
     "bytes": 343,
     "sha256": "21c5a07df9017d97464a0a8256e265288f2fca0741ca651de05e12b32f32f5ab"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tabIcons/home@3x.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tabIcons/home@3x.png",
     "bytes": 479,
     "sha256": "fe5b397975e7cb70ae7a122472d174ed12ec2ae106f7b49c968225ad37f8b3b8"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/assets/images/tutorial-web.png",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/assets/images/tutorial-web.png",
     "bytes": 58959,
     "sha256": "e372ec23ad6262e2e0dc2799ce416b495a631a565bcd24f0615d4afc04dac3bd"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/package-lock.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/package-lock.json",
     "bytes": 384901,
     "sha256": "0b70ac98b7cfa28deb59e7a3ca07590e2fced81dc3000ec52ac07940757f8ff6"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/package.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/package.json",
     "bytes": 1496,
     "sha256": "8feacde4b5bbb7cf25e612619623f7835609942a407af4a758968e43b42a6526"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/scripts/reset-project.js",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/scripts/reset-project.js",
     "bytes": 3824,
     "sha256": "cf11c5f0608d018f3d5bd2004abc52da441ffda3ba7a19ff52474b5596ed80f7"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/scripts/test-affinity.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/scripts/test-affinity.cjs",
     "bytes": 7281,
     "sha256": "8def999aa67d6c81538f8fb2dd1ada867bdd98560c7b5e5fac5365cb5b94ddb2"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/scripts/test-app-preferences.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/scripts/test-app-preferences.cjs",
     "bytes": 6957,
     "sha256": "5e57d8513da4e210b7bfec4a386aff72d9c0d0502e99026b2f193f10e3002d9d"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/scripts/test-my-jobs.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/scripts/test-my-jobs.cjs",
     "bytes": 6040,
     "sha256": "621428e1653cf5288b47213261fbe1af707cfe8cf8eb442fefcf8bc3c5aadd4e"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/scripts/test-publication-form.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/scripts/test-publication-form.cjs",
     "bytes": 2973,
     "sha256": "3a440eeb508c3ff3cba2518842c51547f7b914e068ac34df00c1b1502f088565"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/scripts/test-publication-search.cjs",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/scripts/test-publication-search.cjs",
     "bytes": 3464,
     "sha256": "2c164b5af5bdaafb16722c9208f0045cf75c2ef428dffd5178bd2dce897a7d9c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/_layout.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/_layout.tsx",
     "bytes": 6247,
     "sha256": "985c0a0866d05df3a8c664400966c30bcc5cc94d65b56b0d7d7f9169272f02ba"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/discover.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/discover.tsx",
     "bytes": 31243,
     "sha256": "79e7689be92429d1987686b2be212858ae91a3b697b3f7ce57e173d3e7d92be9"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/home.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/home.tsx",
     "bytes": 33569,
     "sha256": "448c4c8465bb20017e6602ab4127542ac129aab45a6b391ecca0cff26f21b216"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/messages.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/messages.tsx",
     "bytes": 22998,
     "sha256": "4368510c67e81d764167be01f6ccc33dda3a9b42be347524e741d147ed59f592"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/profile.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/profile.tsx",
     "bytes": 25573,
     "sha256": "5a0454a20c1cc4dfa710dd2a566ed5f632aadd79449e43ffa4693c8acfe03aa4"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/publish.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/publish.tsx",
     "bytes": 11925,
     "sha256": "eddc2be2aeec6fcd2cd7429572fe521e0825f8c65f6112bede6d2f305eee9725"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/(tabs)/search.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/(tabs)/search.tsx",
     "bytes": 14680,
     "sha256": "3d081f1e2b01eb2205c742cb6fe394970f53cae501ba70e78b68e82f2b22d99a"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/_layout.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/_layout.tsx",
     "bytes": 2433,
     "sha256": "a78a5631ef657d15b0c5f42da6e2167f85eee99477110de2d039ce83c38789e1"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/admin-publication/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/admin-publication/[id].tsx",
     "bytes": 4385,
     "sha256": "332c0ea62566ceb13118accd46b98eb7a7a7e42c36b43bd6d81fa1c733eece81"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/admin.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/admin.tsx",
     "bytes": 12473,
     "sha256": "ec4ce8f998708ce1a5acb93ef9b87d67250972c91498ab7f3f75fac86e18ae67"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/chat/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/chat/[id].tsx",
     "bytes": 14797,
     "sha256": "6bb44ba119300e15b393cedbf28913ee15da29ff4227b62f22e40333c47dd056"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/edit-job/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/edit-job/[id].tsx",
     "bytes": 22740,
     "sha256": "f4a173091c56d7eca4107b0f42bc91d6b35f68262a36cf1263bb6f4d75334209"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/edit-profile.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/edit-profile.tsx",
     "bytes": 23136,
     "sha256": "0d83961d08b33b1c5132e742e75da18c726687bcaf112546c331c5865e088a04"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/forgot-password.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/forgot-password.tsx",
     "bytes": 5603,
     "sha256": "f54eefe294fa937a0ecba97bacb1800026c43e45f388a5a0222a7b2dd2ca702c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/identity.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/identity.tsx",
     "bytes": 11662,
     "sha256": "b8134fabb6828677498065cdf886b9de9721e3aba3061ef4004260c6bbcc3687"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/index.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/index.tsx",
     "bytes": 1458,
     "sha256": "b0f0eb5cf5e9542b17fabf398e68df61c75a2bc7545fc651df87eb3eb4623595"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/job/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/job/[id].tsx",
     "bytes": 14952,
     "sha256": "9f6f66a2a25faa7403b99e3b48efe5083a9a48688148ea59e5b67c56bd29b810"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/login.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/login.tsx",
     "bytes": 13574,
     "sha256": "30107c169a68f5b7dec40850d1c163bb8d54897b870f401af2fad444e324315f"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/my-jobs.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/my-jobs.tsx",
     "bytes": 68848,
     "sha256": "3897201a30d1e5a48bc6c574bd965f328713cc4803abef9d116561656ac190c5"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/onboarding.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/onboarding.tsx",
     "bytes": 15611,
     "sha256": "b26854db355bab32e239997b5065cdcd7732b87cd001233e5c005be0aefe6712"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/register.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/register.tsx",
     "bytes": 15119,
     "sha256": "e452f8636bbb49529bec77e028b8ebe3d8784d3374a97ceed0c98c43098bc49f"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/reset-password.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/reset-password.tsx",
     "bytes": 7501,
     "sha256": "a44b8469d2e9b166d7b0259c6c0cd8a39907f253bb73046579596eec4d406198"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/review/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/review/[id].tsx",
     "bytes": 10728,
     "sha256": "5eaf0f062726669d5f2009133422930eaa0304728c80343a8963913af6e10195"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/services/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/services/[id].tsx",
     "bytes": 4147,
     "sha256": "36c61772c715c9aac9db4bf49e7524c57a02389912fd23b6141b5c51bdab3229"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/settings.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/settings.tsx",
     "bytes": 6680,
     "sha256": "42fa838a3a7f9981f70018ac22a9340b7d6cad7b8535f7f232c6bdfa6251bf1f"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/user/[id].tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/user/[id].tsx",
     "bytes": 14105,
     "sha256": "efc7d4d8747e2ebda662f2a794285c7d1f5ad93d83cc1c8cdb18793407575328"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/verify-email.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/verify-email.tsx",
     "bytes": 7715,
     "sha256": "1c29f0836380b2f915d0afcc88d1e4dd499e32b8ae7b611ba822128a1b3e026e"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/app/verify-reset-code.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/app/verify-reset-code.tsx",
     "bytes": 5918,
     "sha256": "1a2fbe0ed69d02e1df062746bb7d8ec6ea80e7e17b47071351aa6ab0f1c7842a"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/admin-action-modal.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/admin-action-modal.tsx",
     "bytes": 3454,
     "sha256": "0e854eee88ab930367d231f350d712a39b40ddeafde8fad83afadcaf4a41472a"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/animated-icon.module.css",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/animated-icon.module.css",
     "bytes": 149,
     "sha256": "7266714581be4bea01a871e23c32a1d89064aff9bcbc2340b2ad68d718af1839"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/animated-icon.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/animated-icon.tsx",
     "bytes": 3580,
     "sha256": "f73a62ec6f6f36a05c7e018ba4f6394fba8b4b1fe41b349c8e1dd321b312286e"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/animated-icon.web.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/animated-icon.web.tsx",
     "bytes": 2474,
     "sha256": "32425720a789ace6f7503dfdd068b33b1acb7c30819ba296bd4864e2c633f0c1"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/app-tabs.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/app-tabs.tsx",
     "bytes": 906,
     "sha256": "9471b2001b3639159ee14fd3e7ec9e9b04b62d6ea3fa864c19d6369ba7b68821"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/app-tabs.web.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/app-tabs.web.tsx",
     "bytes": 3178,
     "sha256": "ef2b50c9640c4aa164ad5b20613afa7e1e3c1dcf35d46e6594fd7fa834524b11"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/external-link.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/external-link.tsx",
     "bytes": 819,
     "sha256": "55a7ebe292a9e8b6bda3171123a0b7e21653142e04fafcf62fb8015f0bf0a806"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/hint-row.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/hint-row.tsx",
     "bytes": 935,
     "sha256": "c7c72d5dc5818590bd3055cea1020abd0c7646abcba620b034ea5bd420b387d2"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/identity-photo-example.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/identity-photo-example.tsx",
     "bytes": 2358,
     "sha256": "8782593af82578c93c7c36095e553a0789b92c2add35e86d6b7a674e6d01e5fc"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/onboarding-guide.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/onboarding-guide.tsx",
     "bytes": 2421,
     "sha256": "cf735a2b0340922184ace5c5de66b01881d4937b6210124764f07c88eefcbbf8"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/private-document-viewer.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/private-document-viewer.tsx",
     "bytes": 3374,
     "sha256": "0725939af8e475f04402461a9b426547e288595f83d517d7f1f1888a3d9d2e1e"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/private-pdf-viewer.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/private-pdf-viewer.tsx",
     "bytes": 3210,
     "sha256": "7018f8ef70005f6f1cec45926cd8244e38796e5420264b65c736d994a576f3bb"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/private-pdf-viewer.web.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/private-pdf-viewer.web.tsx",
     "bytes": 1872,
     "sha256": "b973b9849fb5c25f03d56245bb60fad3efd5777e09af780e4fcfa22e83c67030"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/publication-duration.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/publication-duration.tsx",
     "bytes": 1710,
     "sha256": "99faa4320af1dff1ca33c90844e53738043cb19d25b948c94061d87afe97dc83"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/publication-search-filters.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/publication-search-filters.tsx",
     "bytes": 2635,
     "sha256": "387480baba5f57ae8f494f3d3ac3e264d3cfc7737cdcd8bf49ea724bd46b84ef"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/publication-timestamp.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/publication-timestamp.tsx",
     "bytes": 1006,
     "sha256": "70a5dc94f3d27435e2825a567969a5a25a7d68c26951e8fbeed608ae2feac2c1"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/search-filter-select.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/search-filter-select.tsx",
     "bytes": 3834,
     "sha256": "75488f7580535098113de78fc4ddc2bc3bdcc3a1e6c13e4bbbf122ab0208a0ee"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/service-actions.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/service-actions.tsx",
     "bytes": 3673,
     "sha256": "c6cf2a08663c9e1b87b32b51cb4a9451e1e31042f98291daa487a3d9e945fe28"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/service-offer-panel.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/service-offer-panel.tsx",
     "bytes": 2951,
     "sha256": "cba40295c30e980836082a517e63994619b42c17bf30e0de95e04e08a030513d"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/themed-text.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/themed-text.tsx",
     "bytes": 1730,
     "sha256": "42faa69b289ea1abefc404a8646a1e63b77a327131db7f559c6cc5fae6490149"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/themed-view.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/themed-view.tsx",
     "bytes": 512,
     "sha256": "daea78f228b10b381e6922f96e529570ab1d72c92ad3620313bf2f5dccc68f4c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/ui/collapsible.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/ui/collapsible.tsx",
     "bytes": 1930,
     "sha256": "8db64b4e798ce6f56de546c08fd434fe3f33bb4b556cf5f7a1f3941c85c122d0"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/components/web-badge.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/components/web-badge.tsx",
     "bytes": 1061,
     "sha256": "2c0499f7ee28f59cb9516bfaabbbc3fe7a6e518c6b01576e2ffd056b7c6a2994"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/constants/api.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/constants/api.ts",
     "bytes": 243,
     "sha256": "92f5651a2584e9895eaed0ff95d6ad427e2348248930d1b246ca0ec0d7c91323"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/constants/app-theme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/constants/app-theme.ts",
     "bytes": 1224,
     "sha256": "8b6cead6843f6b1847aa125f409e241954db3ea7bce1be1d12f75b75f94b9567"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/constants/chile-locations.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/constants/chile-locations.json",
     "bytes": 30408,
     "sha256": "8e3fb573e114289514f95c5564e28552c529a89ea83937b2e1bc31f0362b6350"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/constants/service-categories.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/constants/service-categories.ts",
     "bytes": 2883,
     "sha256": "f3e10497820309373184ba599b3f5deea9dad4db5eacc0d4d6812ea3c949c83f"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/constants/theme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/constants/theme.ts",
     "bytes": 1904,
     "sha256": "b71993a7f746429923ec2911c001b612a8c85e9256bb61d8f96833d1a4fb3476"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/constants/translations.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/constants/translations.ts",
     "bytes": 35261,
     "sha256": "c54bbeca2237f4e482dfddc516ca3a343ee4bbd9b9085ebeee8958ccc2758e87"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/context/app-preferences.tsx",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/context/app-preferences.tsx",
     "bytes": 4355,
     "sha256": "5f8e34577cbb319223b040e23ef6172a5fb00d020d60036fcd9e49041e611851"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/global.css",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/global.css",
     "bytes": 438,
     "sha256": "38be7095073b522f3ce148b477330cea54742660391237e9f837349173080d57"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/hooks/use-color-scheme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/hooks/use-color-scheme.ts",
     "bytes": 48,
     "sha256": "d1676dee393d066d61ae60760e56a5e080ae15ac0182277a1f31be28dd6cb295"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/hooks/use-color-scheme.web.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/hooks/use-color-scheme.web.ts",
     "bytes": 501,
     "sha256": "acc1f4cb532fc7ccfb4cba62ee127289bc1e03f65dc4df1d7c169ce8d6bec052"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/hooks/use-theme.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/hooks/use-theme.ts",
     "bytes": 314,
     "sha256": "2cda0f4732ee640e749f5ceaf02fbcd027edfe07ff1c6c06d621d02b1271e47b"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/services/affinity.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/services/affinity.ts",
     "bytes": 3431,
     "sha256": "dfcc87e2c7c3118b8bda838d2ec5e5fbaf02415f1f2cbfd6991c6f850838b2b1"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/services/authenticated-api.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/services/authenticated-api.ts",
     "bytes": 824,
     "sha256": "cd3694a17a927b0e2a12034c59b9257588ee993d993fba09220b40cc6730467c"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/services/publication-search.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/services/publication-search.ts",
     "bytes": 2381,
     "sha256": "af98e528b8428b6be2cd4e5db26cbda2bfbbc8d49c970ed3a0674bcc8e046f45"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/services/user-preferences.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/services/user-preferences.ts",
     "bytes": 1341,
     "sha256": "e68fee5b18b39077b951545354495ec21481dd2ede8a6513e699c540435de86a"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/styles/auth.styles.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/styles/auth.styles.ts",
     "bytes": 1872,
     "sha256": "fd31cc7762a6420775a1ce0aaee66bc1dcf8be90a067f45d4d634a655a126aba"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/src/styles/home.styles.ts",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/src/styles/home.styles.ts",
     "bytes": 1363,
     "sha256": "51e42df49eb740d9cf68f4177834d35fbdcb69e4b1aba8dc16f438cc8a4a908a"
   },
   {
-    "archivo": "Aplicacion movil/Version 3.0/tsconfig.json",
+    "archivo": "Aplicación/Aplicacion movil/Version 3.0/tsconfig.json",
     "bytes": 318,
     "sha256": "09570b139a14ee71947b40b6ef8d639323603fd031bf253d32f449a77d3ab58e"
   },
@@ -2235,362 +2235,362 @@
     "sha256": "cc94135bc563d026d11ab86562a470d833e0d5731f8c03c2f8cc24add99ff4f6"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/.env.example",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/.env.example",
     "bytes": 35,
     "sha256": "3f834dd53a0ba608a1e1ecfc17a2262c71e05d0ca93fc5745b2484f73d63d2cb"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/.gitignore",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/.gitignore",
     "bytes": 56,
     "sha256": "91e53830ceab9a90bc51020b3e58f501b9b0469e8db80c4a41acd51004890e51"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/AGENTS.md",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/AGENTS.md",
     "bytes": 2206,
     "sha256": "96cf375dd3cef4c35897ecdf3696506a92c410c85ef4bdcd27e9fa16e131457e"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/README.md",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/README.md",
     "bytes": 7206,
     "sha256": "c3ab14d18398ed0f367b3545c32eb5fbf892f392698c1d510a4906b7e0cb60ae"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/eslint.config.mjs",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/eslint.config.mjs",
     "bytes": 274,
     "sha256": "0b295eaafd3be5bc573e824113cf1b68c1442c5aa9ea3c2f1b280bd5f96425f9"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/next-env.d.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/next-env.d.ts",
     "bytes": 303,
     "sha256": "b8b3a344484b959af5e4e3fc1a1609dac3cb9ece0cdeb6c145be29bc4c491000"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/next.config.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/next.config.ts",
     "bytes": 130,
     "sha256": "16960bb520a57ce67e0bfe5df0e90f3d94d3e2857dda5bbfc7a4a9b47c573467"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/package-lock.json",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/package-lock.json",
     "bytes": 214850,
     "sha256": "e3c712f25eb1b9ceb3164092300a6c4a0a2c38e9e13cc4706efc482bcdcb784d"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/package.json",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/package.json",
     "bytes": 562,
     "sha256": "9a1f26e6f61f9866d0c2a8696fc907f4f688571ae76f4208b9991f4e260bfeda"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/(panel)/[section]/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/(panel)/[section]/page.tsx",
     "bytes": 623,
     "sha256": "0777db9999bea9bf6a500b65292ddc59cfac9e8367a87e7effefdb09d5442aeb"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/(panel)/layout.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/(panel)/layout.tsx",
     "bytes": 293,
     "sha256": "8ccebe5edb2a9f1e5f4adf6dce862ccdf411d66a68a82aabc1178f08afa3e2db"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/(panel)/trabajos/[id]/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/(panel)/trabajos/[id]/page.tsx",
     "bytes": 198,
     "sha256": "0249a4e2089be2583749a5f54eb90bafc6af8b13115c88506d7aec7781e3ffd5"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/(panel)/usuarios/[id]/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/(panel)/usuarios/[id]/page.tsx",
     "bytes": 201,
     "sha256": "dc81adc15e81abadb26f8925a735ba67ba564584c425afb44e942e63b6b6806b"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/activar/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/activar/page.tsx",
     "bytes": 329,
     "sha256": "7294011e5f6fdd0a82b0eeb5d0233ea140902fc5b0b5bf1384379062da38969e"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/api/admin/[...path]/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/api/admin/[...path]/route.ts",
     "bytes": 2098,
     "sha256": "4812f0b63aa00500e23ef8857c97bfe24bb559bb87fb62b30baaa7df39be9688"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/api/auth/login/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/api/auth/login/route.ts",
     "bytes": 979,
     "sha256": "3e24744dff331c771fd40cec0479b3b3a87173fa5356a839d861b1092ee227ee"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/api/auth/logout/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/api/auth/logout/route.ts",
     "bytes": 912,
     "sha256": "b37197cdb4d0d6405fdf1f082fcadb2409097772afa260329147f0bb4359f5e3"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/api/invitation/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/api/invitation/route.ts",
     "bytes": 765,
     "sha256": "1ccc1a0e19b43aab12de14dab1f7e42cca6fcdc1ffc0d6fef62f19640500693e"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/error.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/error.tsx",
     "bytes": 576,
     "sha256": "3241e5476e607db542084126ac9fb442d9ed3133fcae8129a373d632a52dbd8c"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/layout.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/layout.tsx",
     "bytes": 369,
     "sha256": "be041a39691f71e181312b88363cb02db02e778e7d103468de4ef4eab15f2afb"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/loading.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/loading.tsx",
     "bytes": 93,
     "sha256": "8ca4e0ab16628aad930783226085c1eebe42169ffcd73814b693cda09cdb20c5"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/login/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/login/page.tsx",
     "bytes": 381,
     "sha256": "0123fcfc26324f96dd6f45583bb4df7081754ed58975e4585a9bd32bbd412462"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/app/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/app/page.tsx",
     "bytes": 103,
     "sha256": "52fb998b23611517b38b25d373390459753e3d4e704ff3f8cd418764d90af755"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/auth/session.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/auth/session.ts",
     "bytes": 989,
     "sha256": "6caa18f95969c1778634e10a0ed522e1a29d14c3690d29a4138002bd68596c0c"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/AccessForms.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/AccessForms.tsx",
     "bytes": 3455,
     "sha256": "a72284e7c1e58e86b8101b9c3364bd7af823d486003221a7d7a7e1041963f7ce"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/Brand.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/Brand.tsx",
     "bytes": 141,
     "sha256": "064795c11e3c4e6c971d13b82d8347789eae0f263fcbfd8be57bf372cd2ad748"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/DetailViews.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/DetailViews.tsx",
     "bytes": 6989,
     "sha256": "c1901252a62a38f7dcf4edfa1ddbc96d53da01ad18b3da457e6a6fb0e2a13e1e"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/MutationButton.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/MutationButton.tsx",
     "bytes": 4255,
     "sha256": "a79966ae3ca3774df57aabc65c0eef15b204069cfb79153ce6c2f1d65256a954"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/PanelShell.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/PanelShell.tsx",
     "bytes": 2240,
     "sha256": "8973a59b9d30945fcc17f0d460878ba2206bc36d8e1ae1ae0e5557544324c79e"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/Resource.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/Resource.tsx",
     "bytes": 2005,
     "sha256": "7da46137ecf0c68d954b50b133b55b7d10464cabfb5b26d23069148bbeead3cd"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/components/SectionViews.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/components/SectionViews.tsx",
     "bytes": 13721,
     "sha256": "f8ab637d23b61512efc8c99a4db14a3384701a6da188018502340ec1fab968b5"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/services/backend.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/services/backend.ts",
     "bytes": 1843,
     "sha256": "b45fc71d7db7f651d7b9971b6a555294093720f7280c392e13b5ee53f142257e"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/services/client.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/services/client.ts",
     "bytes": 911,
     "sha256": "31243359789e6dbd42a970887d4c7598326463205bec09ddd83b4e21dc732ce1"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/styles/globals.css",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/styles/globals.css",
     "bytes": 5237,
     "sha256": "79ecdac9fde5ebca3e43363c95e85ed96fa7f8c6a2e1e155f08c827ae37259be"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/src/types/admin.ts",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/src/types/admin.ts",
     "bytes": 1472,
     "sha256": "327b5b59fc07cea2cb8256bb5d0d4ae87a7f5ad0e7d15ad9a20f64e8aadca0e2"
   },
   {
-    "archivo": "Pagina Web/Version 2.0/tsconfig.json",
+    "archivo": "Aplicación/Pagina Web/Version 2.0/tsconfig.json",
     "bytes": 704,
     "sha256": "032ef215e32ec422b33f4074598d6a155eaeedf26a4bfb167562ef5b417d1423"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/.env.example",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/.env.example",
     "bytes": 114,
     "sha256": "d9e681d5edbed1ccbc4c3a1e70c4fbb38e4bceb9644fc98968f138da65b93067"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/.gitignore",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/.gitignore",
     "bytes": 60,
     "sha256": "abdffed2718e95d55aa46ec42b5008d21dd01282b868e67cf3f644158b0ddac4"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/AGENTS.md",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/AGENTS.md",
     "bytes": 2219,
     "sha256": "b34caaff9319e0e70b0d2ef25383e40016b7de83a20282b9a1ff3f9949dd0081"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/README.md",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/README.md",
     "bytes": 7301,
     "sha256": "509465d0dca514a21b65196dda60cf9999dad8ee88394d658d8243d9da37696f"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/eslint.config.mjs",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/eslint.config.mjs",
     "bytes": 277,
     "sha256": "786f07d87ebe28298caf429b0d2404c9f69734552dd296f745ad9776d51a846c"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/next-env.d.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/next-env.d.ts",
     "bytes": 303,
     "sha256": "b8b3a344484b959af5e4e3fc1a1609dac3cb9ece0cdeb6c145be29bc4c491000"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/next.config.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/next.config.ts",
     "bytes": 136,
     "sha256": "06a04898c78a322a48ca69b472b59deeb773899180bda813b9204a746f1e3589"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/package-lock.json",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/package-lock.json",
     "bytes": 221000,
     "sha256": "ee42ac590041a488641eef97e753f4a4a2de9ea8a6ebce9882319622dc9de2db"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/package.json",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/package.json",
     "bytes": 588,
     "sha256": "60ed1bf4e2fa1e0f203697807173225a9d8dda1c27e85ec50ad883ec64049b35"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/(panel)/[section]/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/(panel)/[section]/page.tsx",
     "bytes": 652,
     "sha256": "8c3d2d475e90a42222230e339bd8ab5a35e3be6de8b677262eda7d0e633431b7"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/(panel)/layout.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/(panel)/layout.tsx",
     "bytes": 303,
     "sha256": "978ed04df19b9b2556adff46068483321a8448f3223df090ed0a2441955b4bd2"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/(panel)/trabajos/[id]/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/(panel)/trabajos/[id]/page.tsx",
     "bytes": 206,
     "sha256": "345d7fc9b7fb25a086fadd35625ca8b4bd53b26bf7f8ffcd6e409b58b1be331d"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/(panel)/usuarios/[id]/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/(panel)/usuarios/[id]/page.tsx",
     "bytes": 209,
     "sha256": "830f34b5074143cc9f7ffcc2e6e607706bacca882f640f12d92ef8ae1ca7d0d9"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/activar/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/activar/page.tsx",
     "bytes": 342,
     "sha256": "78b322a0f09c6ce5bab4587cde2b91b1aacdd17b3934672dc15864506466329d"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/api/admin/[...path]/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/api/admin/[...path]/route.ts",
     "bytes": 2156,
     "sha256": "a463ca5637339f6742874a12f6a41d76dded3e25d2848a775d2c379ac52392d3"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/api/auth/login/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/api/auth/login/route.ts",
     "bytes": 1007,
     "sha256": "0ee4a424445c9997a28950d70b4093a00c2ae34a0beadf1a70aaa8cd819c9c13"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/api/auth/logout/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/api/auth/logout/route.ts",
     "bytes": 940,
     "sha256": "9ce515657d460f15e7590ad904ae50f92d802013fab19369047fdc90cac773a0"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/api/invitation/route.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/api/invitation/route.ts",
     "bytes": 791,
     "sha256": "97817b5e14cc19b5ed0c4299864e66ba79aabad0e3a9e7c3821b56cb2012bc7d"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/error.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/error.tsx",
     "bytes": 595,
     "sha256": "15da8ad721b91df0ef072c8d2fc981d7245f6861a2eb963b137ba58c600ec106"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/layout.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/layout.tsx",
     "bytes": 384,
     "sha256": "5c6ad9494c631f41a6035136c30cb1c41ee812dec188de7787486c3b1ba03d13"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/loading.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/loading.tsx",
     "bytes": 96,
     "sha256": "8a25e8717a6068b6101b02ce0ecbf6fda469710da842458f599f6fd1967d9ab8"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/login/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/login/page.tsx",
     "bytes": 395,
     "sha256": "8aadadf2e38a4971cf843b3aeca7401610886e3cecf3c86c3345459393cc2a89"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/app/page.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/app/page.tsx",
     "bytes": 107,
     "sha256": "818de8ab64eccb211292bf517b14e5c29a64bcfc3a39353f115c41e90dcbeb6d"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/auth/session.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/auth/session.ts",
     "bytes": 1019,
     "sha256": "29aff08faa8be357ee9ec4b21a748029aff33443299a914f2109f5e0fa33862f"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/AccessForms.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/AccessForms.tsx",
     "bytes": 3581,
     "sha256": "1fb24f83085481d6a4b642b54e503c8412de1d14ffe42fc1b083e05aed0ec748"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/Brand.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/Brand.tsx",
     "bytes": 148,
     "sha256": "4588f028b483bf53c00848898cb50569c1f54385b371ed4981647ef716baaf66"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/DetailViews.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/DetailViews.tsx",
     "bytes": 7175,
     "sha256": "bd56d2710b1a8a393b8640a7959377c94596f2c696292c692a0d0ca1c0575a9b"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/MutationButton.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/MutationButton.tsx",
     "bytes": 4411,
     "sha256": "817c7d009d8cde4418a55f3b7cfc83e9f3dda16ce5bc1623c9c5dfbc19bdbd3c"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/PanelShell.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/PanelShell.tsx",
     "bytes": 2322,
     "sha256": "09db4282bf43950cee0b10496be0c4ae01529d683484b86c19b0b78168d2b3f4"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/Resource.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/Resource.tsx",
     "bytes": 2093,
     "sha256": "b64f033c37afb01576121095e694dadca9e958eb5a134b4a15a487f69ec81cca"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/components/SectionViews.tsx",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/components/SectionViews.tsx",
     "bytes": 14140,
     "sha256": "682ba504556a6b2c3465faa1396c98d2eecf61ba8e2727997a9487d153ad9d5e"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/services/backend.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/services/backend.ts",
     "bytes": 1901,
     "sha256": "c9fd372454c5f418405b5b18aa39a8e1e04f9faca5a5daf71ddbcfb9ddae3d72"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/services/client.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/services/client.ts",
     "bytes": 946,
     "sha256": "f0a5a544587a8b05d6199f768694d117bb31a643690aef569885799dafb9124c"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/styles/globals.css",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/styles/globals.css",
     "bytes": 5565,
     "sha256": "0dbc58b58aa69317568ffa86dd512ea80a3c445d18392850a8fd72273f51cb75"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/src/types/admin.ts",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/src/types/admin.ts",
     "bytes": 1542,
     "sha256": "67522ff9d273ae6348dbac25c39fe69b86312634f52f8a2357f8b1ac4735da6a"
   },
   {
-    "archivo": "Pagina Web/Version 3.0/tsconfig.json",
+    "archivo": "Aplicación/Pagina Web/Version 3.0/tsconfig.json",
     "bytes": 744,
     "sha256": "fae7176b0c23bbaaf6275ae35dbf80e14e36e4a4a729b545974d734995d1bbc2"
   },

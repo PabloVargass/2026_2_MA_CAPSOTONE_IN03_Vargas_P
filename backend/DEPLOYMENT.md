@@ -41,7 +41,7 @@ su aplicación en el destino antes de ejecutar `prisma migrate deploy`.
 
 | Parte | Servicio | Notas |
 |---|---|---|
-| API | Render, plan Free, Blueprint `render.yaml` en la raíz de Proyecto-Capstone-ServiciosYa | Se duerme tras ~15 min sin uso; la primera petición tarda ~30-60 s |
+| API | Render, plan Free, Blueprint `render.yaml` en la raíz de 2026_2_MA_CAPSOTONE_IN03_Vargas_P | Se duerme tras ~15 min sin uso; la primera petición tarda ~30-60 s |
 | Base de datos | Neon, rama principal | Ya existía |
 | Correo | Brevo gratis, SMTP puerto 2525 | Render Free bloquea 25, 465 y 587, por eso no sirve Gmail |
 | Panel | Vercel Hobby, carpeta `web-admin` | Variable `API_BASE_URL` = URL HTTPS de Render |
@@ -49,7 +49,7 @@ su aplicación en el destino antes de ejecutar `prisma migrate deploy`.
 
 Pasos:
 
-1. El código se publica en la carpeta `ServiciosYa/` de Proyecto-Capstone-ServiciosYa
+1. El código se publica en la carpeta `ServiciosYa/` de 2026_2_MA_CAPSOTONE_IN03_Vargas_P
    (`git subtree`); Render y Vercel despliegan desde ese repositorio.
 2. Brevo: verificar el correo remitente y crear una clave SMTP. En Render,
    `EMAIL_USER` = remitente verificado, `SMTP_USER` = usuario SMTP de Brevo,

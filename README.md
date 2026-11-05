@@ -1,4 +1,4 @@
-# Proyecto-Capstone-ServiciosYa
+# 2026_2_MA_CAPSOTONE_IN03_Vargas_P
 
 Proyecto APT de Pablo Vargas Vásquez · Ingeniería en Informática · Duoc UC Maipú · Sección IN03.
 

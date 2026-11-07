@@ -1,10 +1,34 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const { spawn, spawnSync } = require('node:child_process');
 const dotenv = require('dotenv');
 
 const root = path.resolve(__dirname, '..');
 const configPath = path.join(root, '.env.development.local');
+// --rapido: reutiliza dist/ si está al día (sin recompilar ni vigilar cambios).
+const fast = process.argv.includes('--rapido');
+const builtEntry = path.join(root, 'dist', 'src', 'main.js');
+
+function newestSourceTime() {
+  let newest = 0;
+  const visit = (target) => {
+    if (!fs.existsSync(target)) return;
+    const stat = fs.statSync(target);
+    if (stat.isDirectory()) {
+      for (const name of fs.readdirSync(target)) visit(path.join(target, name));
+    } else {
+      newest = Math.max(newest, stat.mtimeMs);
+    }
+  };
+  for (const name of ['src', 'generated', 'prisma.config.ts', 'tsconfig.json', 'tsconfig.build.json', 'nest-cli.json']) {
+    visit(path.join(root, name));
+  }
+  return newest;
+}
+
+function buildIsCurrent() {
+  return fs.existsSync(builtEntry) && fs.statSync(builtEntry).mtimeMs >= newestSourceTime();
+}
 
 function endpoint(value) {
   const url = new URL(value);
@@ -31,7 +55,19 @@ try {
   if (same) throw new Error('Desarrollo no puede usar el mismo servidor y base que la conexión principal.');
 
   console.log('Iniciando desarrollo con configuración local y destino distinto del principal.');
-  const child = spawn(process.execPath, [require.resolve('@nestjs/cli/bin/nest.js'), 'start', '--watch'], {
+  const nestCli = require.resolve('@nestjs/cli/bin/nest.js');
+  let args = [nestCli, 'start', '--watch'];
+  if (fast) {
+    if (buildIsCurrent()) {
+      console.log('Modo rápido: dist/ está al día, se omite la compilación.');
+    } else {
+      console.log('Modo rápido: hay cambios en el código, compilando una vez...');
+      const build = spawnSync(process.execPath, [nestCli, 'build'], { cwd: root, stdio: 'inherit' });
+      if (build.status !== 0) throw new Error('La compilación falló; revisa los errores anteriores.');
+    }
+    args = [builtEntry];
+  }
+  const child = spawn(process.execPath, args, {
     cwd: root,
     env: { ...process.env, ...config, NODE_ENV: 'development' },
     stdio: 'inherit',

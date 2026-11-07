@@ -15,7 +15,8 @@ function AppNavigation() {
   const { colors, theme, ready } = useAppPreferences();
 
   useEffect(() => {
-    Appearance.setColorScheme(theme);
+    // react-native-web no implementa setColorScheme; en nativo se aplica igual.
+    Appearance.setColorScheme?.(theme);
     void SystemUI.setBackgroundColorAsync(colors.background).catch(() => {});
   }, [theme, colors]);
 

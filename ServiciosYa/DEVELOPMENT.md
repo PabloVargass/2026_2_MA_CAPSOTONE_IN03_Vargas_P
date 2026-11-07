@@ -25,6 +25,10 @@ coinciden con `.env`, incluso comparando conexión directa y pooler.
 No aplica migraciones ni crea datos automáticamente. Esta protección pertenece a
 `start:dev`; otros comandos deben recibir explícitamente la configuración apropiada.
 
+Para demostraciones, `npm run start:dev:rapido` aplica la misma protección pero reutiliza
+`dist/` si ningún archivo de `src/`, `generated/` o configuración TypeScript/Nest es más
+nuevo; si los hay, compila una sola vez. No vigila cambios: tras editar código, reiniciarlo.
+
 Una vez guardada la URL, verificar estado de migraciones y tablas antes de pruebas
 con escrituras. El historial copiado de una rama estándar debe conservarse.
 

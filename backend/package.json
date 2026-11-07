@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "node scripts/start-development.cjs",
+    "start:dev:rapido": "node scripts/start-development.cjs --rapido",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main.js",
     "prisma:generate": "prisma generate",

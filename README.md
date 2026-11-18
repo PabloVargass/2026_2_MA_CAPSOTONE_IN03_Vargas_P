@@ -10,11 +10,11 @@ Fase 1/
   Evidencias Grupales/       Presentación Proyecto.pptx, 1.5 Guía Definición Proyecto APT (Español)
 Fase 2/
   Evidencias Individuales/   2.1 Diario de reflexión, 2.2 Autoevaluación de avance
-  Evidencias Grupales/       2.3 Formativa, 2.4 Guía Desarrollo Proyecto APT, 2.6 Guía Informe Final (Español)
+  Evidencias Grupales/       2.3 Formativa, 2.4 Guía Desarrollo Proyecto APT, 2.6 Guía Informe Final (Español), Informe Final ServiciosYa (.docx y .pdf)
   Evidencias Proyecto/
     Presentación Proyecto.pptx
     Fichas de Iteración/            Fichas de avance 1 a 6 y planilla de evaluación económica
-    Evidencias de documentación/    Casos de uso, interfaces, modelo de datos, modelo 4+1, diagramas e informe técnico
+    Evidencias de documentación/    Casos de uso, interfaces, modelo de datos, modelo 4+1 (vistas lógica, desarrollo, procesos, física y escenarios), diagramas e informe técnico
     Evidencias de sistema/
       Aplicación/                   App móvil, página web de administración y capturas
       Base de datos/                Esquema Prisma, migraciones y backend

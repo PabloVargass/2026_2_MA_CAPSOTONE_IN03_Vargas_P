@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   ForbiddenException,
   UnauthorizedException,
@@ -60,16 +61,20 @@ describe('Administrative invariants (isolated transactions)', () => {
     }).compile();
     service = module.get(AdminService);
   });
-  it.each([{ activo: false }, { rol: 'USUARIO' as const }])(
-    'protects the last administrator: %j',
-    async (change) => {
-      await expect(
-        service.access('actor', 'target', { ...change, motivo: 'test reason' }),
-      ).rejects.toBeInstanceOf(ConflictException);
-      expect(tx.usuario.update).not.toHaveBeenCalled();
-      expect(tx.$executeRaw).toHaveBeenCalled();
+  it.each([
+    {
+      activo: false,
+      tipoDesactivacion: 'BLOQUEADA' as const,
+      mensajeUsuario: 'Mensaje para la persona',
     },
-  );
+    { rol: 'USUARIO' as const },
+  ])('protects the last administrator: %j', async (change) => {
+    await expect(
+      service.access('actor', 'target', { ...change, motivo: 'test reason' }),
+    ).rejects.toBeInstanceOf(ConflictException);
+    expect(tx.usuario.update).not.toHaveBeenCalled();
+    expect(tx.$executeRaw).toHaveBeenCalled();
+  });
   it('cannot change own role', () => {
     expect(() =>
       service.access('actor', 'actor', {
@@ -185,5 +190,49 @@ describe('Administrative invariants (isolated transactions)', () => {
     expect(safeUser).not.toHaveProperty('contrasena');
     expect(safeUser).not.toHaveProperty('tokensRecuperacion');
     expect(safeUser).not.toHaveProperty('invitaciones');
+  });
+  it('exige tipo y mensaje para la persona al desactivar una cuenta', () => {
+    expect(() =>
+      service.access('actor', 'target', {
+        activo: false,
+        motivo: 'Revisión de reportes',
+      }),
+    ).toThrow(BadRequestException);
+    expect(tx.usuario.update).not.toHaveBeenCalled();
+  });
+  it('guarda tipo y mensaje al bloquear y los limpia al reactivar', async () => {
+    tx.usuario.findUniqueOrThrow.mockResolvedValue({
+      rol: 'USUARIO',
+      activo: true,
+      correoVerificadoEn: new Date(),
+      contrasena: 'hash',
+    });
+    tx.usuario.update.mockResolvedValue({ id: 'target' });
+    await service.access('actor', 'target', {
+      activo: false,
+      tipoDesactivacion: 'BLOQUEADA',
+      mensajeUsuario: 'Incumpliste las normas de la comunidad.',
+      motivo: 'Reportes confirmados',
+    });
+    expect(tx.usuario.update.mock.calls[0][0]).toMatchObject({
+      data: {
+        activo: false,
+        desactivacionTipo: 'BLOQUEADA',
+        desactivacionMensaje: 'Incumpliste las normas de la comunidad.',
+        versionSesion: { increment: 1 },
+      },
+    });
+    await service.access('actor', 'target', {
+      activo: true,
+      motivo: 'Apelación aceptada',
+    });
+    expect(tx.usuario.update.mock.calls[1][0]).toMatchObject({
+      data: {
+        activo: true,
+        desactivacionTipo: null,
+        desactivacionMensaje: null,
+        desactivadaEn: null,
+      },
+    });
   });
 });

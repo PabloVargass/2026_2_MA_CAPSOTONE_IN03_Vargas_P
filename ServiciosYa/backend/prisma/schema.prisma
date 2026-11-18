@@ -13,11 +13,20 @@ enum ProveedorAutenticacion {
   GOOGLE
 }
 
+// Motivo visible para la persona cuando su cuenta no está activa.
+enum TipoDesactivacion {
+  INACTIVA
+  BLOQUEADA
+}
+
 model Usuario {
   identidad SolicitudIdentidad? @relation("IdentidadUsuario")
   identidadesRevisadas SolicitudIdentidad[] @relation("RevisionIdentidad")
   rol RolAdministrativo @default(USUARIO)
   activo Boolean @default(true)
+  desactivacionTipo    TipoDesactivacion?
+  desactivacionMensaje String?            @db.VarChar(300)
+  desactivadaEn        DateTime?
   versionSesion Int @default(0)
   invitaciones InvitacionCuenta[]
   auditorias AuditoriaAdministrativa[]

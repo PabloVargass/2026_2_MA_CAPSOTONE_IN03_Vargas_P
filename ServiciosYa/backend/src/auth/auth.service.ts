@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -24,6 +25,7 @@ import { VerifyEmailDto } from './dto/verify-email.dto';
 import { VerifyResetCodeDto } from './dto/verify-reset-code.dto';
 
 import { MailService } from './mail.service';
+import { cuentaDesactivada } from './cuenta-desactivada';
 
 import {
   normalizarRut,
@@ -208,7 +210,7 @@ export class AuthService {
         email,
       );
 
-    if (!usuario || !usuario.activo) {
+    if (!usuario) {
       throw new UnauthorizedException(
         'Correo electrónico o contraseña incorrectos.',
       );
@@ -230,6 +232,12 @@ export class AuthService {
       throw new UnauthorizedException(
         'Correo electrónico o contraseña incorrectos.',
       );
+    }
+
+    // Solo con la contraseña correcta se informa el estado de la cuenta,
+    // para no revelar a terceros qué correos existen o están bloqueados.
+    if (!usuario.activo) {
+      throw cuentaDesactivada(usuario);
     }
 
     if (
@@ -394,7 +402,8 @@ export class AuthService {
       // MARCAR CORREO COMO VERIFICADO
       // =====================================
 
-      if (!usuario.activo) throw new UnauthorizedException('La cuenta está desactivada.');
+      // Google ya acreditó que la persona controla el correo.
+      if (!usuario.activo) throw cuentaDesactivada(usuario);
 
       /*
        * Google ya comprobó que el usuario
@@ -457,7 +466,9 @@ export class AuthService {
         error instanceof
           UnauthorizedException ||
         error instanceof
-          BadRequestException
+          BadRequestException ||
+        error instanceof
+          ForbiddenException
       ) {
         throw error;
       }

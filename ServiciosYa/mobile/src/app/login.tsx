@@ -3,6 +3,7 @@ import type { AppColors } from '@/constants/app-theme';
 import { API_URL } from '@/constants/api';
 import { createAuthStyles } from '@/styles/auth.styles';
 import { routeAfterLogin } from '@/services/user-preferences';
+import { accountStatusAlert } from '@/services/account-status';
 
 import {
   GoogleSignin,
@@ -142,6 +143,18 @@ export default function LoginScreen() {
         await response.json();
 
       if (!response.ok) {
+        const accountStatus =
+          accountStatusAlert(data, t);
+
+        if (accountStatus) {
+          Alert.alert(
+            accountStatus.title,
+            accountStatus.message,
+          );
+
+          return;
+        }
+
         if (
           response.status ===
           401
@@ -246,6 +259,18 @@ export default function LoginScreen() {
           await response.json();
 
         if (!response.ok) {
+          const accountStatus =
+            accountStatusAlert(data, t);
+
+          if (accountStatus) {
+            Alert.alert(
+              accountStatus.title,
+              accountStatus.message,
+            );
+
+            return;
+          }
+
           throw new Error(
             data.message ||
               t("No se pudo iniciar sesión con Google."),

@@ -13,6 +13,7 @@ import type {
 } from "@/types/admin";
 import { useResource, ResourceStatus, Pagination, date } from "./Resource";
 import { MutationButton } from "./MutationButton";
+import { accountState } from "./DetailViews";
 export function SummaryView() {
   const r = useResource<Summary>("summary");
   return (
@@ -156,7 +157,7 @@ export function UsersView() {
                     <td>{u.rol}</td>
                     <td>
                       <span className="badge">
-                        {u.activo ? "Activa" : "Inactiva"}
+                        {accountState(u)}
                       </span>
                       {!u.correoVerificadoEn && " · Pendiente"}
                     </td>

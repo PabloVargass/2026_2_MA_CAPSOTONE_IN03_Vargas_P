@@ -31,6 +31,9 @@ export const safeUser = {
   telefono: true,
   rol: true,
   activo: true,
+  desactivacionTipo: true,
+  desactivacionMensaje: true,
+  desactivadaEn: true,
   correoVerificadoEn: true,
   creadoEn: true,
   actualizadoEn: true,
@@ -232,6 +235,10 @@ export class AdminService {
       throw new BadRequestException('Indica un cambio.');
     if (actor === id && d.rol !== undefined)
       throw new ForbiddenException('No puedes cambiar tu propio rol.');
+    if (d.activo === false && (!d.tipoDesactivacion || !d.mensajeUsuario))
+      throw new BadRequestException(
+        'Indica si la cuenta queda inactiva o bloqueada y el mensaje que verá la persona.',
+      );
     return this.write(
       actor,
       'CAMBIAR_ACCESO',
@@ -271,16 +278,46 @@ export class AdminService {
               'No puedes retirar el acceso al último administrador activo.',
             );
         }
+        // Al desactivar se guarda el tipo y el mensaje para la persona;
+        // al reactivar se limpian. Si el estado no cambia, se conservan.
+        const desactivacion =
+          d.activo === false
+            ? {
+                desactivacionTipo: d.tipoDesactivacion,
+                desactivacionMensaje: d.mensajeUsuario,
+                desactivadaEn: new Date(),
+              }
+            : d.activo === true
+              ? {
+                  desactivacionTipo: null,
+                  desactivacionMensaje: null,
+                  desactivadaEn: null,
+                }
+              : {};
         const result = await tx.usuario.update({
           where: { id },
-          data: { rol, activo, versionSesion: { increment: 1 } },
+          data: {
+            rol,
+            activo,
+            versionSesion: { increment: 1 },
+            ...desactivacion,
+          },
           select: safeUser,
         });
         return {
           result,
           changes: {
             antes: { rol: before.rol, activo: before.activo },
-            despues: { rol, activo },
+            despues: {
+              rol,
+              activo,
+              ...(d.activo === false
+                ? {
+                    tipoDesactivacion: d.tipoDesactivacion,
+                    mensajeUsuario: d.mensajeUsuario,
+                  }
+                : {}),
+            },
           },
         };
       },

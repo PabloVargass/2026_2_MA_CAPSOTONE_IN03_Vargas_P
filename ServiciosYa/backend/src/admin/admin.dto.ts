@@ -23,6 +23,18 @@ export class ReasonDto {
 export class AccessDto extends ReasonDto {
   @IsOptional() @IsIn(['USUARIO', 'ADMIN']) rol?: 'USUARIO' | 'ADMIN';
   @IsOptional() @IsBoolean() activo?: boolean;
+  // Obligatorios al desactivar: la persona ve el tipo y el mensaje al iniciar sesión.
+  @IsOptional()
+  @IsIn(['INACTIVA', 'BLOQUEADA'])
+  tipoDesactivacion?: 'INACTIVA' | 'BLOQUEADA';
+  @IsOptional()
+  @Transform(({ value }: { value: unknown }) =>
+    typeof value === 'string' ? value.trim() : value,
+  )
+  @IsString()
+  @MinLength(5)
+  @MaxLength(300)
+  mensajeUsuario?: string;
 }
 export class ProfileDto extends ReasonDto {
   @Transform(({ value }: { value: unknown }) =>

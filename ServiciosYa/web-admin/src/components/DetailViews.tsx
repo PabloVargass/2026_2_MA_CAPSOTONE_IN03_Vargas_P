@@ -3,6 +3,10 @@ import Link from "next/link";
 import type { User, Job } from "@/types/admin";
 import { useResource, ResourceStatus, date } from "./Resource";
 import { MutationButton } from "./MutationButton";
+export function accountState(u: Pick<User, "activo" | "desactivacionTipo">) {
+  if (u.activo) return "Activa";
+  return u.desactivacionTipo === "BLOQUEADA" ? "Bloqueada" : "Inactiva";
+}
 export function UserDetail({ id }: { id: string }) {
   const r = useResource<User>(`users/${id}`);
   return (
@@ -25,11 +29,23 @@ export function UserDetail({ id }: { id: string }) {
               <dd>{r.data.rol}</dd>
               <dt>Estado</dt>
               <dd>
-                {r.data.activo ? "Activa" : "Inactiva"} ·{" "}
+                {accountState(r.data)} ·{" "}
                 {r.data.correoVerificadoEn
                   ? "Correo verificado"
                   : "Verificación pendiente"}
+                {!r.data.activo && r.data.desactivadaEn && (
+                  <> · desde {date(r.data.desactivadaEn)}</>
+                )}
               </dd>
+              {!r.data.activo && (
+                <>
+                  <dt>Mensaje para la persona</dt>
+                  <dd className="preserve">
+                    {r.data.desactivacionMensaje ||
+                      "Sin mensaje (desactivada antes de registrar mensajes)."}
+                  </dd>
+                </>
+              )}
               <dt>Registro</dt>
               <dd>{date(r.data.creadoEn)}</dd>
               <dt>Actividad</dt>
@@ -80,13 +96,41 @@ export function UserDetail({ id }: { id: string }) {
                 description="Este cambio revoca las sesiones anteriores. ADMIN permite administrar usuarios y moderar contenidos. El servidor protege al último administrador activo y bloquea cambiar tu propio rol."
                 onDone={r.reload}
               />
-              <MutationButton
-                label={r.data.activo ? "Desactivar cuenta" : "Activar cuenta"}
-                path={`users/${id}/access`}
-                payload={{ activo: !r.data.activo }}
-                description="Se revocarán las sesiones anteriores. Los trabajos y postulaciones se conservarán sin cancelación automática."
-                onDone={r.reload}
-              />
+              {r.data.activo ? (
+                <MutationButton
+                  label="Desactivar cuenta"
+                  path={`users/${id}/access`}
+                  payload={{ activo: false }}
+                  fields={[
+                    {
+                      name: "tipoDesactivacion",
+                      label: "Estado de la cuenta",
+                      type: "select",
+                      value: "INACTIVA",
+                      options: [
+                        { value: "INACTIVA", label: "Inactiva (suspensión temporal)" },
+                        { value: "BLOQUEADA", label: "Bloqueada (por infracción)" },
+                      ],
+                    },
+                    {
+                      name: "mensajeUsuario",
+                      label: "Mensaje que verá la persona al iniciar sesión",
+                      minLength: 5,
+                      maxLength: 300,
+                    },
+                  ]}
+                  description="Se revocarán las sesiones anteriores. Al iniciar sesión con su contraseña, la persona verá el estado y tu mensaje. El motivo del cambio es interno y queda solo en auditoría. Los trabajos y postulaciones se conservarán sin cancelación automática."
+                  onDone={r.reload}
+                />
+              ) : (
+                <MutationButton
+                  label="Activar cuenta"
+                  path={`users/${id}/access`}
+                  payload={{ activo: true }}
+                  description="La persona podrá volver a iniciar sesión. Se borrará el mensaje de desactivación."
+                  onDone={r.reload}
+                />
+              )}
               {!r.data.correoVerificadoEn && r.data.activo && (
                 <MutationButton
                   label="Reenviar invitación"

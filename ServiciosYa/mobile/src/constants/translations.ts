@@ -2,6 +2,23 @@ export type Language = 'es' | 'en';
 
 // Solo textos de interfaz. El contenido de trabajos, perfiles y chats no se traduce.
 export const english: Record<string, string> = {
+  'Cuenta inactiva': 'Inactive account',
+  'Tu cuenta está bloqueada.': 'Your account is blocked.',
+  'Tu cuenta está inactiva.': 'Your account is inactive.',
+  'Motivo: {motivo}': 'Reason: {motivo}',
+  'Si crees que se trata de un error, contacta a administración.': 'If you think this is a mistake, contact the administrators.',
+  'Desactivar cuenta': 'Deactivate account',
+  'Se cerrarán sus sesiones y no podrá acceder. Al iniciar sesión verá el estado y tu mensaje. Sus trabajos e historial se conservarán.': 'Their sessions will be closed and they will not be able to sign in. When they try, they will see the status and your message. Their jobs and history will be kept.',
+  'Estado de la cuenta': 'Account status',
+  'Inactiva': 'Inactive',
+  'Bloqueada': 'Blocked',
+  'Suspensión temporal': 'Temporary suspension',
+  'Por infracción': 'Due to a violation',
+  'Mensaje que verá la persona al iniciar sesión': 'Message the person will see when signing in',
+  'Mensaje para la persona': 'Message for the person',
+  'interno, queda en auditoría': 'internal, kept in the audit log',
+  'Mensaje requerido': 'Message required',
+  'Escribe el mensaje que verá la persona, de al menos 5 caracteres.': 'Write the message the person will see, at least 5 characters long.',
   'Selecciona una categoría': 'Select a category',
   'Selecciona una región': 'Select a region',
   'Selecciona una comuna': 'Select a commune',

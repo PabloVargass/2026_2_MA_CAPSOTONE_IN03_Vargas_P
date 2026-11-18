@@ -8,7 +8,7 @@ import { authenticatedApi } from '@/services/authenticated-api';
 import { AdminActionModal, type AdminAction } from '@/components/admin-action-modal';
 import { PrivateDocumentViewer } from '@/components/private-document-viewer';
 
-type AdminUser = { id: string; nombre: string; correo: string; rol: 'ADMIN' | 'USUARIO'; activo: boolean };
+type AdminUser = { id: string; nombre: string; correo: string; rol: 'ADMIN' | 'USUARIO'; activo: boolean; desactivacionTipo?: 'INACTIVA' | 'BLOQUEADA' | null; desactivacionMensaje?: string | null };
 type AdminJob = { id: string; titulo: string; estado: string; oculto: boolean; propietario: { nombre: string }; servicioOrigenId?: string | null };
 type Audit = { id: string; accion: string; motivo: string; creadoEn: string; actor: { nombre: string } };
 type AdminIdentity = { id: string; estado: string; motivoRevision: string | null; certificadoTipo: string; usuario: { nombre: string; rut: string; correo: string } };
@@ -83,11 +83,12 @@ export default function MobileAdminScreen() {
           {users.length === 0 && <Text style={styles.help}>{t('No hay resultados.')}</Text>}
           {users.map(user => <View key={user.id} style={styles.card}>
             <Text style={styles.name}>{user.nombre}</Text><Text style={styles.text}>{user.correo}</Text>
-            <Text style={styles.help}>{t(user.rol === 'ADMIN' ? 'Administrador' : 'Usuario')} · {t(user.activo ? 'Cuenta activa' : 'Cuenta bloqueada')}</Text>
-            {button(user.activo ? 'Bloquear usuario' : 'Activar cuenta', () => setAction({
-              title: user.activo ? 'Bloquear usuario' : 'Activar cuenta',
-              explanation: user.activo ? 'Se cerrarán sus sesiones y no podrá acceder. Sus trabajos e historial se conservarán.' : 'Se permitirá que la persona vuelva a iniciar sesión.',
-              path: `/admin/users/${user.id}/access`, body: { activo: !user.activo },
+            <Text style={styles.help}>{t(user.rol === 'ADMIN' ? 'Administrador' : 'Usuario')} · {t(user.activo ? 'Cuenta activa' : user.desactivacionTipo === 'BLOQUEADA' ? 'Cuenta bloqueada' : 'Cuenta inactiva')}</Text>
+            {!user.activo && !!user.desactivacionMensaje && <Text style={styles.help}>{t('Mensaje para la persona')}: {user.desactivacionMensaje}</Text>}
+            {button(user.activo ? 'Desactivar cuenta' : 'Activar cuenta', () => setAction({
+              title: user.activo ? 'Desactivar cuenta' : 'Activar cuenta',
+              explanation: user.activo ? 'Se cerrarán sus sesiones y no podrá acceder. Al iniciar sesión verá el estado y tu mensaje. Sus trabajos e historial se conservarán.' : 'Se permitirá que la persona vuelva a iniciar sesión.',
+              path: `/admin/users/${user.id}/access`, body: { activo: !user.activo }, deactivation: user.activo,
             }), user.id === me.id)}
           </View>)}
         </>}

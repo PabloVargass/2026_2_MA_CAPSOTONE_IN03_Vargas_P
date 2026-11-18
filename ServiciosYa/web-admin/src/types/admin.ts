@@ -6,6 +6,9 @@ export type User = {
   telefono: string | null;
   rol: "ADMIN" | "USUARIO";
   activo: boolean;
+  desactivacionTipo?: "INACTIVA" | "BLOQUEADA" | null;
+  desactivacionMensaje?: string | null;
+  desactivadaEn?: string | null;
   correoVerificadoEn: string | null;
   creadoEn: string;
   identidad?: { estado: IdentityState } | null;

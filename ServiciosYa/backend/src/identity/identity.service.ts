@@ -19,7 +19,15 @@ export const identityMetadata = {
   revisadoEn: true,
   motivoRevision: true,
   certificadoTipo: true,
+  fotoTipo: true,
+  mensaje: true,
 } as const;
+
+// Agrega si la solicitud trae documentos; la solicitud simple no los tiene.
+function withDocuments<T extends { fotoTipo: string | null }>(identity: T) {
+  const { fotoTipo, ...rest } = identity;
+  return { ...rest, conDocumentos: fotoTipo !== null };
+}
 
 export function validateIdentityImage(file?: IdentityFile) {
   return validateImage(file, 2097152, {
@@ -69,39 +77,29 @@ export class IdentityService {
       rut: user.rut,
       role: user.rol,
       canPublish: user.rol === 'ADMIN' || user.identidad?.estado === 'APROBADA',
-      identity: user.identidad,
+      identity: user.identidad ? withDocuments(user.identidad) : null,
     };
   }
-  async submit(
-    userId: string,
-    dto: SubmitIdentityDto,
-    photo?: IdentityFile,
-    certificate?: IdentityFile,
-  ) {
-    const foto = validateIdentityImage(photo),
-      certificado = await validateIdentityCertificate(certificate);
-    const rut = normalizarRut(dto.rut);
-    if (!validarRut(rut)) throw new BadRequestException('El RUT no es válido.');
+  // Solicitud a administración sin documentos (acuerdo con el docente);
+  // el administrador la aprueba o rechaza igual que la solicitud con documentos.
+  async requestWithoutDocuments(userId: string, mensaje?: string) {
     try {
-      return await this.prisma.$transaction(
+      const result = await this.prisma.$transaction(
         async (tx) => {
           const user = await tx.usuario.findUniqueOrThrow({
             where: { id: userId },
-            select: { rut: true, identidad: { select: { estado: true } } },
+            select: { identidad: { select: { estado: true } } },
           });
-          if (normalizarRut(user.rut) !== rut)
-            throw new BadRequestException(
-              'El RUT debe coincidir con el registrado en tu cuenta.',
-            );
           if (user.identidad && user.identidad.estado !== 'RECHAZADA')
             throw new ConflictException(
-              'Ya tienes una identidad aprobada o pendiente de revisión.',
+              'Ya tienes una solicitud pendiente o una identidad aprobada.',
             );
           const data = {
-            foto: new Uint8Array(foto.buffer),
-            fotoTipo: foto.mimetype,
-            certificado: new Uint8Array(certificado.buffer),
-            certificadoTipo: certificado.mimetype,
+            foto: null,
+            fotoTipo: null,
+            certificado: null,
+            certificadoTipo: null,
+            mensaje: mensaje || null,
             estado: 'PENDIENTE' as const,
             consentimientoEn: new Date(),
             revisadoEn: null,
@@ -117,6 +115,79 @@ export class IdentityService {
         },
         { isolationLevel: Prisma.TransactionIsolationLevel.Serializable },
       );
+      return withDocuments(result);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        ['P2034', 'P2002'].includes(error.code)
+      )
+        throw new ConflictException(
+          'Otra solicitud se procesó al mismo tiempo. Actualiza e inténtalo nuevamente.',
+        );
+      throw error;
+    }
+  }
+  async submit(
+    userId: string,
+    dto: SubmitIdentityDto,
+    photo?: IdentityFile,
+    certificate?: IdentityFile,
+  ) {
+    const foto = validateIdentityImage(photo),
+      certificado = await validateIdentityCertificate(certificate);
+    const rut = normalizarRut(dto.rut);
+    if (!validarRut(rut)) throw new BadRequestException('El RUT no es válido.');
+    try {
+      return await this.prisma
+        .$transaction(
+          async (tx) => {
+            const user = await tx.usuario.findUniqueOrThrow({
+              where: { id: userId },
+              select: {
+                rut: true,
+                identidad: { select: { estado: true, fotoTipo: true } },
+              },
+            });
+            if (normalizarRut(user.rut) !== rut)
+              throw new BadRequestException(
+                'El RUT debe coincidir con el registrado en tu cuenta.',
+              );
+            // Se permite completar con documentos una solicitud simple aún pendiente.
+            const completaSolicitudSimple =
+              user.identidad?.estado === 'PENDIENTE' &&
+              user.identidad.fotoTipo === null;
+            if (
+              user.identidad &&
+              user.identidad.estado !== 'RECHAZADA' &&
+              !completaSolicitudSimple
+            )
+              throw new ConflictException(
+                'Ya tienes una identidad aprobada o pendiente de revisión.',
+              );
+            const data = {
+              foto: new Uint8Array(foto.buffer),
+              fotoTipo: foto.mimetype,
+              certificado: new Uint8Array(certificado.buffer),
+              certificadoTipo: certificado.mimetype,
+              estado: 'PENDIENTE' as const,
+              consentimientoEn: new Date(),
+              revisadoEn: null,
+              revisadoPorId: null,
+              motivoRevision: null,
+            };
+            // Al completar una solicitud simple se conserva su mensaje.
+            return tx.solicitudIdentidad.upsert({
+              where: { usuarioId: userId },
+              create: { usuarioId: userId, ...data },
+              update: completaSolicitudSimple
+                ? data
+                : { ...data, mensaje: null },
+              select: identityMetadata,
+            });
+          },
+          { isolationLevel: Prisma.TransactionIsolationLevel.Serializable },
+        )
+        .then(withDocuments);
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -138,6 +209,8 @@ export class IdentityService {
         select: { foto: true, fotoTipo: true },
       });
       if (!doc) throw new NotFoundException('Documento no encontrado.');
+      if (!doc.foto || !doc.fotoTipo)
+        throw new NotFoundException('La solicitud no incluye documentos.');
       return { bytes: Buffer.from(doc.foto), type: doc.fotoTipo };
     }
     const doc = await this.prisma.solicitudIdentidad.findFirst({
@@ -145,6 +218,8 @@ export class IdentityService {
       select: { certificado: true, certificadoTipo: true },
     });
     if (!doc) throw new NotFoundException('Documento no encontrado.');
+    if (!doc.certificado || !doc.certificadoTipo)
+      throw new NotFoundException('La solicitud no incluye documentos.');
     return { bytes: Buffer.from(doc.certificado), type: doc.certificadoTipo };
   }
 }

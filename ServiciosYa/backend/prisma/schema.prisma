@@ -76,10 +76,13 @@ model SolicitudIdentidad {
   usuarioId String @unique
   usuario Usuario @relation("IdentidadUsuario", fields: [usuarioId], references: [id], onDelete: Restrict)
   estado EstadoIdentidad @default(PENDIENTE)
-  foto Bytes
-  fotoTipo String
-  certificado Bytes
-  certificadoTipo String
+  // Sin foto ni certificado cuando se envía la solicitud simple a administración;
+  // la persona puede completarla con documentos mientras siga pendiente.
+  foto Bytes?
+  fotoTipo String?
+  certificado Bytes?
+  certificadoTipo String?
+  mensaje String? @db.VarChar(500)
   consentimientoEn DateTime @default(now())
   creadoEn DateTime @default(now())
   actualizadoEn DateTime @updatedAt

@@ -11,7 +11,7 @@ import { PrivateDocumentViewer } from '@/components/private-document-viewer';
 type AdminUser = { id: string; nombre: string; correo: string; rol: 'ADMIN' | 'USUARIO'; activo: boolean; desactivacionTipo?: 'INACTIVA' | 'BLOQUEADA' | null; desactivacionMensaje?: string | null };
 type AdminJob = { id: string; titulo: string; estado: string; oculto: boolean; propietario: { nombre: string }; servicioOrigenId?: string | null };
 type Audit = { id: string; accion: string; motivo: string; creadoEn: string; actor: { nombre: string } };
-type AdminIdentity = { id: string; estado: string; motivoRevision: string | null; certificadoTipo: string; usuario: { nombre: string; rut: string; correo: string } };
+type AdminIdentity = { id: string; estado: string; motivoRevision: string | null; certificadoTipo: string | null; mensaje?: string | null; usuario: { nombre: string; rut: string; correo: string } };
 type Tab = 'users' | 'blocked' | 'jobs' | 'identities' | 'audit';
 const tabLabels: Record<Tab, string> = { users: 'Usuarios', blocked: 'Bloqueados', jobs: 'Publicaciones', identities: 'Identidades', audit: 'Actividad administrativa' };
 
@@ -110,10 +110,14 @@ export default function MobileAdminScreen() {
           {identities.map(item => <View key={item.id} style={styles.card}>
             <Text style={styles.name}>{item.usuario.nombre}</Text><Text style={styles.text}>{item.usuario.correo}</Text><Text style={styles.text}>{item.usuario.rut}</Text>
             <Text style={styles.help}>{t(item.estado === 'PENDIENTE' ? 'Identidad pendiente de revisión' : item.estado === 'APROBADA' ? 'Identidad aprobada' : 'Identidad rechazada')}</Text>
-            {button('Ver foto con cédula', () => setDocument({ path: `/admin/identities/${item.id}/documents/foto`, title: 'Foto con tu cédula' }))}
-            {button('Ver certificado de antecedentes', () => setDocument({ path: `/admin/identities/${item.id}/documents/certificado`, title: 'Certificado de antecedentes', type: item.certificadoTipo }))}
+            {!item.certificadoTipo && <Text style={styles.help}>{t('Solicitud enviada sin documentos')}</Text>}
+            {!!item.mensaje && <Text style={styles.text}>{t('Mensaje de la persona')}: {item.mensaje}</Text>}
+            {!!item.certificadoTipo && <>
+              {button('Ver foto con cédula', () => setDocument({ path: `/admin/identities/${item.id}/documents/foto`, title: 'Foto con tu cédula' }))}
+              {button('Ver certificado de antecedentes', () => setDocument({ path: `/admin/identities/${item.id}/documents/certificado`, title: 'Certificado de antecedentes', type: item.certificadoTipo ?? undefined }))}
+            </>}
             {item.estado === 'PENDIENTE' && <>
-              {button('Aprobar identidad', () => setAction({ title: 'Aprobar identidad', explanation: 'Confirma que revisaste la foto con cédula y el certificado. La persona podrá publicar si su cuenta está activa.', path: `/admin/identities/${item.id}/review`, body: { aprobada: true } }))}
+              {button('Aprobar identidad', () => setAction({ title: 'Aprobar identidad', explanation: item.certificadoTipo ? 'Confirma que revisaste la foto con cédula y el certificado. La persona podrá publicar si su cuenta está activa.' : 'La solicitud no trae documentos. Al aprobarla, la persona podrá publicar si su cuenta está activa.', path: `/admin/identities/${item.id}/review`, body: { aprobada: true } }))}
               {button('Rechazar identidad', () => setAction({ title: 'Rechazar identidad', explanation: 'La persona verá el motivo y podrá enviar documentos corregidos. No podrá publicar hasta obtener aprobación.', path: `/admin/identities/${item.id}/review`, body: { aprobada: false } }))}
             </>}
             {item.motivoRevision && <Text style={styles.help}>{item.motivoRevision}</Text>}

@@ -26,7 +26,8 @@ export type IdentityRequest = {
   creadoEn: string;
   revisadoEn: string | null;
   motivoRevision: string | null;
-  certificadoTipo: string;
+  certificadoTipo: string | null;
+  mensaje?: string | null;
   usuario: {
     id: string;
     nombre: string;

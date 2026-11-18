@@ -2,6 +2,20 @@ export type Language = 'es' | 'en';
 
 // Solo textos de interfaz. El contenido de trabajos, perfiles y chats no se traduce.
 export const english: Record<string, string> = {
+  'Enviar solicitud a administración': 'Send request to administrators',
+  'Administración revisará tu cuenta y te habilitará para publicar. Si luego quieres, puedes completar la solicitud con tus documentos.': 'Administrators will review your account and enable you to publish. Later, you can complete the request with your documents if you wish.',
+  'Mensaje para administración (opcional)': 'Message for administrators (optional)',
+  'Por ejemplo: qué tipo de trabajos quieres publicar': 'For example: what kind of jobs you want to publish',
+  'Enviar solicitud': 'Send request',
+  'Administración revisará tu solicitud. Podrás publicar cuando sea aprobada.': 'Administrators will review your request. You will be able to publish once it is approved.',
+  'Tu solicitud fue enviada a administración y está pendiente de revisión. Si quieres, puedes completarla con tus documentos.': 'Your request was sent to administrators and is pending review. You can complete it with your documents if you wish.',
+  'Solicitud enviada a administración, pendiente de revisión': 'Request sent to administrators, pending review',
+  'Si quieres, puedes completarla con tus documentos aquí abajo.': 'If you wish, you can complete it with your documents below.',
+  'Administración revisará tu cuenta y te habilitará para publicar, sin necesidad de subir documentos ahora.': 'Administrators will review your account and enable you to publish, without uploading documents now.',
+  'O registra tu identidad con documentos': 'Or register your identity with documents',
+  'Solicitud enviada sin documentos': 'Request sent without documents',
+  'Mensaje de la persona': 'Message from the person',
+  'La solicitud no trae documentos. Al aprobarla, la persona podrá publicar si su cuenta está activa.': 'The request has no documents. Once approved, the person will be able to publish if their account is active.',
   'Cuenta inactiva': 'Inactive account',
   'Tu cuenta está bloqueada.': 'Your account is blocked.',
   'Tu cuenta está inactiva.': 'Your account is inactive.',

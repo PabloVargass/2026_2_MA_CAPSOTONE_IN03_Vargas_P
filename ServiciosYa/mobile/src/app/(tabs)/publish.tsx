@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 import { router, useFocusEffect } from 'expo-router';
 import { authenticatedApi } from '@/services/authenticated-api';
 import type { IdentityStatus } from '@/app/identity';
+import { IdentityRequestModal } from '@/components/identity-request-modal';
 import {
   ActivityIndicator,
   Alert,
@@ -43,6 +44,7 @@ export default function PublishScreen() {
   const [checkingIdentity, setCheckingIdentity] = useState(true);
   const [identityError, setIdentityError] = useState('');
   const [identityRevision, setIdentityRevision] = useState(0);
+  const [requestOpen, setRequestOpen] = useState(false);
   useFocusEffect(useCallback(() => {
     const controller = new AbortController(); setCheckingIdentity(true); setIdentityError(''); setIdentity(null);
     fetch(`${API_URL}/jobs/categories`, { signal: controller.signal }).then(async response => { if (response.ok) { const names: string[] = await response.json(); if (!controller.signal.aborted) setCatalogCategories(names); } }).catch(() => {});
@@ -173,9 +175,11 @@ export default function PublishScreen() {
   if (checkingIdentity || !identity?.canPublish) return <View style={styles.screen}><ScrollView contentContainerStyle={styles.content}>
     <Text style={styles.title}>{t('Publicar')}</Text>
     {checkingIdentity ? <ActivityIndicator color={colors.accent} /> : <>
-      <Text style={styles.subtitle}>{identityError || t(identity?.identity?.estado === 'PENDIENTE' ? 'Tu identidad está pendiente de revisión. Podrás publicar cuando administración la apruebe.' : 'Registra tu identidad para publicar trabajos disponibles o servicios.')}</Text>
+      <Text style={styles.subtitle}>{identityError || t(identity?.identity?.estado === 'PENDIENTE' ? (identity.identity.conDocumentos === false ? 'Tu solicitud fue enviada a administración y está pendiente de revisión. Si quieres, puedes completarla con tus documentos.' : 'Tu identidad está pendiente de revisión. Podrás publicar cuando administración la apruebe.') : 'Registra tu identidad para publicar trabajos disponibles o servicios.')}</Text>
       {identityError ? <TouchableOpacity style={styles.input} onPress={() => setIdentityRevision(value => value + 1)}><Text style={{ color: colors.text }}>{t('Reintentar')}</Text></TouchableOpacity> : <TouchableOpacity style={styles.input} onPress={() => router.push('/identity')}><Text style={{ color: colors.text }}>{t(identity?.identity?.estado === 'PENDIENTE' ? 'Ver estado de mi identidad' : 'Registra tu identidad')}</Text></TouchableOpacity>}
+      {!identityError && (!identity?.identity || identity.identity.estado === 'RECHAZADA') && <TouchableOpacity style={styles.input} accessibilityRole="button" onPress={() => setRequestOpen(true)}><Text style={{ color: colors.text }}>{t('Enviar solicitud a administración')}</Text></TouchableOpacity>}
     </>}
+    {requestOpen && <IdentityRequestModal onClose={() => setRequestOpen(false)} onSent={() => { setRequestOpen(false); setIdentityRevision(value => value + 1); }} />}
   </ScrollView></View>;
 
   return (

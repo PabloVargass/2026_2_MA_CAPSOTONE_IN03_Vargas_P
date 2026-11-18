@@ -15,7 +15,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import type { SessionRequest } from '../admin/admin.guard';
 import { IdentityService, type IdentityFile } from './identity.service';
-import { SubmitIdentityDto } from './identity.dto';
+import { RequestIdentityDto, SubmitIdentityDto } from './identity.dto';
 
 @Controller('identity')
 @UseGuards(JwtAuthGuard)
@@ -54,6 +54,10 @@ export class IdentityController {
       files?.foto?.[0],
       files?.certificado?.[0],
     );
+  }
+  @Post('me/solicitud')
+  request(@Req() req: SessionRequest, @Body() dto: RequestIdentityDto) {
+    return this.identities.requestWithoutDocuments(req.user.sub, dto.mensaje);
   }
   @Get('me/:id/documents/:kind')
   @Header('Cache-Control', 'private, no-store')

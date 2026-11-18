@@ -256,22 +256,33 @@ export function IdentitiesView() {
                     </>
                   )}
                 </dl>
+                {item.mensaje && (
+                  <p className="preserve">
+                    <strong>Mensaje de la persona:</strong> {item.mensaje}
+                  </p>
+                )}
                 <div className="actions">
-                  <a
-                    href={`/api/admin/identities/${item.id}/documents/foto`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Ver foto con cédula
-                  </a>
-                  <a
-                    href={`/api/admin/identities/${item.id}/documents/certificado`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Ver certificado
-                    {item.certificadoTipo === "application/pdf" ? " (PDF)" : ""}
-                  </a>
+                  {item.certificadoTipo ? (
+                    <>
+                      <a
+                        href={`/api/admin/identities/${item.id}/documents/foto`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ver foto con cédula
+                      </a>
+                      <a
+                        href={`/api/admin/identities/${item.id}/documents/certificado`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ver certificado
+                        {item.certificadoTipo === "application/pdf" ? " (PDF)" : ""}
+                      </a>
+                    </>
+                  ) : (
+                    <span className="badge">Solicitud sin documentos</span>
+                  )}
                   <Link href={`/usuarios/${item.usuario.id}`}>Ver cuenta</Link>
                 </div>
                 {item.estado === "PENDIENTE" && (
@@ -280,7 +291,11 @@ export function IdentitiesView() {
                       label="Aprobar identidad"
                       path={`identities/${item.id}/review`}
                       payload={{ aprobada: true }}
-                      description="Confirma que revisaste la foto con cédula y el certificado. La persona podrá publicar si su cuenta está activa y recibirá un correo con tu comentario."
+                      description={
+                        item.certificadoTipo
+                          ? "Confirma que revisaste la foto con cédula y el certificado. La persona podrá publicar si su cuenta está activa y recibirá un correo con tu comentario."
+                          : "La solicitud no trae documentos. Al aprobarla, la persona podrá publicar si su cuenta está activa y recibirá un correo con tu comentario."
+                      }
                       onDone={r.reload}
                     />
                     <MutationButton

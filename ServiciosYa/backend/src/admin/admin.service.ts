@@ -476,6 +476,7 @@ export class AdminService {
         revisadoEn: true,
         motivoRevision: true,
         certificadoTipo: true,
+        mensaje: true,
         usuario: {
           select: {
             id: true,

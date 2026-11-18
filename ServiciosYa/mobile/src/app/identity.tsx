@@ -11,14 +11,15 @@ import { useAppPreferences, useThemedStyles } from '@/context/app-preferences';
 import type { AppColors } from '@/constants/app-theme';
 import { authenticatedApi } from '@/services/authenticated-api';
 import { IdentityPhotoExample } from '@/components/identity-photo-example';
+import { IdentityRequestModal } from '@/components/identity-request-modal';
 
-export type IdentityStatus = { rut: string; role: string; canPublish: boolean; identity: null | { id: string; estado: 'PENDIENTE' | 'APROBADA' | 'RECHAZADA'; motivoRevision: string | null } };
+export type IdentityStatus = { rut: string; role: string; canPublish: boolean; identity: null | { id: string; estado: 'PENDIENTE' | 'APROBADA' | 'RECHAZADA'; motivoRevision: string | null; conDocumentos?: boolean; mensaje?: string | null } };
 type Photo = { uri: string; type: string; name: string; file?: File };
 export default function IdentityScreen() {
   const { t, colors } = useAppPreferences(); const styles = useThemedStyles(createStyles);
   const [status, setStatus] = useState<IdentityStatus | null>(null); const [rut, setRut] = useState('');
   const [photo, setPhoto] = useState<Photo | null>(null); const [certificate, setCertificate] = useState<Photo | null>(null);
-  const [consent, setConsent] = useState(false); const [loading, setLoading] = useState(true); const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [revision, setRevision] = useState(0);
+  const [consent, setConsent] = useState(false); const [requestOpen, setRequestOpen] = useState(false); const [loading, setLoading] = useState(true); const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [revision, setRevision] = useState(0);
   const privateCopies = useRef(new Set<string>());
   useEffect(() => { const copies = privateCopies.current; return () => { for (const uri of copies) void FileSystem.deleteAsync(uri, { idempotent: true }).catch(() => {}); }; }, []);
   useFocusEffect(useCallback(() => {
@@ -68,15 +69,24 @@ export default function IdentityScreen() {
       setCertificate({ uri: asset.uri, type: 'application/pdf', name: asset.name, file: asset.file });
     } catch { Alert.alert(t('No se pudo abrir el documento'), t('Ocurrió un error.')); }
   }
-  const editable = status && (!status.identity || status.identity.estado === 'RECHAZADA');
+  // Una solicitud simple pendiente se puede completar con documentos.
+  const simplePending = status?.identity?.estado === 'PENDIENTE' && status.identity.conDocumentos === false;
+  const canRequest = status && (!status.identity || status.identity.estado === 'RECHAZADA');
+  const editable = canRequest || simplePending;
   function option(label: string, onPress: () => void) { return <TouchableOpacity disabled={busy} style={styles.outline} onPress={onPress}><Text style={styles.text}>{t(label)}</Text></TouchableOpacity>; }
   return <SafeAreaView style={styles.screen}><KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}><ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
     <TouchableOpacity style={styles.back} onPress={() => router.back()}><Text style={styles.text}>← {t('Volver')}</Text></TouchableOpacity>
     <Text style={styles.title}>{t('Registra tu identidad')}</Text>
     {loading ? <ActivityIndicator color={colors.accent} /> : error ? <View style={styles.card}><Text style={styles.text}>{error}</Text>{option('Reintentar', () => setRevision(value => value + 1))}</View> : <>
       {status?.role === 'ADMIN' && <Text style={styles.help}>{t('Tu cuenta administradora puede publicar sin esta verificación.')}</Text>}
-      {status?.identity && <View style={styles.card}><Text style={styles.name}>{t(status.identity.estado === 'APROBADA' ? 'Identidad aprobada' : status.identity.estado === 'PENDIENTE' ? 'Identidad pendiente de revisión' : 'Identidad rechazada')}</Text>{status.identity.motivoRevision && <Text style={styles.text}>{status.identity.motivoRevision}</Text>}{option('Actualizar estado', () => setRevision(value => value + 1))}</View>}
+      {status?.identity && <View style={styles.card}><Text style={styles.name}>{t(status.identity.estado === 'APROBADA' ? 'Identidad aprobada' : simplePending ? 'Solicitud enviada a administración, pendiente de revisión' : status.identity.estado === 'PENDIENTE' ? 'Identidad pendiente de revisión' : 'Identidad rechazada')}</Text>{simplePending && <Text style={styles.help}>{t('Si quieres, puedes completarla con tus documentos aquí abajo.')}</Text>}{status.identity.motivoRevision && <Text style={styles.text}>{status.identity.motivoRevision}</Text>}{option('Actualizar estado', () => setRevision(value => value + 1))}</View>}
+      {canRequest && <View style={styles.card}>
+        <Text style={styles.name}>{t('Enviar solicitud a administración')}</Text>
+        <Text style={styles.help}>{t('Administración revisará tu cuenta y te habilitará para publicar, sin necesidad de subir documentos ahora.')}</Text>
+        {option('Enviar solicitud a administración', () => setRequestOpen(true))}
+      </View>}
       {editable && <>
+        {canRequest && <Text style={styles.name}>{t('O registra tu identidad con documentos')}</Text>}
         <Text style={styles.help}>{t('Necesitamos una foto de tu rostro junto con la cédula legible y tu certificado de antecedentes en foto o PDF. Administración los revisará antes de permitirte publicar.')}</Text>
         <Text style={styles.name}>{t('RUT de tu cuenta')}</Text><TextInput style={styles.input} value={rut} onChangeText={setRut} maxLength={15} editable={!busy} accessibilityLabel="RUT" autoCapitalize="characters" />
         <Text style={styles.name}>{t('Foto con tu cédula')}</Text><IdentityPhotoExample />
@@ -91,7 +101,9 @@ export default function IdentityScreen() {
         <TouchableOpacity disabled={busy || !photo || !certificate || !consent} style={[styles.button, (!photo || !certificate || !consent) && { opacity: 0.45 }]} onPress={submit}>{busy ? <ActivityIndicator color={colors.onPrimary} /> : <Text style={styles.buttonText}>{t('Enviar a revisión')}</Text>}</TouchableOpacity>
       </>}
     </>}
-  </ScrollView></KeyboardAvoidingView></SafeAreaView>;
+  </ScrollView></KeyboardAvoidingView>
+    {requestOpen && <IdentityRequestModal onClose={() => setRequestOpen(false)} onSent={() => { setRequestOpen(false); setRevision(value => value + 1); }} />}
+  </SafeAreaView>;
 }
 const createStyles = (colors: AppColors) => StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background }, content: { padding: 24, gap: 16, paddingBottom: 40 }, back: { minHeight: 44, justifyContent: 'center' }, title: { color: colors.text, fontSize: 28, fontWeight: '800' },

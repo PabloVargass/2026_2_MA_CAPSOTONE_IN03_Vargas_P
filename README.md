@@ -20,7 +20,7 @@ Fase 2/
       Base de datos/                Esquema Prisma, migraciones y backend
 Fase 3/
   Evidencias Individuales/   Pendiente (3.1 Diario de reflexión)
-  Evidencias Grupales/       Pendiente (Presentación final del proyecto)
+  Evidencias Grupales/       Bitácora semana 15, mini presentación; pendiente la presentación final
 ```
 
 | Carpeta | Contenido |

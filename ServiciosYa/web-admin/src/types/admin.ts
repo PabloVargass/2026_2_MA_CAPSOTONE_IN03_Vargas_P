@@ -8,6 +8,7 @@ export type User = {
   activo: boolean;
   correoVerificadoEn: string | null;
   creadoEn: string;
+  identidad?: { estado: IdentityState } | null;
   _count?: {
     trabajos: number;
     postulaciones: number;
@@ -15,6 +16,22 @@ export type User = {
   };
 };
 export type Person = { id: string; nombre: string };
+export type IdentityState = "PENDIENTE" | "APROBADA" | "RECHAZADA";
+export type IdentityRequest = {
+  id: string;
+  estado: IdentityState;
+  creadoEn: string;
+  revisadoEn: string | null;
+  motivoRevision: string | null;
+  certificadoTipo: string;
+  usuario: {
+    id: string;
+    nombre: string;
+    rut: string;
+    correo: string;
+    activo: boolean;
+  };
+};
 export type Job = {
   id: string;
   titulo: string;

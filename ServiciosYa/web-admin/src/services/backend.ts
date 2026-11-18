@@ -7,6 +7,34 @@ export class ApiError extends Error {
     super(message);
   }
 }
+// Documentos privados (foto con cédula, certificado): se devuelven sin convertir a JSON.
+export async function backendFile(path: string, token: string) {
+  const base = process.env.API_BASE_URL;
+  if (!base) throw new ApiError(503, "API_BASE_URL no está configurada.");
+  if (!path.startsWith("/") || path.startsWith("//"))
+    throw new Error("Ruta inválida.");
+  let response: Response;
+  try {
+    response = await fetch(`${base.replace(/\/$/, "")}${path}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+      signal: AbortSignal.timeout(15000),
+    });
+  } catch {
+    throw new ApiError(503, "No se pudo conectar al backend.");
+  }
+  if (!response.ok)
+    throw new ApiError(
+      response.status,
+      response.status === 404
+        ? "El documento no existe."
+        : "No se pudo abrir el documento.",
+    );
+  return {
+    body: await response.arrayBuffer(),
+    type: response.headers.get("content-type") ?? "application/octet-stream",
+  };
+}
 export async function backendRequest<T>(
   path: string,
   options: RequestInit = {},

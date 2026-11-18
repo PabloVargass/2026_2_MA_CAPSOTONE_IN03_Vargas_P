@@ -61,8 +61,15 @@ export class AdminController {
     @Query('rol') rol = '',
     @Query('activo') activo = '',
     @Query('page') page?: string,
+    @Query('identidad') identidad = '',
   ) {
-    return this.admin.users(q.slice(0, 120), rol, activo, pageNumber(page));
+    return this.admin.users(
+      q.slice(0, 120),
+      rol,
+      activo,
+      pageNumber(page),
+      identidad,
+    );
   }
   @Get('users/:id') user(@Param('id') id: string) {
     return this.admin.user(id);
@@ -133,8 +140,11 @@ export class AdminController {
   @Get('audit') audit(@Query('page') page?: string) {
     return this.admin.audit(pageNumber(page));
   }
-  @Get('identities') listIdentities(@Query('page') page?: string) {
-    return this.admin.identities(pageNumber(page));
+  @Get('identities') listIdentities(
+    @Query('page') page?: string,
+    @Query('estado') estado = '',
+  ) {
+    return this.admin.identities(pageNumber(page), estado);
   }
   @Patch('identities/:id/review') reviewIdentity(
     @Req() r: SessionRequest,

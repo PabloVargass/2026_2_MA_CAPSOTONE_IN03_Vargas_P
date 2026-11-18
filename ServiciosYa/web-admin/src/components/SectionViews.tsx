@@ -9,6 +9,7 @@ import type {
   Review,
   Audit,
   Role,
+  IdentityRequest,
 } from "@/types/admin";
 import { useResource, ResourceStatus, Pagination, date } from "./Resource";
 import { MutationButton } from "./MutationButton";
@@ -60,7 +61,12 @@ const inviteFields = [
 ];
 export function UsersView() {
   const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState({ q: "", rol: "", activo: "" });
+  const [filters, setFilters] = useState({
+    q: "",
+    rol: "",
+    activo: "",
+    identidad: "",
+  });
   const query = new URLSearchParams({ ...filters, page: String(page) });
   const r = useResource<{ items: User[]; total: number }>(`users?${query}`);
   return (
@@ -89,6 +95,7 @@ export function UsersView() {
             q: String(f.get("q") ?? ""),
             rol: String(f.get("rol") ?? ""),
             activo: String(f.get("activo") ?? ""),
+            identidad: String(f.get("identidad") ?? ""),
           });
         }}
       >
@@ -112,6 +119,17 @@ export function UsersView() {
             <option value="false">Inactiva</option>
           </select>
         </label>
+        <label>
+          Identidad
+          <select name="identidad">
+            <option value="">Todas</option>
+            {Object.entries(identityLabels).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
         <button>Buscar</button>
       </form>
       <ResourceStatus {...r} retry={r.reload} />
@@ -126,6 +144,7 @@ export function UsersView() {
                   <th>Correo</th>
                   <th>Permiso</th>
                   <th>Estado</th>
+                  <th>Identidad</th>
                   <th>Detalle</th>
                 </tr>
               </thead>
@@ -140,6 +159,11 @@ export function UsersView() {
                         {u.activo ? "Activa" : "Inactiva"}
                       </span>
                       {!u.correoVerificadoEn && " · Pendiente"}
+                    </td>
+                    <td>
+                      {u.rol === "ADMIN" && !u.identidad
+                        ? "No requiere"
+                        : identityLabels[u.identidad?.estado ?? "SIN_SOLICITUD"]}
                     </td>
                     <td>
                       <Link href={`/usuarios/${u.id}`}>Ver cuenta</Link>
@@ -157,6 +181,129 @@ export function UsersView() {
           <Pagination
             page={page}
             hasNext={page * 20 < r.data.total}
+            onPage={setPage}
+          />
+        </>
+      )}
+    </>
+  );
+}
+export const identityLabels: Record<string, string> = {
+  SIN_SOLICITUD: "Sin solicitud",
+  PENDIENTE: "Pendiente",
+  APROBADA: "Aprobada",
+  RECHAZADA: "Rechazada",
+};
+export function IdentitiesView() {
+  const [page, setPage] = useState(1);
+  const [estado, setEstado] = useState("PENDIENTE");
+  const query = new URLSearchParams({ estado, page: String(page) });
+  const r = useResource<IdentityRequest[]>(`identities?${query}`);
+  return (
+    <>
+      <h1>Identidades</h1>
+      <p>
+        Revisa la foto con cédula y el certificado de antecedentes. Solo las
+        personas con identidad aprobada pueden publicar trabajos o servicios.
+      </p>
+      <form className="filters" onSubmit={(e) => e.preventDefault()}>
+        <label>
+          Estado
+          <select
+            value={estado}
+            onChange={(e) => {
+              setPage(1);
+              setEstado(e.target.value);
+            }}
+          >
+            <option value="PENDIENTE">Pendientes de revisión</option>
+            <option value="APROBADA">Aprobadas</option>
+            <option value="RECHAZADA">Rechazadas</option>
+            <option value="">Todas</option>
+          </select>
+        </label>
+      </form>
+      <ResourceStatus {...r} retry={r.reload} />
+      {r.data && !r.error && !r.loading && (
+        <>
+          <div className="list">
+            {r.data.slice(0, 20).map((item) => (
+              <article className="panel" key={item.id}>
+                <div className="heading">
+                  <h2>{item.usuario.nombre}</h2>
+                  <span className="badge">{identityLabels[item.estado]}</span>
+                </div>
+                <dl>
+                  <dt>RUT</dt>
+                  <dd>{item.usuario.rut}</dd>
+                  <dt>Correo</dt>
+                  <dd>{item.usuario.correo}</dd>
+                  <dt>Cuenta</dt>
+                  <dd>{item.usuario.activo ? "Activa" : "Inactiva"}</dd>
+                  <dt>Enviada</dt>
+                  <dd>{date(item.creadoEn)}</dd>
+                  {item.revisadoEn && (
+                    <>
+                      <dt>Revisada</dt>
+                      <dd>{date(item.revisadoEn)}</dd>
+                    </>
+                  )}
+                  {item.motivoRevision && (
+                    <>
+                      <dt>Comentario</dt>
+                      <dd className="preserve">{item.motivoRevision}</dd>
+                    </>
+                  )}
+                </dl>
+                <div className="actions">
+                  <a
+                    href={`/api/admin/identities/${item.id}/documents/foto`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ver foto con cédula
+                  </a>
+                  <a
+                    href={`/api/admin/identities/${item.id}/documents/certificado`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ver certificado
+                    {item.certificadoTipo === "application/pdf" ? " (PDF)" : ""}
+                  </a>
+                  <Link href={`/usuarios/${item.usuario.id}`}>Ver cuenta</Link>
+                </div>
+                {item.estado === "PENDIENTE" && (
+                  <div className="actions">
+                    <MutationButton
+                      label="Aprobar identidad"
+                      path={`identities/${item.id}/review`}
+                      payload={{ aprobada: true }}
+                      description="Confirma que revisaste la foto con cédula y el certificado. La persona podrá publicar si su cuenta está activa y recibirá un correo con tu comentario."
+                      onDone={r.reload}
+                    />
+                    <MutationButton
+                      label="Rechazar identidad"
+                      path={`identities/${item.id}/review`}
+                      payload={{ aprobada: false }}
+                      description="La persona no podrá publicar. Verá tu comentario en la app y por correo, y podrá enviar documentos corregidos."
+                      onDone={r.reload}
+                    />
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+          {!r.data.length && (
+            <p className="empty">
+              {estado === "PENDIENTE"
+                ? "No hay solicitudes pendientes de revisión."
+                : "No hay solicitudes con este estado."}
+            </p>
+          )}
+          <Pagination
+            page={page}
+            hasNext={r.data.length > 20}
             onPage={setPage}
           />
         </>

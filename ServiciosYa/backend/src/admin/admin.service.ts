@@ -3,6 +3,7 @@ import {
   ConflictException,
   ForbiddenException,
   Injectable,
+  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -35,11 +36,14 @@ export const safeUser = {
   actualizadoEn: true,
 } satisfies Prisma.UsuarioSelect;
 const publicUser = { id: true, nombre: true } as const;
+const identityStates = ['PENDIENTE', 'APROBADA', 'RECHAZADA'];
+type EstadoSolicitud = 'PENDIENTE' | 'APROBADA' | 'RECHAZADA';
 const digest = (code: string) =>
   createHash('sha256').update(code).digest('hex');
 
 @Injectable()
 export class AdminService {
+  private readonly logger = new Logger(AdminService.name);
   constructor(
     private readonly prisma: PrismaService,
     private readonly mail: MailService,
@@ -134,14 +138,27 @@ export class AdminService {
       ]);
     return { usuarios, activos, trabajos, postulaciones, resenas, estados };
   }
-  async users(q: string, rol: string, activo: string, page: number) {
+  async users(
+    q: string,
+    rol: string,
+    activo: string,
+    page: number,
+    identidad = '',
+  ) {
     if (rol && !['ADMIN', 'USUARIO'].includes(rol))
       throw new BadRequestException('Rol inválido.');
     if (activo && !['true', 'false'].includes(activo))
       throw new BadRequestException('Estado inválido.');
+    if (identidad && !['SIN_SOLICITUD', ...identityStates].includes(identidad))
+      throw new BadRequestException('Estado de identidad inválido.');
     const where: Prisma.UsuarioWhereInput = {
       ...(rol ? { rol: rol as 'ADMIN' | 'USUARIO' } : {}),
       ...(activo ? { activo: activo === 'true' } : {}),
+      ...(identidad === 'SIN_SOLICITUD'
+        ? { identidad: { is: null } }
+        : identidad
+          ? { identidad: { is: { estado: identidad as EstadoSolicitud } } }
+          : {}),
       ...(q
         ? {
             OR: [
@@ -155,7 +172,7 @@ export class AdminService {
     const [items, total] = await this.prisma.$transaction([
       this.prisma.usuario.findMany({
         where,
-        select: safeUser,
+        select: { ...safeUser, identidad: { select: { estado: true } } },
         skip: (page - 1) * 20,
         take: 20,
         orderBy: { creadoEn: 'desc' },
@@ -407,8 +424,11 @@ export class AdminService {
       include: { actor: { select: publicUser } },
     });
   }
-  identities(page: number) {
+  identities(page: number, estado = '') {
+    if (estado && !identityStates.includes(estado))
+      throw new BadRequestException('Estado de identidad inválido.');
     return this.prisma.solicitudIdentidad.findMany({
+      where: estado ? { estado: estado as EstadoSolicitud } : {},
       skip: (page - 1) * 20,
       take: 21,
       orderBy: [{ estado: 'asc' }, { creadoEn: 'asc' }],
@@ -431,7 +451,28 @@ export class AdminService {
       },
     });
   }
-  reviewIdentity(actor: string, id: string, dto: IdentityReviewDto) {
+  async reviewIdentity(actor: string, id: string, dto: IdentityReviewDto) {
+    const result = await this.persistIdentityReview(actor, id, dto);
+    // El aviso se envía después de confirmar la revisión; si el correo falla,
+    // la decisión queda guardada y el usuario la ve igualmente en la app.
+    const { usuario, ...review } = result;
+    try {
+      await this.mail.enviarResultadoIdentidad(
+        usuario.correo,
+        usuario.nombre,
+        dto.aprobada,
+        dto.motivo,
+      );
+    } catch {
+      this.logger.warn(`No se pudo enviar el aviso de identidad ${id}.`);
+    }
+    return review;
+  }
+  private persistIdentityReview(
+    actor: string,
+    id: string,
+    dto: IdentityReviewDto,
+  ) {
     return this.write(
       actor,
       dto.aprobada ? 'APROBAR_IDENTIDAD' : 'RECHAZAR_IDENTIDAD',
@@ -458,6 +499,7 @@ export class AdminService {
             estado: true,
             revisadoEn: true,
             motivoRevision: true,
+            usuario: { select: { nombre: true, correo: true } },
           },
         });
         return {

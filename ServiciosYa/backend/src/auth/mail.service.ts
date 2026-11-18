@@ -42,6 +42,25 @@ export class MailService {
       throw new InternalServerErrorException('La cuenta está pendiente, pero no se pudo enviar el correo. Reenvía su invitación desde el panel.');
     }
   }
+  // Texto plano: el nombre y el motivo vienen de usuarios y no deben interpretarse como HTML.
+  async enviarResultadoIdentidad(
+    destinatario: string,
+    nombre: string,
+    aprobada: boolean,
+    motivo: string,
+  ) {
+    const resultado = aprobada
+      ? 'Tu identidad fue aprobada. Ya puedes publicar trabajos y servicios en ServiciosYa.'
+      : 'Tu identidad fue rechazada. Puedes enviar nuevamente tus documentos desde la app, en Perfil > Registra tu identidad.';
+    await this.transporter.sendMail({
+      from: { name: 'ServiciosYa', address: process.env.EMAIL_USER! },
+      to: destinatario,
+      subject: aprobada
+        ? 'Tu identidad fue aprobada | ServiciosYa'
+        : 'Revisa tu verificación de identidad | ServiciosYa',
+      text: `Hola, ${nombre}.\n\n${resultado}\n\nComentario de administración: ${motivo}\n\nSi tienes dudas, responde a este correo.`,
+    });
+  }
   private readonly transporter;
 
   constructor() {

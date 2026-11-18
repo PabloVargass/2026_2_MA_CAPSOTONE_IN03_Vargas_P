@@ -3,10 +3,10 @@ import { cookies } from "next/headers";
 import { sameOrigin, sessionToken, SESSION_COOKIE } from "@/auth/session";
 import { backendRequest, ApiError } from "@/services/backend";
 const allowed: Record<string, RegExp> = {
-  GET: /^(me|summary|roles|users(?:\/[a-zA-Z0-9-]+)?|jobs(?:\/[a-zA-Z0-9-]+)?|categories|reviews|audit)$/,
+  GET: /^(me|summary|roles|users(?:\/[a-zA-Z0-9-]+)?|jobs(?:\/[a-zA-Z0-9-]+)?|categories|reviews|audit|identities)$/,
   POST: /^(users|categories|users\/[a-zA-Z0-9-]+\/invitation)$/,
   PATCH:
-    /^(users\/[a-zA-Z0-9-]+(?:\/access)?|categories\/[a-zA-Z0-9-]+|(?:jobs|reviews)\/[a-zA-Z0-9-]+\/moderation)$/,
+    /^(users\/[a-zA-Z0-9-]+(?:\/access)?|categories\/[a-zA-Z0-9-]+|(?:jobs|reviews)\/[a-zA-Z0-9-]+\/moderation|identities\/[a-zA-Z0-9-]+\/review)$/,
 };
 async function handle(
   request: Request,
@@ -28,7 +28,8 @@ async function handle(
     return NextResponse.json({ message: "Inicia sesión." }, { status: 401 });
   const search = new URLSearchParams();
   for (const [key, value] of new URL(request.url).searchParams)
-    if (["q", "rol", "activo", "page"].includes(key)) search.set(key, value);
+    if (["q", "rol", "activo", "page", "estado", "identidad"].includes(key))
+      search.set(key, value);
   try {
     const data = await backendRequest(
       `/admin/${path}?${search}`,

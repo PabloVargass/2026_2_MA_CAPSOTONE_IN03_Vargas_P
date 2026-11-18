@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import {
   SummaryView,
   UsersView,
+  IdentitiesView,
   RolesView,
   JobsView,
   CategoriesView,
@@ -11,6 +12,7 @@ import {
 const views = {
   resumen: SummaryView,
   usuarios: UsersView,
+  identidades: IdentitiesView,
   roles: RolesView,
   trabajos: JobsView,
   categorias: CategoriesView,

@@ -8,6 +8,7 @@ import type { User } from "@/types/admin";
 const sections = [
   ["resumen", "Resumen"],
   ["usuarios", "Usuarios"],
+  ["identidades", "Identidades"],
   ["roles", "Roles"],
   ["trabajos", "Trabajos"],
   ["categorias", "Categorías"],

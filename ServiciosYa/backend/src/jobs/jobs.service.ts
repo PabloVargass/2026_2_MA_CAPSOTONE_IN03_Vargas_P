@@ -511,6 +511,8 @@ export class JobsService {
       serviceOriginId: trabajo.servicioOrigenId,
 
       applicantsCount: trabajo._count.postulaciones,
+      startRequestedAt: trabajo.inicioSolicitadoEn,
+      finishRequestedAt: trabajo.terminoSolicitadoEn,
 
       conversationId: trabajo.conversacion?.id ?? null,
     }));
@@ -582,6 +584,8 @@ export class JobsService {
         scheduledAt: postulacion.trabajo.fechaTrabajo,
 
         status: postulacion.trabajo.estado,
+        startRequestedAt: postulacion.trabajo.inicioSolicitadoEn,
+        finishRequestedAt: postulacion.trabajo.terminoSolicitadoEn,
 
         owner: {
           id: postulacion.trabajo.propietario.id,
@@ -645,6 +649,8 @@ export class JobsService {
         budget: trabajo.presupuesto,
         scheduledAt: trabajo.fechaTrabajo,
         status: trabajo.estado,
+        startRequestedAt: trabajo.inicioSolicitadoEn,
+        finishRequestedAt: trabajo.terminoSolicitadoEn,
         owner: { id: trabajo.propietario.id, name: trabajo.propietario.nombre },
         participant: trabajo.conversacion
           ? {
@@ -701,90 +707,38 @@ export class JobsService {
   }
 
   // =====================================
-  // INICIAR TRABAJO
-  // ASIGNADO -> EN_PROCESO
+  // INICIAR Y COMPLETAR CON DOBLE CONFIRMACIÓN
+  // El trabajador avisa (llegada o término) y el cliente dueño confirma.
+  // Recién con la confirmación cambia el estado del trabajo.
   // =====================================
 
   async iniciarTrabajo(usuarioId: string, trabajoId: string) {
-    const trabajo = await this.prisma.trabajo.findUnique({
-      where: {
-        id: trabajoId,
-      },
-
-      include: {
-        conversacion: true,
-      },
-    });
-
-    if (!trabajo) {
-      throw new NotFoundException('El trabajo no existe.');
-    }
-
-    if (!trabajo.conversacion) {
-      throw new BadRequestException(
-        'Este trabajo todavía no tiene un trabajador asignado.',
-      );
-    }
-
-    const esPropietario = trabajo.propietarioId === usuarioId;
-
-    const esTrabajador = trabajo.conversacion.trabajadorId === usuarioId;
-
-    if (!esPropietario && !esTrabajador) {
-      throw new ForbiddenException(
-        'No tienes permiso para iniciar este trabajo.',
-      );
-    }
-
-    if (trabajo.estado !== 'ASIGNADO') {
-      throw new BadRequestException(
-        'Solo se pueden iniciar trabajos que estén asignados.',
-      );
-    }
-
-    const trabajoActualizado = await this.prisma.trabajo.update({
-      where: {
-        id: trabajoId,
-      },
-
-      data: {
-        estado: 'EN_PROCESO',
-      },
-    });
-
-    return {
-      message: 'El trabajo fue iniciado correctamente.',
-
-      trabajo: {
-        id: trabajoActualizado.id,
-
-        title: trabajoActualizado.titulo,
-
-        status: trabajoActualizado.estado,
-      },
-    };
+    return this.avanzarConConfirmacion(usuarioId, trabajoId, 'inicio');
   }
 
-  // =====================================
-  // COMPLETAR TRABAJO
-  // EN_PROCESO -> COMPLETADO
-  // =====================================
-
   async completarTrabajo(usuarioId: string, trabajoId: string) {
-    const trabajo = await this.prisma.trabajo.findUnique({
-      where: {
-        id: trabajoId,
-      },
+    return this.avanzarConConfirmacion(usuarioId, trabajoId, 'termino');
+  }
 
-      include: {
-        conversacion: true,
-      },
+  private async avanzarConConfirmacion(
+    usuarioId: string,
+    trabajoId: string,
+    paso: 'inicio' | 'termino',
+  ) {
+    const esInicio = paso === 'inicio';
+    const estadoRequerido = esInicio ? 'ASIGNADO' : 'EN_PROCESO';
+    const estadoSiguiente = esInicio ? 'EN_PROCESO' : 'COMPLETADO';
+    const campo = esInicio ? 'inicioSolicitadoEn' : 'terminoSolicitadoEn';
+    const accion = esInicio ? 'iniciar' : 'completar';
+
+    const trabajo = await this.prisma.trabajo.findUnique({
+      where: { id: trabajoId },
+      include: { conversacion: true },
     });
 
     if (!trabajo) {
       throw new NotFoundException('El trabajo no existe.');
     }
-
     if (!trabajo.conversacion) {
       throw new BadRequestException(
         'Este trabajo todavía no tiene un trabajador asignado.',
@@ -792,40 +746,79 @@ export class JobsService {
     }
 
     const esPropietario = trabajo.propietarioId === usuarioId;
-
     const esTrabajador = trabajo.conversacion.trabajadorId === usuarioId;
-
     if (!esPropietario && !esTrabajador) {
       throw new ForbiddenException(
-        'No tienes permiso para completar este trabajo.',
+        `No tienes permiso para ${accion} este trabajo.`,
       );
     }
-
-    if (trabajo.estado !== 'EN_PROCESO') {
+    if (trabajo.estado !== estadoRequerido) {
       throw new BadRequestException(
-        'Solo se pueden completar trabajos que estén en proceso.',
+        esInicio
+          ? 'Solo se pueden iniciar trabajos que estén asignados.'
+          : 'Solo se pueden completar trabajos que estén en proceso.',
       );
     }
 
-    const trabajoActualizado = await this.prisma.trabajo.update({
-      where: {
-        id: trabajoId,
-      },
+    const solicitado = trabajo[campo];
 
-      data: {
-        estado: 'COMPLETADO',
-      },
+    if (esTrabajador) {
+      if (solicitado) {
+        throw new BadRequestException(
+          esInicio
+            ? 'Ya avisaste tu llegada. Falta que el cliente la confirme.'
+            : 'Ya avisaste el término. Falta que el cliente lo confirme.',
+        );
+      }
+      // La condición en el where evita dos avisos simultáneos.
+      const { count } = await this.prisma.trabajo.updateMany({
+        where: { id: trabajoId, estado: estadoRequerido, [campo]: null },
+        data: { [campo]: new Date() },
+      });
+      if (count === 0) {
+        throw new BadRequestException(
+          'El trabajo cambió mientras se procesaba. Actualiza e inténtalo de nuevo.',
+        );
+      }
+      return {
+        message: esInicio
+          ? 'Avisaste tu llegada. El trabajo iniciará cuando el cliente lo confirme.'
+          : 'Avisaste el término. El trabajo se completará cuando el cliente lo confirme.',
+        trabajo: {
+          id: trabajo.id,
+          title: trabajo.titulo,
+          status: estadoRequerido,
+          awaitingConfirmation: true,
+        },
+      };
+    }
+
+    // Cliente dueño: solo confirma lo que el trabajador ya avisó.
+    if (!solicitado) {
+      throw new BadRequestException(
+        esInicio
+          ? 'El trabajador todavía no avisa su llegada.'
+          : 'El trabajador todavía no avisa el término del trabajo.',
+      );
+    }
+    const { count } = await this.prisma.trabajo.updateMany({
+      where: { id: trabajoId, estado: estadoRequerido, [campo]: { not: null } },
+      data: { estado: estadoSiguiente },
     });
-
+    if (count === 0) {
+      throw new BadRequestException(
+        'El trabajo cambió mientras se procesaba. Actualiza e inténtalo de nuevo.',
+      );
+    }
     return {
-      message: 'El trabajo fue completado correctamente.',
-
+      message: esInicio
+        ? 'Confirmaste la llegada. El trabajo está en proceso.'
+        : 'Confirmaste el término. El trabajo fue completado.',
       trabajo: {
-        id: trabajoActualizado.id,
-
-        title: trabajoActualizado.titulo,
-
-        status: trabajoActualizado.estado,
+        id: trabajo.id,
+        title: trabajo.titulo,
+        status: estadoSiguiente,
+        awaitingConfirmation: false,
       },
     };
   }

@@ -126,6 +126,9 @@ model Trabajo {
   presupuesto  Int
   fechaTrabajo DateTime?
   estado       EstadoTrabajo @default(PUBLICADO)
+  // El trabajador avisa su llegada o el término; el cliente lo confirma y recién ahí cambia el estado.
+  inicioSolicitadoEn  DateTime?
+  terminoSolicitadoEn DateTime?
 
   creadoEn      DateTime @default(now())
   actualizadoEn DateTime @updatedAt

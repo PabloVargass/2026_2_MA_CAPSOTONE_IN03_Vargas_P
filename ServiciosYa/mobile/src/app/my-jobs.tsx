@@ -94,6 +94,9 @@ type AssignedJob = {
 
   participant?: { id: string; name: string } | null;
   conversationId: string | null;
+  // Aviso del trabajador pendiente de confirmación del cliente.
+  startRequestedAt?: string | null;
+  finishRequestedAt?: string | null;
 };
 
 type CompletedJob = {
@@ -416,7 +419,9 @@ export default function MyJobsScreen() {
         }
 
         Alert.alert(
-          t("Trabajo iniciado"),
+          result?.trabajo?.awaitingConfirmation
+            ? t("Aviso enviado")
+            : t("Trabajo iniciado"),
           t(result?.message ||
             t("El trabajo fue iniciado correctamente.")),
         );
@@ -495,7 +500,9 @@ export default function MyJobsScreen() {
         }
 
         Alert.alert(
-          t("Trabajo completado"),
+          result?.trabajo?.awaitingConfirmation
+            ? t("Aviso enviado")
+            : t("Trabajo completado"),
           t(result?.message ||
             t("El trabajo fue completado correctamente.")),
         );
@@ -2037,97 +2044,107 @@ export default function MyJobsScreen() {
                         </TouchableOpacity>
                       ) : null}
 
-                      {job.status ===
-                        'ASIGNADO' && (
-                        <TouchableOpacity
-                          style={
-                            styles.startButton
-                          }
-                          disabled={
-                            actionLoading ===
-                            job.id
-                          }
-                          onPress={(
-                            event,
-                          ) => {
-                            event.stopPropagation();
-
-                            iniciarTrabajo(
-                              job.id,
-                            );
-                          }}
-                        >
-                          {actionLoading ===
-                          job.id ? (
-                            <ActivityIndicator
-                              color={colors.onPrimary}
-                            />
-                          ) : (
-                            <>
-                              <Ionicons
-                                name="play-outline"
-                                size={
-                                  19
-                                }
-                                color={colors.text}
-                              />
-
-                              <Text
-                                style={
-                                  styles.startButtonText
-                                }
+                      {(job.status === 'ASIGNADO' ||
+                        job.status === 'EN_PROCESO') &&
+                        (() => {
+                          // El trabajador avisa (llegada o término) y el cliente dueño confirma.
+                          const esInicio = job.status === 'ASIGNADO';
+                          const soyCliente = job.applicationId === null;
+                          const avisado = esInicio
+                            ? job.startRequestedAt
+                            : job.finishRequestedAt;
+                          const puedeActuar = soyCliente ? !!avisado : !avisado;
+                          const etiqueta = soyCliente
+                            ? esInicio
+                              ? t("Confirmar llegada del trabajador")
+                              : t("Confirmar término del trabajo")
+                            : esInicio
+                              ? t("Avisar llegada")
+                              : t("Avisar término del trabajo");
+                          const espera = soyCliente
+                            ? esInicio
+                              ? t("El trabajador aún no avisa su llegada.")
+                              : t("El trabajador aún no avisa el término.")
+                            : esInicio
+                              ? t("Esperando que el cliente confirme tu llegada.")
+                              : t("Esperando que el cliente confirme el término.");
+                          if (!puedeActuar) {
+                            return (
+                              <View
+                                style={[
+                                  styles.chatButton,
+                                  { opacity: 0.75 },
+                                ]}
                               >
-                                {t("Iniciar trabajo")}</Text>
-                            </>
-                          )}
-                        </TouchableOpacity>
-                      )}
-
-                      {job.status ===
-                        'EN_PROCESO' && (
-                        <TouchableOpacity
-                          style={
-                            styles.completeButton
-                          }
-                          disabled={
-                            actionLoading ===
-                            job.id
-                          }
-                          onPress={(
-                            event,
-                          ) => {
-                            event.stopPropagation();
-
-                            completarTrabajo(
-                              job.id,
+                                <Ionicons
+                                  name="hourglass-outline"
+                                  size={18}
+                                  color={colors.muted}
+                                />
+                                <Text
+                                  style={
+                                    styles.chatButtonText
+                                  }
+                                >
+                                  {espera}
+                                </Text>
+                              </View>
                             );
-                          }}
-                        >
-                          {actionLoading ===
-                          job.id ? (
-                            <ActivityIndicator
-                              color={colors.onPrimary}
-                            />
-                          ) : (
-                            <>
-                              <Ionicons
-                                name="checkmark-circle-outline"
-                                size={
-                                  19
-                                }
-                                color={colors.text}
-                              />
+                          }
+                          return (
+                            <TouchableOpacity
+                              style={
+                                esInicio
+                                  ? styles.startButton
+                                  : styles.completeButton
+                              }
+                              disabled={
+                                actionLoading ===
+                                job.id
+                              }
+                              onPress={(
+                                event,
+                              ) => {
+                                event.stopPropagation();
 
-                              <Text
-                                style={
-                                  styles.completeButtonText
+                                if (esInicio) {
+                                  iniciarTrabajo(job.id);
+                                } else {
+                                  completarTrabajo(job.id);
                                 }
-                              >
-                                {t("Completar trabajo")}</Text>
-                            </>
-                          )}
-                        </TouchableOpacity>
-                      )}
+                              }}
+                            >
+                              {actionLoading ===
+                              job.id ? (
+                                <ActivityIndicator
+                                  color={colors.onPrimary}
+                                />
+                              ) : (
+                                <>
+                                  <Ionicons
+                                    name={
+                                      esInicio
+                                        ? 'play-outline'
+                                        : 'checkmark-circle-outline'
+                                    }
+                                    size={19}
+                                    color={colors.text}
+                                  />
+
+                                  <Text
+                                    style={
+                                      esInicio
+                                        ? styles.startButtonText
+                                        : styles.completeButtonText
+                                    }
+                                  >
+                                    {etiqueta}
+                                  </Text>
+                                </>
+                              )}
+                            </TouchableOpacity>
+                          );
+                        })()}
 
                       {job.status === 'EN_PROCESO' && (
                         <>

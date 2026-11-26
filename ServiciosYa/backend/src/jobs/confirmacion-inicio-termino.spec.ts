@@ -116,18 +116,16 @@ describe('Doble confirmación de inicio y término', () => {
     ).rejects.toBeInstanceOf(BadRequestException);
   });
 
-  it('el cliente confirma el término y el trabajo pasa a COMPLETADO', async () => {
+  it('el cliente no confirma el término sin pagar: debe usar el pago', async () => {
     const { jobs, updateMany } = servicio({
       ...base,
       estado: 'EN_PROCESO',
       terminoSolicitadoEn: new Date(),
     });
-    const r = await jobs.completarTrabajo('cliente', 'trabajo');
-    expect(r.trabajo.status).toBe('COMPLETADO');
-    expect(primeraLlamada(updateMany).where).toMatchObject({
-      estado: 'EN_PROCESO',
-      terminoSolicitadoEn: { not: null },
-    });
+    await expect(jobs.completarTrabajo('cliente', 'trabajo')).rejects.toThrow(
+      'Para confirmar el término, paga el servicio desde la app.',
+    );
+    expect(updateMany).not.toHaveBeenCalled();
   });
 
   it('si otro cambio llegó antes, la confirmación se rechaza sin modificar el estado', async () => {

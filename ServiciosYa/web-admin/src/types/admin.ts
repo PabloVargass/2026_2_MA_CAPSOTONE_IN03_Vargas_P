@@ -87,5 +87,20 @@ export type Summary = {
   postulaciones: number;
   resenas: number;
   estados: { estado: string; _count: { _all: number } }[];
+  pagos?: {
+    cantidad: number;
+    total: number;
+    comisiones: number;
+    ultimos: {
+      id: string;
+      monto: number;
+      comision: number;
+      metodo: "SALDO" | "TRANSFERENCIA";
+      creadoEn: string;
+      trabajo: string;
+      cliente: string;
+      trabajador: string;
+    }[];
+  };
 };
 export type Role = { codigo: string; nombre: string; descripcion: string };

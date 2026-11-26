@@ -13,13 +13,15 @@ import { PostulacionesModule } from './postulaciones/postulaciones.module';
 import { ConversacionesModule } from './conversaciones/conversaciones.module';
 import { ResenasModule } from './resenas/resenas.module';
 import { PreferenciasModule } from './preferencias/preferencias.module';
+import { PagosModule } from './pagos/pagos.module';
 
 @Module({
   imports: [
     // Límite por IP para rutas de autenticación; se aplica con ThrottlerGuard en cada controlador.
     ThrottlerModule.forRoot({
       throttlers: [{ ttl: 60000, limit: 10 }],
-      errorMessage: 'Demasiados intentos. Espera un minuto e inténtalo de nuevo.',
+      errorMessage:
+        'Demasiados intentos. Espera un minuto e inténtalo de nuevo.',
     }),
     AdminModule,
     IdentityModule,
@@ -28,6 +30,7 @@ import { PreferenciasModule } from './preferencias/preferencias.module';
     AuthModule,
     JobsModule,
     PostulacionesModule,
+    PagosModule,
     ConversacionesModule,
     ResenasModule,
     PreferenciasModule,

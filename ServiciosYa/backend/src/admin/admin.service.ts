@@ -126,20 +126,68 @@ export class AdminService {
     );
   }
   async summary() {
-    const [usuarios, activos, trabajos, postulaciones, estados, resenas] =
-      await this.prisma.$transaction([
-        this.prisma.usuario.count(),
-        this.prisma.usuario.count({ where: { activo: true } }),
-        this.prisma.trabajo.count(),
-        this.prisma.postulacion.count(),
-        this.prisma.trabajo.groupBy({
-          by: ['estado'],
-          orderBy: { estado: 'asc' },
-          _count: { _all: true },
-        }),
-        this.prisma.resena.count(),
-      ]);
-    return { usuarios, activos, trabajos, postulaciones, resenas, estados };
+    const [
+      usuarios,
+      activos,
+      trabajos,
+      postulaciones,
+      estados,
+      resenas,
+      pagos,
+      ultimosPagos,
+    ] = await this.prisma.$transaction([
+      this.prisma.usuario.count(),
+      this.prisma.usuario.count({ where: { activo: true } }),
+      this.prisma.trabajo.count(),
+      this.prisma.postulacion.count(),
+      this.prisma.trabajo.groupBy({
+        by: ['estado'],
+        orderBy: { estado: 'asc' },
+        _count: { _all: true },
+      }),
+      this.prisma.resena.count(),
+      this.prisma.pago.aggregate({
+        _count: { _all: true },
+        _sum: { monto: true, comision: true },
+      }),
+      this.prisma.pago.findMany({
+        orderBy: { creadoEn: 'desc' },
+        take: 5,
+        select: {
+          id: true,
+          monto: true,
+          comision: true,
+          metodo: true,
+          creadoEn: true,
+          trabajo: { select: { titulo: true } },
+          cliente: { select: { nombre: true } },
+          trabajador: { select: { nombre: true } },
+        },
+      }),
+    ]);
+    return {
+      usuarios,
+      activos,
+      trabajos,
+      postulaciones,
+      resenas,
+      estados,
+      pagos: {
+        cantidad: pagos._count._all,
+        total: pagos._sum.monto ?? 0,
+        comisiones: pagos._sum.comision ?? 0,
+        ultimos: ultimosPagos.map((p) => ({
+          id: p.id,
+          monto: p.monto,
+          comision: p.comision,
+          metodo: p.metodo,
+          creadoEn: p.creadoEn,
+          trabajo: p.trabajo.titulo,
+          cliente: p.cliente.nombre,
+          trabajador: p.trabajador.nombre,
+        })),
+      },
+    };
   }
   async users(
     q: string,

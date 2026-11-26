@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   Summary,
   User,
@@ -14,14 +14,22 @@ import type {
 import { useResource, ResourceStatus, Pagination, date } from "./Resource";
 import { MutationButton } from "./MutationButton";
 import { accountState } from "./DetailViews";
+const clp = (n: number) => "$" + n.toLocaleString("es-CL");
 export function SummaryView() {
   const r = useResource<Summary>("summary");
+  const { refresh } = r;
+  // Se actualiza cada 4 segundos para ver los pagos en tiempo real.
+  useEffect(() => {
+    const id = setInterval(refresh, 4000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <h1>Resumen</h1>
       <p>Actividad real de ServiciosYa</p>
       <ResourceStatus {...r} retry={r.reload} />
-      {r.data && !r.error && !r.loading && (
+      {r.data && !r.error && (
         <>
           <div className="stats">
             {[
@@ -37,6 +45,36 @@ export function SummaryView() {
               </article>
             ))}
           </div>
+          {r.data.pagos && (
+            <section className="panel">
+              <h2>Pagos de servicios (simulados)</h2>
+              <div className="stats">
+                {[
+                  ["Servicios pagados", String(r.data.pagos.cantidad)],
+                  ["Monto pagado", clp(r.data.pagos.total)],
+                  ["Comisiones ServiciosYa (5 %)", clp(r.data.pagos.comisiones)],
+                ].map(([label, value]) => (
+                  <article key={label} className="tile">
+                    <p>{label}</p>
+                    <strong>{value}</strong>
+                  </article>
+                ))}
+              </div>
+              {r.data.pagos.ultimos.length ? (
+                r.data.pagos.ultimos.map((p) => (
+                  <p key={p.id}>
+                    <span className="badge">
+                      {p.metodo === "SALDO" ? "Saldo" : "Transferencia"}
+                    </span>{" "}
+                    {p.trabajo} · {p.cliente} → {p.trabajador} · {clp(p.monto)}{" "}
+                    (comisión {clp(p.comision)}) · {date(p.creadoEn)}
+                  </p>
+                ))
+              ) : (
+                <p>Todavía no hay pagos.</p>
+              )}
+            </section>
+          )}
           <section className="panel">
             <h2>Trabajos por estado</h2>
             {r.data.estados.length ? (

@@ -30,7 +30,11 @@ export function useResource<T>(path: string) {
     setLoading(true);
     setVersion((v) => v + 1);
   }
-  return { data, error, loading, reload };
+  // Actualiza los datos sin ocultar la vista (para refrescos periódicos).
+  function refresh() {
+    setVersion((v) => v + 1);
+  }
+  return { data, error, loading, reload, refresh };
 }
 export function ResourceStatus({
   loading,

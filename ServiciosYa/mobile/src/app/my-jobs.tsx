@@ -33,6 +33,7 @@ import {
 } from '@expo/vector-icons';
 
 import { API_URL } from '@/constants/api';
+import { PaymentModal, clp } from '@/components/payment-modal';
 
 type PublishedJob = {
   expiresAt?: string;
@@ -97,6 +98,14 @@ type AssignedJob = {
   // Aviso del trabajador pendiente de confirmación del cliente.
   startRequestedAt?: string | null;
   finishRequestedAt?: string | null;
+  // Pago simulado registrado al confirmar el término.
+  payment?: JobPayment | null;
+};
+
+type JobPayment = {
+  method: 'SALDO' | 'TRANSFERENCIA';
+  amount: number;
+  workerAmount: number;
 };
 
 type CompletedJob = {
@@ -117,6 +126,7 @@ type CompletedJob = {
 
   participant?: { id: string; name: string } | null;
   conversationId: string | null;
+  payment?: JobPayment | null;
 };
 
 type JobsResponse = {
@@ -194,6 +204,10 @@ export default function MyJobsScreen() {
     useState<string | null>(
       null,
     );
+
+  // Trabajo que el cliente está pagando (al confirmar el término).
+  const [paymentJob, setPaymentJob] =
+    useState<{ id: string; title: string; amount: number } | null>(null);
 
   // =====================================
   // CARGAR MIS TRABAJOS
@@ -2057,7 +2071,7 @@ export default function MyJobsScreen() {
                           const etiqueta = soyCliente
                             ? esInicio
                               ? t("Confirmar llegada del trabajador")
-                              : t("Confirmar término del trabajo")
+                              : t("Pagar y confirmar término")
                             : esInicio
                               ? t("Avisar llegada")
                               : t("Avisar término del trabajo");
@@ -2109,6 +2123,9 @@ export default function MyJobsScreen() {
 
                                 if (esInicio) {
                                   iniciarTrabajo(job.id);
+                                } else if (soyCliente) {
+                                  // El cliente confirma el término pagando el servicio.
+                                  setPaymentJob({ id: job.id, title: job.title, amount: job.budget });
                                 } else {
                                   completarTrabajo(job.id);
                                 }
@@ -2428,6 +2445,18 @@ export default function MyJobsScreen() {
                           {t("Fotos de evidencia")}</Text>
                       </TouchableOpacity>
 
+                      {job.payment ? (
+                        <View style={styles.paidBadge}>
+                          <Ionicons name="checkmark-circle" size={18} color={colors.successText} />
+                          <Text style={styles.paidBadgeText}>
+                            {t('Pagado {amount} · {method}', {
+                              amount: clp(job.applicationId === null ? job.payment.amount : job.payment.workerAmount),
+                              method: t(job.payment.method === 'SALDO' ? 'Saldo ServiciosYa' : 'Transferencia'),
+                            })}
+                          </Text>
+                        </View>
+                      ) : null}
+
                       <TouchableOpacity
                         style={
                           styles.reviewButton
@@ -2469,6 +2498,18 @@ export default function MyJobsScreen() {
           />
         </ScrollView>
       </View>
+      {paymentJob ? (
+        <PaymentModal
+          jobId={paymentJob.id}
+          title={paymentJob.title}
+          amount={paymentJob.amount}
+          onClose={() => setPaymentJob(null)}
+          onPaid={() => {
+            setPaymentJob(null);
+            loadJobs(false);
+          }}
+        />
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -2881,6 +2922,24 @@ const createStyles =
 
     withdrawButtonText: {
       color: colors.dangerText,
+      fontSize: 13,
+      fontWeight: '800',
+    },
+
+    paidBadge: {
+      marginTop: 12,
+      borderRadius: 13,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+      backgroundColor: 'rgba(74, 222, 128, 0.10)',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 8,
+    },
+
+    paidBadgeText: {
+      color: colors.successText,
       fontSize: 13,
       fontWeight: '800',
     },

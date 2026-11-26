@@ -781,6 +781,23 @@ export default function ProfileScreen() {
         style={styles.optionCard}
         activeOpacity={0.7}
         accessibilityRole="button"
+        accessibilityLabel={t('Billetera')}
+        onPress={() => router.push('/wallet')}
+      >
+        <View style={styles.optionIconContainer}>
+          <Text style={[styles.optionIcon, { color: colors.accent }]}>$</Text>
+        </View>
+        <View style={styles.optionInfo}>
+          <Text style={styles.optionTitle}>{t('Billetera')}</Text>
+          <Text style={styles.optionSubtitle}>{t('Saldo y pagos de tus servicios')}</Text>
+        </View>
+        <Text style={styles.optionArrow}>›</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.optionCard}
+        activeOpacity={0.7}
+        accessibilityRole="button"
         accessibilityLabel={t('Ajustes')}
         onPress={() => router.push('/settings')}
       >

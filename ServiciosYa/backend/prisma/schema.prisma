@@ -63,6 +63,11 @@ model Usuario {
   preferencia PreferenciaUsuario?
   fotoPerfil  FotoPerfil?
   evidencias  EvidenciaTrabajo[]
+
+  // Saldo simulado de la billetera ServiciosYa, en pesos chilenos.
+  saldo           Int    @default(0)
+  pagosRealizados Pago[] @relation("PagoCliente")
+  pagosRecibidos  Pago[] @relation("PagoTrabajador")
 }
 
 enum EstadoIdentidad {
@@ -142,6 +147,8 @@ model Trabajo {
   resenas Resena[]
 
   evidencias EvidenciaTrabajo[]
+
+  pago Pago?
 }
 
 model OfertaServicio {
@@ -373,4 +380,29 @@ model EvidenciaTrabajo {
   creadoEn  DateTime @default(now())
 
   @@index([trabajoId, creadoEn])
+}
+
+enum MetodoPago {
+  SALDO
+  TRANSFERENCIA
+}
+
+// Pago simulado de un trabajo completado: el cliente paga y el trabajador recibe
+// el monto menos la comisión de la plataforma. No mueve dinero real.
+model Pago {
+  id              String     @id @default(uuid())
+  trabajoId       String     @unique
+  trabajo         Trabajo    @relation(fields: [trabajoId], references: [id], onDelete: Cascade)
+  clienteId       String
+  cliente         Usuario    @relation("PagoCliente", fields: [clienteId], references: [id], onDelete: Cascade)
+  trabajadorId    String
+  trabajador      Usuario    @relation("PagoTrabajador", fields: [trabajadorId], references: [id], onDelete: Cascade)
+  monto           Int
+  comision        Int
+  montoTrabajador Int
+  metodo          MetodoPago
+  creadoEn        DateTime   @default(now())
+
+  @@index([clienteId, creadoEn])
+  @@index([trabajadorId, creadoEn])
 }

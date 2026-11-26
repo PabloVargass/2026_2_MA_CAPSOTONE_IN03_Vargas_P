@@ -15,6 +15,19 @@ import {
   PublicationKind,
 } from './dto/publication-query.dto';
 
+// Resumen del pago simulado que se muestra en Mis trabajos.
+function resumenPago(
+  pago: { metodo: string; monto: number; montoTrabajador: number } | null,
+) {
+  return pago
+    ? {
+        method: pago.metodo,
+        amount: pago.monto,
+        workerAmount: pago.montoTrabajador,
+      }
+    : null;
+}
+
 @Injectable()
 export class JobsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -427,6 +440,7 @@ export class JobsService {
 
       include: {
         propietario: { select: { id: true, nombre: true } },
+        pago: { select: { metodo: true, monto: true, montoTrabajador: true } },
         _count: {
           select: {
             postulaciones: {
@@ -468,6 +482,9 @@ export class JobsService {
                 id: true,
                 postulacionId: true,
               },
+            },
+            pago: {
+              select: { metodo: true, monto: true, montoTrabajador: true },
             },
           },
         },
@@ -594,6 +611,7 @@ export class JobsService {
         },
 
         conversationId: chatPropio(postulacion),
+        payment: resumenPago(postulacion.trabajo.pago),
       }));
 
     // =====================================
@@ -632,6 +650,7 @@ export class JobsService {
         },
 
         conversationId: chatPropio(postulacion),
+        payment: resumenPago(postulacion.trabajo.pago),
       }));
 
     const asignadosComoCliente = trabajosPublicados
@@ -659,6 +678,7 @@ export class JobsService {
             }
           : null,
         conversationId: trabajo.conversacion?.id ?? null,
+        payment: resumenPago(trabajo.pago),
       }));
     const asignados = [...asignadosComoCliente, ...asignadosComoTrabajador];
 
@@ -682,6 +702,7 @@ export class JobsService {
             }
           : null,
         conversationId: trabajo.conversacion?.id ?? null,
+        payment: resumenPago(trabajo.pago),
       }));
     const completados = [
       ...completadosComoCliente,
@@ -794,6 +815,12 @@ export class JobsService {
     }
 
     // Cliente dueño: solo confirma lo que el trabajador ya avisó.
+    // El término se confirma pagando (POST /pagos/trabajos/:id).
+    if (!esInicio && solicitado) {
+      throw new BadRequestException(
+        'Para confirmar el término, paga el servicio desde la app.',
+      );
+    }
     if (!solicitado) {
       throw new BadRequestException(
         esInicio
